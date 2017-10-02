@@ -1,0 +1,8 @@
+---
+applications:
+- name: notes
+memory: 256M
+instances: 1
+host: notes
+buildpack: https://github.com/cloudfoundry/php-buildpack.git
+stack: cflinuxfs2

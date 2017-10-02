@@ -1,0 +1,5 @@
+<?php
+// config.php.sample
+$config = [
+  'db_uri' => 'mongodb://user:password@192.168.1.1:41063/db',
+];
