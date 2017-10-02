@@ -2,7 +2,9 @@
 // Licensed under the Apache License. See footer for details.
  //We need to pull in the Sag PHP library. SAG is an open API used to connect to the Cloudant database.
  //We only need to do this once!
+ echo "Started";
  require('vendor/autoload.php');
+ echo "Vendor File Loaded";
 //Get Connection Variables from VCAPS_SERVICES. We first need to pull in our Cloudant database
 //connection variables from the VCAPS_SERVICES environment variable. This environment variable
 //will be put in your project by Bluemix once you add the Cloudant database to your Bluemix
