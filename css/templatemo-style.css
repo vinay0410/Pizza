@@ -13,13 +13,13 @@ body
 h1,h2, h3, h4,
 .navbar-default .navbar-nav li a,
 .navbar-default .navbar-nav>li>a:focus
-{        
+{
   color: #ffa400;
   font-family: 'Chewy', cursive;
   font-weight: 400;
 }
 
-.navbar-default .navbar-nav>.active>a, 
+.navbar-default .navbar-nav>.active>a,
 .navbar-default .navbar-nav>.active>a:focus {
   background-color: transparent;
 }
@@ -271,7 +271,7 @@ img
 
 .flex-control-nav li {
   display: inline-block;
-  zoom: 1; 
+  zoom: 1;
 }
 
 .flex-control-paging li a {
@@ -448,7 +448,8 @@ html[xmlns] .slides {
   border-radius: 0;
   -webkit-box-shadow: none;
   box-shadow: none;
-  margin-top: 12px;
+
+
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
@@ -459,7 +460,7 @@ html[xmlns] .slides {
 }
 input
 {
-  height: 50px;
+  /*height: 50px;*/
 }
 input[type="submit"]
 {
@@ -555,7 +556,7 @@ IPAD PORTRAIT (768x1024)
  .navbar-default .navbar-brand {
   font-size: 35px;
   padding-top: 10px;
-}  
+}
 }
 /********************************
 IPHONE 4-4S-5 LANDSCAPE (568x320)
