@@ -4,9 +4,9 @@
 
  //We need to pull in the Sag PHP library. SAG is an open API used to connect to the Cloudant database.
  //We only need to do this once!
- echo "Started"
+ echo "Started";
  require('vendor/autoload.php');
- echo "I didn't reach here"
+ echo "I didn't reach here";
 
 //Get Connection Variables from VCAPS_SERVICES. We first need to pull in our Cloudant database
 //connection variables from the VCAPS_SERVICES environment variable. This environment variable
@@ -19,7 +19,7 @@ $VcapSvs = $services_json["cloudantNoSQLDB"][0]["credentials"];
 
 //Debug: If you want to see all the variables returned you can use this line of code.
 var_dump($services_json);
-echo "above is debugging"
+echo "above is debugging";
 // Extract the VCAP_SERVICES variables for Cloudant connection.
  $myUsername = $VcapSvs["username"];
  $myPassword = $VcapSvs["password"];
