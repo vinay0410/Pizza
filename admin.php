@@ -54,7 +54,7 @@
       }
 
 
-			$('#myModal').on('shown.bs.modal', function(){
+			$('#outletModal').on('shown.bs.modal', function(){
     initMap();
     });
     </script>
@@ -65,8 +65,8 @@
 </head>
 <body>
 
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-<div id="myModal" class="modal fade" role="dialog">
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#outletModal">Add Outlet</button>
+<div id="outletModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
