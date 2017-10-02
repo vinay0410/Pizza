@@ -1,8 +1,9 @@
 ---
 applications:
-- name: notes
-memory: 256M
-instances: 1
-host: notes
-buildpack: https://github.com/cloudfoundry/php-buildpack.git
-stack: cflinuxfs2
+- name:	cloudant
+  memory: 128M
+  instances: 1
+  host: cloudant-${random-word}
+  buildpack: php_buildpack
+  services:
+  - myCloudant

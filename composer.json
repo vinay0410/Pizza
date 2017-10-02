@@ -1,5 +1,5 @@
 {
     "require": {
-        "slim/slim": "*"
+        "sag/sag" : "dev-master"
     }
 }
