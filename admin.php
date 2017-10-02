@@ -22,16 +22,16 @@
 	<script>
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 8,
-          center: {lat: -34.397, lng: 150.644}
+          zoom: 4,
+          center: {lat: 36.6139, lng: 60.2090}
         });
         var geocoder = new google.maps.Geocoder();
 
-        document.getElementById('submit').addEventListener('click', function() {
+        document.getElementById('map-submit').addEventListener('click', function() {
           geocodeAddress(geocoder, map);
         });
 
-				$("#myModal").on("shown.bs.modal", function(e) {
+				$("#outletModal").on("shown.bs.modal", function(e) {
       google.maps.event.trigger(map, "resize");
       return map.setCenter(markerLatLng);
     	});
@@ -47,6 +47,8 @@
               map: resultsMap,
               position: results[0].geometry.location
             });
+						if (results[0].geometry.viewport)
+        				resultsMap.fitBounds(results[0].geometry.viewport);
           } else {
             alert('Geocode was not successful for the following reason: ' + status);
           }
@@ -64,7 +66,7 @@
 
 </head>
 <body>
-<?php echo "Hello World"; ?>
+
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#outletModal">Add Outlet</button>
 <div id="outletModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -87,7 +89,7 @@
 				    <label class="control-label col-sm-2" for="outlet-addr">Outlet Address</label>
 				    <div class="col-sm-3">
 				      <input type="text" class="form-control" id="outlet-addr" placeholder="Enter Outlet Address">
-				      <input id="submit" type="button" class="btn btn-default" value="See on Map">
+				      <input id="map-submit" type="button" class="btn btn-default" value="See on Map">
 				      <div id="map" style="width: 400px; height: 400px;"></div>
 				    </div>
 				  </div>
