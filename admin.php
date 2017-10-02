@@ -64,7 +64,7 @@
 
 </head>
 <body>
-
+<?php echo "Hello World"; ?>
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#outletModal">Add Outlet</button>
 <div id="outletModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
