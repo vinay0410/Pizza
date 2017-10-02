@@ -19,19 +19,53 @@
 	<link href='//fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
 
+	<script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: {lat: -34.397, lng: 150.644}
+        });
+        var geocoder = new google.maps.Geocoder();
+
+        document.getElementById('submit').addEventListener('click', function() {
+          geocodeAddress(geocoder, map);
+        });
+      }
+
+      function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('outlet-addr').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2nLH2Yr5OH-QJ8WxG5f-AZFmTLqtkC0I&callback=initMap">
+    </script>
+
 </head>
 <body>
   <form class="form-horizontal">
     <div class="form-group">
-      <label class="control-label col-sm-2" for="email">Email:</label>
-      <div class="col-sm-10">
-        <input type="email" class="form-control" id="email" placeholder="Enter email">
+      <label class="control-label col-sm-2" for="outlet">Outlet Name: </label>
+      <div class="col-sm-3">
+        <input type="email" class="form-control" id="outlet" placeholder="Outlet NickName">
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="pwd">Password:</label>
-      <div class="col-sm-10">
-        <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+      <label class="control-label col-sm-2" for="outlet-addr">Outlet Address</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" id="outlet-addr" placeholder="Enter Outlet Address">
+				<input id="submit" type="button" class="btn btn-default" value="See on Map">
+				<div id="map" style="width: 400px; height: 400px;"></div>
       </div>
     </div>
     <div class="form-group">
