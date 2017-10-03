@@ -573,3 +573,46 @@ IPHONE 4-4S-5 LANDSCAPE (568x320)
 /********************************
 IPHONE 4-4S-5 PORTRAIT (320x568)
 ********************************/
+
+
+
+
+
+/* custom CSS */
+
+
+a:visited {
+    color: orange;
+    background-color: transparent;
+    text-decoration: none;
+}
+    .pb-modalreglog-container
+    {
+        margin-top: 100px;
+    }
+
+    .pb-modalreglog-legend
+    {
+        text-align: center;
+    }
+
+    .pb-modalreglog-input-group
+    {
+        margin: auto;
+    }
+
+    .pb-modalreglog-submit
+    {
+        margin-left: 5px;
+    }
+
+    .pb-modalreglog-form-reg
+    {
+        text-align: center;
+    }
+
+    .pb-modalreglog-footer p
+    {
+        text-align: center;
+        margin-top: 20px;
+    }
