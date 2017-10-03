@@ -31,10 +31,22 @@
 
 	<?php
 		session_start();
+
+		if (isset($_SESSION["reg-success"])) {
+			echo "<script type='text/javascript'>alert('Registration Successfull, Login to continue')</script>";
+
+			unset($_SESSION["reg-success"]);
+		}
+
 		if (isset($_POST["logout"])) {
 			unset($_SESSION["logged"]);
 		}
 
+		if (isset($_SESSION["signup-error"])) {
+			$signup_error = $_SESSION["signup-error"];
+			unset($_SESSION["signup-error"]);
+
+		}
 
 		if (isset($_POST["username"])) {
 
@@ -272,6 +284,9 @@
 	</section>
 	<!-- end contact -->
 	<!-- modals start -->
+
+	<?php if(!isset($_SESSION["logged"])) { ?>
+
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -337,30 +352,33 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <h4 class="modal-title" id="myModalLabel">Registration form</h4>
+														<?php if(isset($signup_error)) { ?>
+														<div id="error" class="alert alert-danger" role="alert"><?php echo $signup_error["error_msg"] ?></div>
+													<?php } ?>
                         </div><!--modal header-->
                         <div class="modal-body">
 
 				<!--form for registration -->
-                            <form class="pb-modalreglog-form-reg"  action="admin.php" onsubmit="return Validation();">
+                            <form class="pb-modalreglog-form-reg" method="post" action="process.php" onsubmit="return Validation();">
 				<div class="form-group">
                                    	<label for="username">Username</label>
  					<div class="input-group pb-modalreglog-input-group">
 						<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-						<input id="username" class="form-control"  type="text" name="username" placeholder="Username"/>
+						<input id="username" class="form-control"  type="text" name="username" placeholder="Username" value="<?php if(isset($signup_error)) { echo $signup_error['username']; } ?>" required/>
                                         </div>
     				</div>
                                 <div class="form-group">
                                     <label for="email">Email address</label>
                                     <div class="input-group pb-modalreglog-input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                                        <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email">
+                                        <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" value="<?php if(isset($signup_error)) { echo $signup_error['email']; } ?>" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password</label>
                                     <div class="input-group pb-modalreglog-input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                                        <input type="password" class="form-control" id="pass" placeholder="Password" required>
+                                        <input type="password" class="form-control" id="pass" placeholder="Password" name="password" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -371,15 +389,15 @@
                                     </div>
                                 </div>
 				<div class="form-group">
-					<label for = "phone">Contact Number</label><br />
+					<label for = "phoneno">Contact Number</label><br />
  					<div class="input-group pb-modalreglog-input-group">
                                         	<span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
-						 <input type = "text" class="form-control" name = "phone" id="phoneno" maxlength = "10" placeholder = "Enter a valid phone number" pattern = "[0-9]{10}">
+						 <input type = "text" class="form-control" name = "phoneno" id="phoneno" maxlength = "10" placeholder = "Enter a valid phone number" pattern = "[0-9]{10}" value="<?php if(isset($signup_error)) { echo $signup_error['phoneno']; } ?>">
        					</div>
 				</div>
 
                                 <div class="form-group">
-                                    <input type="checkbox" id="ch" name="chs">
+                                    <input type="checkbox" id="ch" name="chs" required>
                                     I agree with <a href="#" style="color:orange">terms and conditions.</a>
                                 </div>
 				<div class="modal-footer">
@@ -394,15 +412,35 @@
                 </div><!-- modal fade -->
             </div>
 
+					<?php } else { ?>
+
 						<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModal" aria-hidden="true">
 								<div class="modal-dialog" role="document">
 								<div class="modal-content">
 											<div class="modal-header">
-												<?php echo $_SESSION["logged"]["username"]."'s account"; ?>
+												<?php echo '<h4>'.$_SESSION["logged"]["username"]."'s account".'</h4>'; ?>
 
 											</div>
 
 											<div class="modal-body">
+												<table class="table">
+											    <tbody>
+											      <tr>
+											        <td>Username: </td>
+											        <td><?php echo $_SESSION["logged"]["username"]; ?></td>
+
+											      </tr>
+											      <tr class="success">
+											        <td>Email ID: </td>
+											        <td><?php echo $_SESSION["logged"]["email"]; ?></td>
+											      </tr>
+											      <tr class="danger">
+											        <td>Phone No.:</td>
+											        <td><?php echo $_SESSION["logged"]["phoneno"]; ?></td>
+											      </tr>
+
+											    </tbody>
+											  </table>
 												<form method="post" action=".">
 												<input type="hidden" value="logout" name="logout">
 												<button type="submit" class="btn btn-warning">Log Out</button>
@@ -412,8 +450,10 @@
 								</div>
 							</div>
 
-<?php if (isset($show_login) AND $show_login = True) { echo "<script type='text/javascript'>$('#myModal').modal('show');</script>"; } ?>
+						<?php } ?>
 
+<?php if (isset($show_login) AND $show_login = True) { echo "<script type='text/javascript'>$('#myModal').modal('show');</script>"; } ?>
+<?php if (isset($signup_error)) {echo "<script type='text/javascript'>$('#myModal2').modal('show');</script>"; } ?>
 	<!-- modals end -->
 	<!-- start footer -->
 	<footer>
