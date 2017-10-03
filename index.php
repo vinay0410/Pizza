@@ -4,7 +4,7 @@
 
 	<meta charset="utf-8">
 
-	<title>Pizza - free responsive website template</title>
+	<title>Pizza Villa</title>
 	<meta name="keywords" content="">
 	<meta name="description" content="">
     <meta name="author" content="templatemo">
@@ -106,7 +106,7 @@
 					<span class="icon icon-bar"></span>
 					<span class="icon icon-bar"></span>
 				</button>
-				<a href="#home" class="navbar-brand smoothScroll"><strong>PIZZA</strong></a>
+				<a href="#home" class="navbar-brand smoothScroll"><strong>PIZZA Villa</strong></a>
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
@@ -418,29 +418,38 @@
 								<div class="modal-dialog" role="document">
 								<div class="modal-content">
 											<div class="modal-header">
-												<?php echo '<h4>'.$_SESSION["logged"]["username"]."'s account".'</h4>'; ?>
+												<h3><?php echo $_SESSION["logged"]["username"]."'s account"; ?>
+													<button type="button" class="btn btn-default btn-sm pull-right" onclick="editme(); "><span class="glyphicon glyphicon-pencil"></span></button>
+												</h3>
 
 											</div>
 
 											<div class="modal-body">
+												<form action = "edit.php" method="post" id="editform">
+
 												<table class="table">
 											    <tbody>
 											      <tr>
 											        <td>Username: </td>
-											        <td><?php echo $_SESSION["logged"]["username"]; ?></td>
+											        <td><input class="readonly" name="edit_username" id="edit_username" value="<?php echo $_SESSION["logged"]["username"]; ?>" readonly></td>
 
 											      </tr>
-											      <tr class="success">
+											      <tr>
 											        <td>Email ID: </td>
-											        <td><?php echo $_SESSION["logged"]["email"]; ?></td>
+											        <td><input class="readonly" name="edit_username" id="edit_username" value="<?php echo $_SESSION["logged"]["email"]; ?>" readonly></td>
 											      </tr>
-											      <tr class="danger">
+											      <tr>
 											        <td>Phone No.:</td>
-											        <td><?php echo $_SESSION["logged"]["phoneno"]; ?></td>
+											        <td><input class="readonly" name="edit_username" id="edit_username" value="<?php echo $_SESSION["logged"]["phoneno"]; ?>" readonly></td>
 											      </tr>
 
 											    </tbody>
 											  </table>
+												<div class="modal-footer">
+								            <button type="button" class="btn btn-secondary hidden" data-dismiss="modal">Close</button>
+								            <button type="submit" class="btn btn-warning hidden">Update Details</button>
+								                        	</div>
+											</form>
 												<form method="post" action=".">
 												<input type="hidden" value="logout" name="logout">
 												<button type="submit" class="btn btn-warning">Log Out</button>
@@ -482,7 +491,17 @@
 	<script src="js/smoothscroll.js"></script>
 	<script src="js/custom.js"></script>
 	<script>
+	function editme() {
 
+		var input = $('#editform input');
+		input.toggleClass('readonly');
+		input.toggleClass('form-control');
+		console.log(input.prop("readonly"));
+		input.attr('readonly', input.prop('readonly') == false ? true : false);
+		$('#editform button').toggleClass("hidden");
+
+
+	}
 	function Validation()
 	{
 	 var email = document.getElementById('inputEmail');

@@ -616,3 +616,13 @@ a:visited {
         text-align: center;
         margin-top: 20px;
     }
+
+
+.readonly {
+  border-color: transparent;
+
+}
+
+.hidden {
+  display: none;
+}
