@@ -7,10 +7,7 @@
 	<meta name="keywords" content="">
 	<meta name="description" content="">
     <meta name="author" content="templatemo">
-    <!--
-    Pizza Template
-    http://www.templatemo.com/preview/templatemo_459_pizza
-    -->
+
 
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -301,14 +298,14 @@
                                     <label for="password">Password</label>
                                     <div class="input-group pb-modalreglog-input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                                        <input type="password" class="form-control" id="pass" placeholder="Password">
+                                        <input type="password" class="form-control" id="pass" placeholder="Password" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="confirmpassword">Confirm password</label>
                                     <div class="input-group pb-modalreglog-input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                                        <input type="password" class="form-control" id="confirmpass" placeholder="Confirm Password">
+                                        <input type="password" class="form-control" id="confirmpass" placeholder="Confirm Password" required>
                                     </div>
                                 </div>
 				<div class="form-group">
@@ -377,8 +374,9 @@
 	}
 	var pswd=document.getElementById('pass');
 	var cpswd=document.getElementById('confirmpass');
-	if(pswd!=cpswd){
-		alert("password does not match"); confirmpass.focus; return false;}
+
+	if(pswd.value!=cpswd.value){
+		alert("password does not match"); cpswd.focus; return false;}
 
 			var phone = document.getElementById('phoneno');
 		 var phoneNum = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
@@ -387,7 +385,7 @@
 					}
 					else {
 							alert('Please provide a valid phone number');
-				phoneno.focus;
+				phone.focus;
 			return false;
 					}
 	}
