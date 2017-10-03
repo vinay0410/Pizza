@@ -1,6 +1,6 @@
 {
     "require": {
         "sag/sag" : "dev-master"
-        "mongodb/mongodb" 
+         
     }
 }
