@@ -1,9 +1,0 @@
----
-applications:
-- name:	cloudant
-  memory: 128M
-  instances: 1
-  host: cloudant-${random-word}
-  buildpack: php_buildpack
-  services:
-  - myCloudant
