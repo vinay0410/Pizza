@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 	<meta charset="utf-8">
 
 	<title>Pizza - free responsive website template</title>
@@ -22,12 +23,66 @@
 	<!-- google font -->
 	<link href='//fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
-
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 
 </head>
 <body id="home" data-spy="scroll" data-target=".navbar-collapse">
 
+	<?php
+		session_start();
+		if (isset($_POST["logout"])) {
+			unset($_SESSION["logged"]);
+		}
 
+
+		if (isset($_POST["username"])) {
+
+	  #echo phpinfo();
+		$username = $_POST["username"];
+		$pass = $_POST["pass"];
+		$error = False;
+		$error_msg;
+		try {
+
+		 $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+		 $db = $m->Pizza;
+		 $collection = $db->users;
+
+		} catch(Exception $e) {
+			#die("Caught Exception failed to Connect".$e->getMessage()."\n");
+
+			$show_login = True;
+			$error_msg = "Couldn't Connect to Database";
+			$error = True;
+		}
+		if (!$error) {
+			$result = $collection->findOne(array('username' => $username));
+			#var_dump($result);
+			if (!empty($result)) {
+				if ($result["password"] == $pass) {
+					echo "<script type='text/javascript'>alert('Logged in Successfully');</script>";
+					$_SESSION["logged"] = $result;
+					if ($username == "admin") {
+						header("Location: ./admin.php");
+					}
+				} else {
+					$show_login = True;
+					$error = True;
+					$error_msg = "Passwords don't match";
+				}
+
+			} else {
+				$show_login = True;
+				$error_msg = "Username not Registered, Register First!\n";
+				$error = True;
+			}
+
+		}
+
+		}
+
+		?>
 
 
 	<!-- start navigation -->
@@ -47,9 +102,11 @@
 					<li><a href="#about" class="smoothScroll">ABOUT</a></li>
 					<li><a href="#gallery" class="smoothScroll">GALLERY</a></li>
 					<li><a href="#contact" class="smoothScroll">CONTACT</a></li>
+					<?php if(!isset($_SESSION["logged"])) { ?>
 					<li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal">Login</button><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal2">Register</button></a></li>
-          <!--<li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal2">Register</button></a></li>-->
-
+				<?php } else { ?>
+          <li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#userModal"><?php echo 'Hi '.$_SESSION["logged"]["username"]; ?></button></a></li>
+				<?php } ?>
 			</div>
 		</div>
 	</div>
@@ -73,6 +130,7 @@
 					<h3 class="slider-subtitle">Premium Quality, Finest Ingredients</h3>
 					<p class="slider-description">Donec id euismod magna. Ut erat ligula, malesuada eu quam a, fringilla auctor augue. Praesent tincidunt neque semper elementum gravida.</p>
 				</div>
+
 			</li>
 		</ul>
 	</div>
@@ -90,6 +148,7 @@
 					<p>Pizza responsive web template is provided by <a rel="nofollow" href="http://www.templatemo.com" target="_parent">templatemo</a> website. Feel free to download, adapt, and use this template for your websites. Credit goes to <a rel="nofollow" href="http://pixabay.com" target="_parent">Pixabay</a> for images used in this template.</p>
                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet. Dolore magna aliquam erat volutpat.</p>
 					<p>Proin enim sem, ultricies sit amet convallis nec, sodales quis augue. Duis consequat felis ac justo luctus, a cursus tellus pharetra. In ullamcorper gravida enim id pulvinar.</p>
+
 					<button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal">Login</button>
           <button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal2">Register</button>
 				</div>
@@ -223,15 +282,18 @@
 																		</button>
 
 																	 <h4 class="modal-title" id="myModalLabel">Login form</h4>
+																	 <?php if(isset($error) AND $error) { ?>
+																	 <div id="error" class="alert alert-danger" role="alert"><?php echo $error_msg; ?></div>
+																 <?php } ?>
 															</div><!--ending modal header-->
 
 
 						<div class="modal-body">
-																		<form >
+																		<form method="post" action="." id="loginform">
 																				<div class="form-group">
 																						<label for="username">Username</label>
 									<div class="input-group pb-modalreglog-input-group">
-										<input id="username" class="form-control"  type="text" name="username" placeholder="Username"/>
+										<input id="username" class="form-control"  type="text" name="username" placeholder="Username" value="<?php if(isset($error) AND $error) {echo $username;} ?>" />
 																									<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
 									</div>
 										</div>
@@ -240,7 +302,7 @@
 								<div class="form-group">
 																							<label for="password">Password</label>
 																							<div class="input-group pb-modalreglog-input-group">
-																									<input type="password" class="form-control" id="pws" placeholder="Password">
+																									<input type="password" name="pass" class="form-control" id="pws" placeholder="Password">
 																									<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
 																						</div>
 																				</div>
@@ -332,6 +394,26 @@
                 </div><!-- modal fade -->
             </div>
 
+						<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModal" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+								<div class="modal-content">
+											<div class="modal-header">
+												<?php echo $_SESSION["logged"]["username"]."'s account"; ?>
+
+											</div>
+
+											<div class="modal-body">
+												<form method="post" action=".">
+												<input type="hidden" value="logout" name="logout">
+												<button type="submit" class="btn btn-warning">Log Out</button>
+											</form>
+											</div>
+								</div>
+								</div>
+							</div>
+
+<?php if (isset($show_login) AND $show_login = True) { echo "<script type='text/javascript'>$('#myModal').modal('show');</script>"; } ?>
+
 	<!-- modals end -->
 	<!-- start footer -->
 	<footer>
@@ -355,8 +437,7 @@
 	</footer>
 	<!-- end footer -->
 
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+
 	<script src="js/plugins.js"></script>
 	<script src="js/smoothscroll.js"></script>
 	<script src="js/custom.js"></script>
