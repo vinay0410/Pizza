@@ -37,6 +37,18 @@ function editme() {
 
 
 }
+
+function pswd_match() {
+  var pswd=document.getElementById('pass');
+  var cpswd=document.getElementById('confirmpass');
+
+  if(pswd.value!=cpswd.value){
+    alert("Password don't match"); cpswd.focus; return false;}
+    else {
+      return true;
+    }
+}
+
 function Validation()
 {
  var email = document.getElementById('inputEmail');
@@ -47,11 +59,10 @@ function Validation()
     email.focus;
   return false;
 }
-var pswd=document.getElementById('pass');
-var cpswd=document.getElementById('confirmpass');
 
-if(pswd.value!=cpswd.value){
-  alert("password does not match"); cpswd.focus; return false;}
+if (!pswd_match()) {
+  return false;
+}
 
     var phone = document.getElementById('phoneno');
    var phoneNum = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;

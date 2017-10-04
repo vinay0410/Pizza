@@ -132,7 +132,7 @@
               <div class="modal-content">
                     <div class="modal-header">
                       <h3><?php echo $_SESSION["logged"]["username"]."'s account"; ?>
-                        <button type="button" class="btn btn-default btn-sm pull-right" onclick="editme(); "><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button type="button" class="btn btn-default btn-sm pull-right" onclick="editme(); "><span class="glyphicon glyphicon-pencil"></span>Edit</button>
                       </h3>
                       <?php if(isset($pop_profile)) { ?>
                       <div id="error" class="alert alert-success" role="alert"><?php echo $pop_profile ?></div>

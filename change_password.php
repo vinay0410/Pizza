@@ -37,7 +37,7 @@ include("header.php")
      $error_msg = "Couldn't Connect to Database";
      $error = True;
    }
-   if (!$error) {
+   if (empty($error)) {
      $result = $collection->findOne(array('username' => $username));
      #var_dump($result);
 
@@ -87,7 +87,7 @@ include("header.php")
             <label for="email">New Password</label>
              <div class="input-group pb-modalreglog-input-group">
                  <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                 <input type="password" class="form-control" name="newpass" id="newpass" placeholder="Password">
+                 <input type="password" class="form-control" name="newpass" id="pass" placeholder="Password">
 
              </div>
            </div>
@@ -101,7 +101,7 @@ include("header.php")
            </div>
 
 
-       <input type="submit" class="btn btn-warning" name="submit" value="Submit"/>
+       <input type="submit" class="btn btn-warning" name="submit" value="Update Password"/>
        </form></fieldset>
        </div>
 
