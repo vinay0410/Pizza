@@ -45,7 +45,47 @@
 <body id="home" data-spy="scroll" data-target=".navbar-collapse">
 
 	<?php
-    
+  if (isset($_POST["oldpass"])) {
+
+  #echo phpinfo();
+  $username = $_SESSION["logged"]["username"];
+  $oldpass = $_POST["oldpass"];
+  $newpass = $_POST["newpass"];
+
+
+  try {
+
+   $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+   $db = $m->Pizza;
+   $collection = $db->users;
+
+  } catch(Exception $e) {
+    #die("Caught Exception failed to Connect".$e->getMessage()."\n");
+
+
+    $error_msg = "Couldn't Connect to Database";
+    $error = True;
+  }
+  if (!$error) {
+    $result = $collection->findOne(array('username' => $username));
+    #var_dump($result);
+
+      if ($result["password"] == $oldpass) {
+        //change password
+        $collection->update(array("username"=>$username), array('$set'=>array("password"=>$newpass)));
+        $_SESSION["pop_profile"] = "Password Updated Successfully";
+        header("Location: .");
+      } else {
+
+        $error = True;
+        $error_msg = "Current Password entered doesn't match";
+      }
+
+    }
+
+
+
+  }
 
 
    ?>
@@ -80,6 +120,9 @@
   			<div class="form" >
   			<legend class="fp">Change Password</legend>
   			<fieldset>
+          <?php if(isset($error) AND $error) { ?>
+          <div id="error" class="alert alert-danger" role="alert"><?php echo $error_msg ?></div>
+        <?php } ?>
   			<form method="post" action="change_password.php" onsubmit="return pswd_match();">
 
   					<div class="form-group">

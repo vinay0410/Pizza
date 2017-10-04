@@ -16,8 +16,7 @@
 
 	<!-- css -->
 	<link href="css/style.css" type="text/css" rel="stylesheet" media="all">
-	<link href="css/font-awesome.css" rel="stylesheet">   
-	
+
 	<!-- bootstrap -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<!-- font-awesome -->
@@ -50,6 +49,11 @@ background-color:white;
 
 	<?php
 		session_start();
+
+		if(isset($_SESSION["pop_profile"])) {
+			$pop_profile = $_SESSION["pop_profile"];
+			unset($_SESSION["pop_profile"]);
+		}
 
 		if(isset($_SESSION["pleaselogin"])) {
 			echo "<script type='text/javascript'>alert('Please Login, To be able to change passowrd')</script>";
@@ -202,38 +206,38 @@ background-color:white;
 <div class="product">
 <div class="container">
 <div class="row">
-				
+
 				<div class="col-md-12">
 					<h2 class="text-center text-uppercase">Menu</h2>
 					<hr>
 				</div>
 				<div class="header">
-						<div class="cart cart box_1"> 
-							<form action="#" method="post" class="last"> 
+						<div class="cart cart box_1">
+							<form action="#" method="post" class="last">
 								<input type="hidden" name="cmd" value="_cart" />
 								<input type="hidden" name="display" value="1" />
 								<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-							</form>   
-						</div> 
-					
+							</form>
+						</div>
+
 				</div><!-- header ends (for cart) -->
-				
+
 				<!-- -->
 				<div class="products-row" >
 					<div class="col-md-4 col-sm-4 product-grids">
 						<div class="flip-container">
 							<div class="flipper agile-products">
-								<div class="front"> 
+								<div class="front">
 									<img src="menu/1.jpg" class="img-responsive" alt="img">
-									<!--<div class="agile-product-text">              
-										<h5>Voluptate</h5>  
-									</div> --> 
+									<!--<div class="agile-product-text">
+										<h5>Voluptate</h5>
+									</div> -->
 
 									<div class="gallery-des">
 									<h3>Voluptate</h3>
 									</div>
-									
-					
+
+
 								</div>
 								<div class="back">
 									<h4>Voluptate </h4>
@@ -241,9 +245,9 @@ background-color:white;
 									<h6>50<sup>$</sup></h6>
 									<form action="#" method="post">
 										<input type="hidden" name="cmd" value="_cart">
-										<input type="hidden" name="add" value="1"> 
-										<input type="hidden" name="w3ls_item" value="Voluptate"> 
-										<input type="hidden" name="amount" value="50"> 
+										<input type="hidden" name="add" value="1">
+										<input type="hidden" name="w3ls_item" value="Voluptate">
+										<input type="hidden" name="amount" value="50">
 										<button type="submit" class="w3ls-cart pw3ls-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
 										<span class="w3-agile-line"> </span>
 										<a href="#" data-toggle="modal" data-target="#myModal1">Explore</a>
@@ -251,21 +255,21 @@ background-color:white;
 								</div><!-- front-->
 							</div><!--flipper agileproducts -->
 						</div> <!--flip container-->
-					</div> 
+					</div>
 					<div class="col-md-4 col-sm-4 product-grids">
 						<div class="flip-container">
 							<div class="flipper agile-products">
-								<div class="front"> 
+								<div class="front">
 								<img src="menu/2.jpeg" class="img-responsive" alt="img">
-									<!--<div class="agile-product-text">              
-										<h5>Voluptate</h5>  
+									<!--<div class="agile-product-text">
+										<h5>Voluptate</h5>
 
-									</div> --> 
+									</div> -->
 
 									<div class="gallery-des">
 									<h3>Arcu pede</h3>
 									</div>
-					
+
 								</div>
 								<div class="back">
 									<h4>Arcu pede</h4>
@@ -273,9 +277,9 @@ background-color:white;
 									<h6>50<sup>$</sup></h6>
 									<form action="#" method="post">
 										<input type="hidden" name="cmd" value="_cart">
-										<input type="hidden" name="add" value="1"> 
-										<input type="hidden" name="w3ls_item" value="Arcu pede"> 
-										<input type="hidden" name="amount" value="50"> 
+										<input type="hidden" name="add" value="1">
+										<input type="hidden" name="w3ls_item" value="Arcu pede">
+										<input type="hidden" name="amount" value="50">
 										<button type="submit" class="w3ls-cart pw3ls-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
 										<span class="w3-agile-line"> </span>
 										<a href="#" data-toggle="modal" data-target="#myModal1">Explore</a>
@@ -283,17 +287,17 @@ background-color:white;
 								</div><!-- front-->
 							</div><!--flipper agileproducts -->
 						</div> <!--flip container-->
-					</div> 
+					</div>
 					<div class="col-md-4 col-sm-4 product-grids">
 						<div class="flip-container">
 							<div class="flipper agile-products">
-								<div class="front"> 
+								<div class="front">
 									<img src="menu/3.jpg" class="img-responsive" alt="img">
-									
+
 									<div class="gallery-des">
 									<h3>Quam semper </h3>
 									</div>
-					
+
 								</div>
 								<div class="back" >
 									<h4>Quam semper  </h4>
@@ -301,9 +305,9 @@ background-color:white;
 									<h6>25<sup>$</sup></h6>
 									<form action="#" method="post">
 										<input type="hidden" name="cmd" value="_cart">
-										<input type="hidden" name="add" value="1"> 
-										<input type="hidden" name="w3ls_item" value="Quam semper"> 
-										<input type="hidden" name="amount" value="25"> 
+										<input type="hidden" name="add" value="1">
+										<input type="hidden" name="w3ls_item" value="Quam semper">
+										<input type="hidden" name="amount" value="25">
 										<button type="submit" class="w3ls-cart pw3ls-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
 										<span class="w3-agile-line"> </span>
 										<a href="#" data-toggle="modal" data-target="#myModal1">Explore</a>
@@ -311,26 +315,26 @@ background-color:white;
 								</div><!-- back-->
 							</div><!--flipper agileproducts -->
 						</div> <!--flip container-->
-					</div> 
+					</div>
 
 					<br/><br/><br/><br/><div></div>
 				</div> <!-- product rows -->
-			
+
 				<div class="products-row" >
 					<div class="col-md-4 col-sm-4 product-grids">
 						<div class="flip-container">
 							<div class="flipper agile-products">
-								<div class="front"> 
+								<div class="front">
 									<img src="menu/4.jpg" class="img-responsive" alt="img">
-									<!--<div class="agile-product-text">              
-										<h5>Voluptate</h5>  
+									<!--<div class="agile-product-text">
+										<h5>Voluptate</h5>
 
-									</div> --> 
+									</div> -->
 
 									<div class="gallery-des">
 									<h3>Donec sodales</h3>
 									</div>
-					
+
 								</div>
 								<div class="back">
 									<h4>Donec sodales</h4>
@@ -338,9 +342,9 @@ background-color:white;
 									<h6>70<sup>$</sup></h6>
 									<form action="#" method="post">
 										<input type="hidden" name="cmd" value="_cart">
-										<input type="hidden" name="add" value="1"> 
-										<input type="hidden" name="w3ls_item" value="Donec sodales"> 
-										<input type="hidden" name="amount" value="70"> 
+										<input type="hidden" name="add" value="1">
+										<input type="hidden" name="w3ls_item" value="Donec sodales">
+										<input type="hidden" name="amount" value="70">
 										<button type="submit" class="w3ls-cart pw3ls-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
 										<span class="w3-agile-line"> </span>
 										<a href="#" data-toggle="modal" data-target="#myModal1">Explore</a>
@@ -348,20 +352,20 @@ background-color:white;
 								</div><!-- front-->
 							</div><!--flipper agileproducts -->
 						</div> <!--flip container-->
-					</div> 
+					</div>
 					<div class="col-md-4 col-sm-4 product-grids">
 						<div class="flip-container">
 							<div class="flipper agile-products">
-								<div class="front"> 
+								<div class="front">
 									<img src="menu/5.jpg" class="img-responsive" alt="img">
-									<!--<div class="agile-product-text">              
-										<h5>Voluptate</h5>  
-									</div> --> 
+									<!--<div class="agile-product-text">
+										<h5>Voluptate</h5>
+									</div> -->
 
 									<div class="gallery-des">
 									<h3>Nam eget</h3>
 									</div>
-					
+
 								</div>
 								<div class="back">
 									<h4>Nam eget </h4>
@@ -369,9 +373,9 @@ background-color:white;
 									<h6>50<sup>$</sup></h6>
 									<form action="#" method="post">
 										<input type="hidden" name="cmd" value="_cart">
-										<input type="hidden" name="add" value="1"> 
-										<input type="hidden" name="w3ls_item" value="Nam eget"> 
-										<input type="hidden" name="amount" value="50"> 
+										<input type="hidden" name="add" value="1">
+										<input type="hidden" name="w3ls_item" value="Nam eget">
+										<input type="hidden" name="amount" value="50">
 										<button type="submit" class="w3ls-cart pw3ls-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
 										<span class="w3-agile-line"> </span>
 										<a href="#" data-toggle="modal" data-target="#myModal1">Explore</a>
@@ -379,17 +383,17 @@ background-color:white;
 								</div><!-- front-->
 							</div><!--flipper agileproducts -->
 						</div> <!--flip container-->
-					</div> 
+					</div>
 					<div class="col-md-4 col-sm-4 product-grids">
 						<div class="flip-container">
 							<div class="flipper agile-products">
-								<div class="front"> 
+								<div class="front">
 									<img src="menu/6.jpeg" class="img-responsive" alt="img">
-									
+
 									<div class="gallery-des">
 									<h3>Metus varius</h3>
 									</div>
-					
+
 								</div>
 								<div class="back">
 									<h4>Metus varius</h4>
@@ -397,9 +401,9 @@ background-color:white;
 									<h6>50<sup>$</sup></h6>
 									<form action="#" method="post">
 										<input type="hidden" name="cmd" value="_cart">
-										<input type="hidden" name="add" value="1"> 
-										<input type="hidden" name="w3ls_item" value="Metus varius"> 
-										<input type="hidden" name="amount" value="50"> 
+										<input type="hidden" name="add" value="1">
+										<input type="hidden" name="w3ls_item" value="Metus varius">
+										<input type="hidden" name="amount" value="50">
 										<button type="submit" class="w3ls-cart pw3ls-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
 										<span class="w3-agile-line"> </span>
 										<a href="#" data-toggle="modal" data-target="#myModal1">Explore</a>
@@ -407,13 +411,13 @@ background-color:white;
 								</div><!-- back-->
 							</div><!--flipper agileproducts -->
 						</div> <!--flip container-->
-					</div> 
+					</div>
 
-					
+
 				</div> <!-- product rows -->
 				<!-- -- >
-				
-				
+
+
 </div>
 </div> <!--row-->
 </div> <!--container -->
@@ -673,7 +677,9 @@ background-color:white;
 												<h3><?php echo $_SESSION["logged"]["username"]."'s account"; ?>
 													<button type="button" class="btn btn-default btn-sm pull-right" onclick="editme(); "><span class="glyphicon glyphicon-pencil"></span></button>
 												</h3>
-
+												<?php if(isset($pop_profile)) { ?>
+												<div id="error" class="alert alert-success" role="alert"><?php echo $pop_profile ?></div>
+											<?php } ?>
 											</div>
 
 											<div class="modal-body">
@@ -703,8 +709,9 @@ background-color:white;
 											    </tbody>
 											  </table>
 												<div class="modal-footer">
+														<a href="change_password.php" class="btn btn-warning "><span class="glyphicon glyphicon-edit"></span>Change Password</a>
 								            <button type="submit" class="btn btn-warning hidden">Update Details</button>
-								                        	</div>
+								        </div>
 											</form>
 												<form method="post" action=".">
 												<input type="hidden" value="logout" name="logout">
@@ -720,6 +727,7 @@ background-color:white;
 
 <?php if (isset($show_login) AND $show_login = True) { echo "<script type='text/javascript'>$('#myModal').modal('show');</script>"; } ?>
 <?php if (isset($signup_error)) {echo "<script type='text/javascript'>$('#myModal2').modal('show');</script>"; } ?>
+<?php if (isset($pop_profile)) {echo "<script type='text/javascript'>$('#userModal').modal('show');</script>"; } ?>
 	<!-- modals end -->
 	<!-- start footer -->
 	<footer>
@@ -748,7 +756,7 @@ background-color:white;
 	<script src="js/smoothscroll.js"></script>
 	<script src="js/custom.js"></script>
 	<script src="js/bootstrap.js"></script>
-	
+
 	<script>
 	function editme() {
 
@@ -802,12 +810,12 @@ background-color:white;
         	if (this.subtotal() > 0) {
         		items = this.items();
 
-        		for (i = 0, len = items.length; i < len; i++) { 
+        		for (i = 0, len = items.length; i < len; i++) {
         		}
         	}
         });
-    </script>  
-	<!-- //cart-js --> 
+    </script>
+	<!-- //cart-js -->
 	<!-- Owl-Carousel-JavaScript -->
 	<script src="js/owl.carousel.js"></script>
 	<script>
@@ -820,7 +828,7 @@ background-color:white;
 			});
 		});
 	</script>
-	<!-- //Owl-Carousel-JavaScript -->  	
+	<!-- //Owl-Carousel-JavaScript -->
 	<!-- the jScrollPane script -->
 	<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
 	<script type="text/javascript" id="sourcecode">
@@ -830,21 +838,21 @@ background-color:white;
 		});
 	</script>
 	<!-- //the jScrollPane script -->
-	<script type="text/javascript" src="js/jquery.mousewheel.js"></script> <!-- the mouse wheel plugin --> 
+	<script type="text/javascript" src="js/jquery.mousewheel.js"></script> <!-- the mouse wheel plugin -->
 	<!-- start-smooth-scrolling -->
-	<script src="js/SmoothScroll.min.js"></script>  
+	<script src="js/SmoothScroll.min.js"></script>
 	<script type="text/javascript" src="js/move-top.js"></script>
-	<script type="text/javascript" src="js/easing.js"></script>	
+	<script type="text/javascript" src="js/easing.js"></script>
 	<script type="text/javascript">
 			jQuery(document).ready(function($) {
-				$(".scroll").click(function(event){		
+				$(".scroll").click(function(event){
 					event.preventDefault();
-			
+
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 				});
 			});
 	</script>
-	<!-- //end-smooth-scrolling -->	  
+	<!-- //end-smooth-scrolling -->
 	<!-- smooth-scrolling-of-move-up -->
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -853,16 +861,16 @@ background-color:white;
 				containerID: 'toTop', // fading element id
 				containerHoverID: 'toTopHover', // fading element hover id
 				scrollSpeed: 1200,
-				easingType: 'linear' 
+				easingType: 'linear'
 			};
 			*/
-			
+
 			$().UItoTop({ easingType: 'easeOutQuart' });
-			
+
 		});
 	</script>
-	<!-- //smooth-scrolling-of-move-up -->  
+	<!-- //smooth-scrolling-of-move-up -->
 
-    
+
 </body>
 </html>
