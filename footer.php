@@ -21,8 +21,7 @@
 
 
 <script src="js/plugins.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/smoothScroll.js"></script>
+
 <script src="js/custom.js"></script>
 
 <script>
