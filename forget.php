@@ -1,30 +1,57 @@
-<html>
-<head>
+<?php include("header.php") ?>
 
- <meta charset="utf-8" />
+<?php if (isset($_POST["forget_email"])) {
 
-   <title>Forgot Password</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  $email = $_POST["forget_email"];
 
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+  $error_msg;
+  try {
 
-    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<script>
+   $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+   $db = $m->Pizza;
+   $collection = $db->users;
 
-function checkEmail() {
+  } catch(Exception $e) {
+    #die("Caught Exception failed to Connect".$e->getMessage()."\n");
 
-    var email = document.getElementById('email');
-    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    $error_msg = "Couldn't Connect to Database";
 
-    if (!filter.test(email.value)) {
-    alert('Please provide a valid email address');
-    email.focus;
-    return false;
- }
+  }
+
+  if (empty($error_msg)) {
+
+    $result = $collection->findOne(array('email' => $email));
+    if (!empty($result)) {
+
+      $msg = "First line of text\nSecond line of text ".$result["password"];
+
+  // use wordwrap() if lines are longer than 70 characters
+      $msg = wordwrap($msg,70);
+
+  // send email
+      $if_sent = mail($email,"Contains Password", $msg);
+
+      if ($if_sent) {
+        $_SESSION["pop_login"] = "Your password has been Successfully sent to the registered emailID.";
+        header("Location: .");
+      } else {
+        $error_msg = "Failed to send email. Please try again!";
+      }
+
+  } else {
+
+        $error_msg = "The Provided Email address is not registered. Please Register First!";
+      }
+
+
+
+    }
+
+
 }
-</script>
+
+?>
+
 <style>
 
 
@@ -48,20 +75,23 @@ color: orange;
 			<div class="form" >
 			<legend class="fp">Forgot Password</legend>
 			<fieldset>
-			<form method="post" action="index.php">
+        <?php if(isset($error_msg)) { ?>
+        <div id="error" class="alert alert-danger" role="alert"><?php echo $error_msg ?></div>
+      <?php } ?>
+			<form method="post" action="#" onsubmit="return checkEmail();">
 
 					<div class="form-group">
                                    		 <label for="email">Email address</label>
                                     		<div class="input-group pb-modalreglog-input-group">
                                         		<span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                                        		<input type="email" class="form-control" name="email" placeholder="Email">
+                                        		<input type="text" class="form-control" name="forget_email" id="forget_email" placeholder="Email" required>
 
                                  		</div>
 
                                 	</div>
 
 
-			<input type="submit" class="btn btn-warning" name="submit" value="Submit" onclick='Javascript:checkEmail();'/>
+			<input type="submit" class="btn btn-warning" name="submit" value="Submit"/>
 			</form></fieldset>
 			</div>
 
@@ -69,6 +99,18 @@ color: orange;
 
 </div></div></div>
 
+<script type="text/javascript" >
+function checkEmail() {
 
-</body>
-</html>
+    var email = document.getElementById('forget_email');
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (filter.test(email.value) == false) {
+    alert('Please provide a valid email address');
+    email.focus();
+    return false;
+ }
+
+}
+</script>
+<?php include("modals.php"); ?>
+<?php include("footer.php"); ?>

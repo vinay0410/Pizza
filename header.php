@@ -5,6 +5,11 @@
 <?php
 session_start();
 
+if(isset($_SESSION["pop_login"])) {
+	$pop_login = $_SESSION["pop_login"];
+	unset($_SESSION["pop_login"]);
+}
+
 if(isset($_SESSION["pop_profile"])) {
 	$pop_profile = $_SESSION["pop_profile"];
 	unset($_SESSION["pop_profile"]);
@@ -55,7 +60,7 @@ try {
 }
 if (!$error) {
 	$result = $collection->findOne(array('username' => $username));
-	
+
 	if (!empty($result)) {
 		if ($result["password"] == $pass) {
 			echo "<script type='text/javascript'>alert('Logged in Successfully');</script>";

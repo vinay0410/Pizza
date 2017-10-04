@@ -10,6 +10,9 @@
                                   </button>
 
                                  <h4 class="modal-title" id="myModalLabel">Login form</h4>
+                                 <?php if(isset($pop_login)) { ?>
+                                 <div id="error" class="alert alert-success" role="alert"><?php echo $pop_login ?></div>
+                               <?php } ?>
                                  <?php if(isset($error) AND $error) { ?>
                                  <div id="error" class="alert alert-danger" role="alert"><?php echo $error_msg; ?></div>
                                <?php } ?>
@@ -36,7 +39,7 @@
                                       </div>
 
 
-        <a  href="forget.php" target="_blank">Forgot Password? </a>
+        <a  href="forget.php">Forgot Password? </a>
         </br></br>
         <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -180,3 +183,4 @@
 <?php if (isset($show_login) AND $show_login = True) { echo "<script type='text/javascript'>$('#myModal').modal('show');</script>"; } ?>
 <?php if (isset($signup_error)) {echo "<script type='text/javascript'>$('#myModal2').modal('show');</script>"; } ?>
 <?php if (isset($pop_profile)) {echo "<script type='text/javascript'>$('#userModal').modal('show');</script>"; } ?>
+<?php if (isset($pop_login)) {echo "<script type='text/javascript'>$('#myModal').modal('show');</script>"; } ?>
