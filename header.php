@@ -5,6 +5,14 @@
 <?php
 session_start();
 
+
+
+if(isset($_SESSION["feedback_msg"])) {
+	$feedback_msg = $_SESSION["feedback_msg"];
+	unset($_SESSION["feedback_msg"]);
+}
+
+
 if(isset($_SESSION["pop_login"])) {
 	$pop_login = $_SESSION["pop_login"];
 	unset($_SESSION["pop_login"]);
@@ -149,7 +157,7 @@ background-color:white;
 					<li><a href="#about" class="smoothScroll">ABOUT</a></li>
 					<li><a href="#menu" class="smoothScroll">MENU</a></li>
 					<li><a href="#gallery" class="smoothScroll">GALLERY</a></li>
-					<li><a href="#contact" class="smoothScroll">CONTACT</a></li>
+					<li><a href="#feedback" class="smoothScroll">FEEDBACK</a></li>
 					<?php if(!isset($_SESSION["logged"])) { ?>
 					<li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal">Login</button><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal2">Register</button></a></li>
 				<?php } else { ?>

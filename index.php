@@ -342,23 +342,26 @@ include("header.php");
 
 
 	<!-- start contact -->
-	<section id="contact" class="templatemo-section">
+	<section id="feedback" class="templatemo-section">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h2 class="text-uppercase text-center">Contact Us</h2>
+					<h2 class="text-uppercase text-center">FeedBack</h2>
 					<hr>
 				</div>
-				<div class="col-md-2"></div>
+
+				<?php if(isset($feedback_msg)) { ?>
+				<div id="error" class="alert alert-success col-md-8" role="alert"><?php echo $feedback_msg ?></div>
+			<?php } ?>
 				<div class="col-md-8">
-					<form action="#" method="post" role="form">
+					<form action="feedback.php" method="post" role="form">
 						<div class="col-md-6 col-sm-6">
 							<input name="name" type="text" class="form-control" id="name" maxlength="60" placeholder="Name">
 					    	<input name="email" type="email" class="form-control" id="email" placeholder="Email">
-							<input name="message" type="text" class="form-control" id="message" placeholder="Subject">
+							<input name="subject" type="text" class="form-control" id="subject" placeholder="Subject">
 						</div>
 						<div class="col-md-6 col-sm-6">
-							<textarea class="form-control" rows="5" placeholder="Message"></textarea>
+							<textarea class="form-control" rows="5" placeholder="Message" name="message"></textarea>
 						</div>
 						<div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6">
 							<input name="submit" type="submit" class="form-control" id="submit" value="Send">
