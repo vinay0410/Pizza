@@ -32,6 +32,12 @@
 	<?php
 		session_start();
 
+		if(isset($_SESSION["pleaselogin"])) {
+			echo "<script type='text/javascript'>alert('Please Login, To be able to change passowrd')</script>";
+			unset($_SESSION["pleaselogin"]);
+		}
+
+
 		if (isset($_SESSION["reg-success"])) {
 			echo "<script type='text/javascript'>alert('Registration Successfull, Login to continue')</script>";
 
@@ -425,7 +431,7 @@
 											</div>
 
 											<div class="modal-body">
-												<form action = "edit.php" method="post" id="editform">
+												<form action = "update.php" method="post" id="editform">
 
 												<table class="table">
 											    <tbody>
@@ -436,23 +442,28 @@
 											      </tr>
 											      <tr>
 											        <td>Email ID: </td>
-											        <td><input class="readonly" name="edit_username" id="edit_username" value="<?php echo $_SESSION["logged"]["email"]; ?>" readonly></td>
+											        <td><input class="readonly" name="edit_email" id="edit_email" value="<?php echo $_SESSION["logged"]["email"]; ?>" readonly></td>
+											      </tr>
+														<tr>
+											        <td>Password: </td>
+											        <td><input class="readonly" name="edit_password" id="edit_password" value="<?php echo $_SESSION["logged"]["password"]; ?>" readonly></td>
+
 											      </tr>
 											      <tr>
 											        <td>Phone No.:</td>
-											        <td><input class="readonly" name="edit_username" id="edit_username" value="<?php echo $_SESSION["logged"]["phoneno"]; ?>" readonly></td>
+											        <td><input class="readonly" name="edit_phoneno" id="edit_phoneno" value="<?php echo $_SESSION["logged"]["phoneno"]; ?>" readonly></td>
 											      </tr>
 
 											    </tbody>
 											  </table>
 												<div class="modal-footer">
-								            <button type="button" class="btn btn-secondary hidden" data-dismiss="modal">Close</button>
 								            <button type="submit" class="btn btn-warning hidden">Update Details</button>
 								                        	</div>
 											</form>
 												<form method="post" action=".">
 												<input type="hidden" value="logout" name="logout">
 												<button type="submit" class="btn btn-warning">Log Out</button>
+												<button type="button" class="btn btn-secondary pull-right" data-dismiss="modal">Close</button>
 											</form>
 											</div>
 								</div>
