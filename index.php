@@ -349,11 +349,12 @@ include("header.php");
 					<h2 class="text-uppercase text-center">FeedBack</h2>
 					<hr>
 				</div>
-
-				<?php if(isset($feedback_msg)) { ?>
-				<div id="error" class="alert alert-success col-md-8" role="alert"><?php echo $feedback_msg ?></div>
-			<?php } ?>
+				<div class="col-md-2"></div>
 				<div class="col-md-8">
+					<?php if(isset($feedback_msg)) { ?>
+					<div id="error" class="alert alert-success" role="alert"><?php echo $feedback_msg ?></div>
+					<script>window.location.hash = "#feedback"; </script>
+				<?php } ?>
 					<form action="feedback.php" method="post" role="form">
 						<div class="col-md-6 col-sm-6">
 							<input name="name" type="text" class="form-control" id="name" maxlength="60" placeholder="Name">
