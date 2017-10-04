@@ -1,8 +1,8 @@
 <html>
 <head>
-	
+
  <meta charset="utf-8" />
-    
+
    <title>Forgot Password</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -41,10 +41,10 @@ color: orange;
 </head>
 <body>
 
-		
+
 <div class="container pb-modalreglog-container">
     	<div class="row">
-    		    <div class="col-xs-12 col-md-4 col-md-offset-4">	
+    		    <div class="col-xs-12 col-md-4 col-md-offset-4">
 			<div class="form" >
 			<legend class="fp">Forgot Password</legend>
 			<fieldset>
@@ -52,22 +52,22 @@ color: orange;
 
 					<div class="form-group">
                                    		 <label for="email">Email address</label>
-                                    		<div class="input-group pb-modalreglog-input-group">   
+                                    		<div class="input-group pb-modalreglog-input-group">
                                         		<span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
                                         		<input type="email" class="form-control" name="email" placeholder="Email">
-							
+
                                  		</div>
 
                                 	</div>
 
-			
+
 			<input type="submit" class="btn btn-warning" name="submit" value="Submit" onclick='Javascript:checkEmail();'/>
 			</form></fieldset>
 			</div>
 
 
 
-</div></div></div>		
+</div></div></div>
 
 
 </body>

@@ -1,157 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-	<meta charset="utf-8">
-
-	<title>Pizza Villa</title>
-	<meta name="keywords" content="">
-	<meta name="description" content="">
-    <meta name="author" content="templatemo">
+<?php
+include("header.php");
 
 
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<!-- css -->
-	<link href="css/style.css" type="text/css" rel="stylesheet" media="all">
-
-	<!-- bootstrap -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<!-- font-awesome -->
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<!-- custom -->
-	<link rel="stylesheet" href="css/templatemo-style.css">
-	<!-- google font -->
-	<link href='//fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
-	<link href='//fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-
-<style>
-.front img{
-height:150px;
-}
-.gallery-des{
-color:white;
-}
-.back{
-background-color:orange;
-}
-.front{
-background-color:white;
-}
-</style>
-
-</head>
-<body id="home" data-spy="scroll" data-target=".navbar-collapse">
-
-	<?php
-		session_start();
-
-		if(isset($_SESSION["pop_profile"])) {
-			$pop_profile = $_SESSION["pop_profile"];
-			unset($_SESSION["pop_profile"]);
-		}
-
-		if(isset($_SESSION["pleaselogin"])) {
-			echo "<script type='text/javascript'>alert('Please Login, To be able to change passowrd')</script>";
-			unset($_SESSION["pleaselogin"]);
-		}
+?>
 
 
-		if (isset($_SESSION["reg-success"])) {
-			echo "<script type='text/javascript'>alert('Registration Successfull, Login to continue')</script>";
-
-			unset($_SESSION["reg-success"]);
-		}
-
-		if (isset($_POST["logout"])) {
-			unset($_SESSION["logged"]);
-		}
-
-		if (isset($_SESSION["signup-error"])) {
-			$signup_error = $_SESSION["signup-error"];
-			unset($_SESSION["signup-error"]);
-
-		}
-
-		if (isset($_POST["username"])) {
-
-	  #echo phpinfo();
-		$username = $_POST["username"];
-		$pass = $_POST["pass"];
-		$error = False;
-		$error_msg;
-		try {
-
-		 $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
-		 $db = $m->Pizza;
-		 $collection = $db->users;
-
-		} catch(Exception $e) {
-			#die("Caught Exception failed to Connect".$e->getMessage()."\n");
-
-			$show_login = True;
-			$error_msg = "Couldn't Connect to Database";
-			$error = True;
-		}
-		if (!$error) {
-			$result = $collection->findOne(array('username' => $username));
-			#var_dump($result);
-			if (!empty($result)) {
-				if ($result["password"] == $pass) {
-					echo "<script type='text/javascript'>alert('Logged in Successfully');</script>";
-					$_SESSION["logged"] = $result;
-					if ($username == "admin") {
-						header("Location: ./admin.php");
-					}
-				} else {
-					$show_login = True;
-					$error = True;
-					$error_msg = "Passwords don't match";
-				}
-
-			} else {
-				$show_login = True;
-				$error_msg = "Username not Registered, Register First!\n";
-				$error = True;
-			}
-
-		}
-
-		}
-
-		?>
 
 
-	<!-- start navigation -->
-	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="icon icon-bar"></span>
-					<span class="icon icon-bar"></span>
-					<span class="icon icon-bar"></span>
-				</button>
-				<a href="#home" class="navbar-brand smoothScroll"><strong>PIZZA Villa</strong></a>
-			</div>
-			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#home" class="smoothScroll">HOME</a></li>
-					<li><a href="#about" class="smoothScroll">ABOUT</a></li>
-					<li><a href="#menu" class="smoothScroll">MENU</a></li>
-					<li><a href="#gallery" class="smoothScroll">GALLERY</a></li>
-					<li><a href="#contact" class="smoothScroll">CONTACT</a></li>
-					<?php if(!isset($_SESSION["logged"])) { ?>
-					<li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal">Login</button><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal2">Register</button></a></li>
-				<?php } else { ?>
-          <li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#userModal"><?php echo 'Hi '.$_SESSION["logged"]["username"]; ?></button></a></li>
-				<?php } ?>
-			</div>
-		</div>
-	</div>
 	<!-- end navigation -->
 
 	<!-- start flexslider -->
@@ -684,7 +539,7 @@ background-color:white;
 
 											<div class="modal-body">
 												<form action = "update.php" method="post" id="editform">
-
+													<input type="hidden" name="doc_id" value="<?php echo $_SESSION['logged']['_id']; ?>" readonly>
 												<table class="table">
 											    <tbody>
 											      <tr>
@@ -696,11 +551,6 @@ background-color:white;
 											        <td>Email ID: </td>
 											        <td><input class="readonly" name="edit_email" id="edit_email" value="<?php echo $_SESSION["logged"]["email"]; ?>" readonly></td>
 											      </tr>
-														<tr>
-											        <td>Password: </td>
-											        <td><input class="readonly" name="edit_password" id="edit_password" value="<?php echo $_SESSION["logged"]["password"]; ?>" readonly></td>
-
-											      </tr>
 											      <tr>
 											        <td>Phone No.:</td>
 											        <td><input class="readonly" name="edit_phoneno" id="edit_phoneno" value="<?php echo $_SESSION["logged"]["phoneno"]; ?>" readonly></td>
@@ -709,8 +559,8 @@ background-color:white;
 											    </tbody>
 											  </table>
 												<div class="modal-footer">
-														<a href="change_password.php" class="btn btn-warning "><span class="glyphicon glyphicon-edit"></span>Change Password</a>
-								            <button type="submit" class="btn btn-warning hidden">Update Details</button>
+														<button type="button" onclick=" window.location.href='change_password.php'; " class="btn btn-warning hidden"><span class="glyphicon glyphicon-lock"></span>Change Password</button>
+								            <button type="submit" class="btn btn-warning hidden"><span class="glyphicon glyphicon-edit"></span>Update Details</button>
 								        </div>
 											</form>
 												<form method="post" action=".">
@@ -729,148 +579,6 @@ background-color:white;
 <?php if (isset($signup_error)) {echo "<script type='text/javascript'>$('#myModal2').modal('show');</script>"; } ?>
 <?php if (isset($pop_profile)) {echo "<script type='text/javascript'>$('#userModal').modal('show');</script>"; } ?>
 	<!-- modals end -->
-	<!-- start footer -->
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<p>Copyright &copy; 2084 Company Name</p>
-					<hr>
-					<ul class="social-icon">
-						<li><a href="#" class="fa fa-facebook"></a></li>
-						<li><a href="#" class="fa fa-twitter"></a></li>
-						<li><a href="#" class="fa fa-instagram"></a></li>
-						<li><a href="#" class="fa fa-pinterest"></a></li>
-						<li><a href="#" class="fa fa-google"></a></li>
-						<li><a href="#" class="fa fa-github"></a></li>
-						<li><a href="#" class="fa fa-apple"></a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</footer>
-	<!-- end footer -->
 
 
-	<script src="js/plugins.js"></script>
-	<script src="js/smoothscroll.js"></script>
-	<script src="js/custom.js"></script>
-	<script src="js/bootstrap.js"></script>
-
-	<script>
-	function editme() {
-
-		var input = $('#editform input');
-		input.toggleClass('readonly');
-		input.toggleClass('form-control');
-		console.log(input.prop("readonly"));
-		input.attr('readonly', input.prop('readonly') == false ? true : false);
-		$('#editform button').toggleClass("hidden");
-
-
-	}
-	function Validation()
-	{
-	 var email = document.getElementById('inputEmail');
-	 var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
-		if (!filter.test(email.value)) {
-			alert('Please provide a valid email address');
-			email.focus;
-		return false;
-	}
-	var pswd=document.getElementById('pass');
-	var cpswd=document.getElementById('confirmpass');
-
-	if(pswd.value!=cpswd.value){
-		alert("password does not match"); cpswd.focus; return false;}
-
-			var phone = document.getElementById('phoneno');
-		 var phoneNum = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-					if(phone.value.match(phoneNum)) {
-							return true;
-					}
-					else {
-							alert('Please provide a valid phone number');
-				phone.focus;
-			return false;
-					}
-	}
-	</script>
-
-
-<!-- cart-js -->
-	<script src="js/minicart.js"></script>
-	<script>
-        w3ls.render();
-
-        w3ls.cart.on('w3sb_checkout', function (evt) {
-        	var items, len, i;
-
-        	if (this.subtotal() > 0) {
-        		items = this.items();
-
-        		for (i = 0, len = items.length; i < len; i++) {
-        		}
-        	}
-        });
-    </script>
-	<!-- //cart-js -->
-	<!-- Owl-Carousel-JavaScript -->
-	<script src="js/owl.carousel.js"></script>
-	<script>
-		$(document).ready(function() {
-			$("#owl-demo").owlCarousel ({
-				items : 3,
-				lazyLoad : true,
-				autoPlay : true,
-				pagination : true,
-			});
-		});
-	</script>
-	<!-- //Owl-Carousel-JavaScript -->
-	<!-- the jScrollPane script -->
-	<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
-	<script type="text/javascript" id="sourcecode">
-		$(function()
-		{
-			$('.scroll-pane').jScrollPane();
-		});
-	</script>
-	<!-- //the jScrollPane script -->
-	<script type="text/javascript" src="js/jquery.mousewheel.js"></script> <!-- the mouse wheel plugin -->
-	<!-- start-smooth-scrolling -->
-	<script src="js/SmoothScroll.min.js"></script>
-	<script type="text/javascript" src="js/move-top.js"></script>
-	<script type="text/javascript" src="js/easing.js"></script>
-	<script type="text/javascript">
-			jQuery(document).ready(function($) {
-				$(".scroll").click(function(event){
-					event.preventDefault();
-
-			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-				});
-			});
-	</script>
-	<!-- //end-smooth-scrolling -->
-	<!-- smooth-scrolling-of-move-up -->
-	<script type="text/javascript">
-		$(document).ready(function() {
-			/*
-			var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear'
-			};
-			*/
-
-			$().UItoTop({ easingType: 'easeOutQuart' });
-
-		});
-	</script>
-	<!-- //smooth-scrolling-of-move-up -->
-
-
-</body>
-</html>
+<?php include("footer.php"); ?>

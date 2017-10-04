@@ -4,12 +4,11 @@ session_start();
 
 
 
-if (isset($_POST["username"])) {
-
-  $username = $_POST["username"];
-  $email = $_POST["email"];
-  $password = $_POST["password"];
-  $phoneno = $_POST["phoneno"];
+if (isset($_POST["edit_username"])) {
+  $id = $_POST["doc_id"];
+  $username = $_POST["edit_username"];
+  $email = $_POST["edit_email"];
+  $phoneno = $_POST["edit_phoneno"];
 
 
 
@@ -22,49 +21,30 @@ if (isset($_POST["username"])) {
 
   } catch(Exception $e) {
     #die("Caught Exception failed to Connect".$e->getMessage()."\n");
+    $error_msg =  "Couldn't Connect to Database";
+    $_SESSION["pop_profile"] = $error_msg;
 
-    $error_msg = "Couldn't Connect to Database";
-    $_SESSION["signup-error"] = array(
-        "username" => $username,
-        "email" => $email,
-        "password" => $password,
-        "phoneno" => $phoneno,
-        "error_msg" => $error_msg
-     );
-     header("Location: .");
+    header("Location: .");
+
+  }
+  if (empty($error_msg)) {
+
+    $result = $collection->findOne(array('_id' => new MongoId($id)));
+    var_dump($result);
+
+        //change password
+        $collection->update(array('_id' => new MongoId($id)), array('$set'=>array("username" => $username, "email" => $email, "phoneno" => $phoneno)));
+        $result = $collection->findOne(array('_id' => new MongoId($id)));
+        $_SESSION["pop_profile"] = "Details Updated Successfully!";
+
+        $_SESSION["logged"] = $result;
+        header("Location: .");
+
+
 
   }
 
 
-  if (!isset($_SESSION["signup-error"])) {
-
-    $result = $collection->findOne(array('username' => $username));
-    if (empty($result)) {
-
-    $document = array(
-        "username" => $username,
-        "email" => $email,
-        "password" => $password,
-        "phoneno" => $phoneno,
-     );
-
-     $collection->insert($document);
-     echo "Document Inserted Successfully";
-     $_SESSION["reg-success"] = True;
-     header("Location: .");
-  }
-
-  } else {
-    $error_msg = "Username Already Exists";
-    $_SESSION["signup-error"] = array(
-        "username" => $username,
-        "email" => $email,
-        "password" => $password,
-        "phoneno" => $phoneno,
-        "error_msg" => $error_msg
-     );
-     header("Location: .");
-  }
 
 } else {
   echo "Access Denied, You, shouldn't be here";
