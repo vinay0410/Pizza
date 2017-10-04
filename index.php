@@ -399,186 +399,186 @@ include("header.php");
 	<?php if(!isset($_SESSION["logged"])) { ?>
 
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-			<div class="modal-content">
-						<div class="modal-header">
+	    <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	          <div class="modal-header">
 
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																				<span aria-hidden="true">&times;</span>
-																		</button>
+	            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                                      <span aria-hidden="true">&times;</span>
+	                                  </button>
 
-																	 <h4 class="modal-title" id="myModalLabel">Login form</h4>
-																	 <?php if(isset($error) AND $error) { ?>
-																	 <div id="error" class="alert alert-danger" role="alert"><?php echo $error_msg; ?></div>
-																 <?php } ?>
-															</div><!--ending modal header-->
-
-
-						<div class="modal-body">
-																		<form method="post" action="." id="loginform">
-																				<div class="form-group">
-																						<label for="username">Username</label>
-									<div class="input-group pb-modalreglog-input-group">
-										<input id="username" class="form-control"  type="text" name="username" placeholder="Username" value="<?php if(isset($error) AND $error) {echo $username;} ?>" />
-																									<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-									</div>
-										</div>
+	                                 <h4 class="modal-title" id="myModalLabel">Login form</h4>
+	                                 <?php if(isset($error) AND $error) { ?>
+	                                 <div id="error" class="alert alert-danger" role="alert"><?php echo $error_msg; ?></div>
+	                               <?php } ?>
+	                            </div><!--ending modal header-->
 
 
-								<div class="form-group">
-																							<label for="password">Password</label>
-																							<div class="input-group pb-modalreglog-input-group">
-																									<input type="password" name="pass" class="form-control" id="pws" placeholder="Password">
-																									<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-																						</div>
-																				</div>
+	          <div class="modal-body">
+	                                  <form method="post" action="." id="loginform">
+	                                      <div class="form-group">
+	                                          <label for="username">Username</label>
+	                <div class="input-group pb-modalreglog-input-group">
+	                  <input id="username" class="form-control"  type="text" name="username" placeholder="Username" value="<?php if(isset($error) AND $error) {echo $username;} ?>" />
+	                                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+	                </div>
+	                  </div>
 
 
-					<a  href="forget.php" target="_blank">Forgot Password? </a>
-					</br></br>
-					<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-																	<button type="submit" class="btn btn-warning">Log in</button>
-														</div> <!-- ending modal-footer -->
+	              <div class="form-group">
+	                                            <label for="password">Password</label>
+	                                            <div class="input-group pb-modalreglog-input-group">
+	                                                <input type="password" name="pass" class="form-control" id="pws" placeholder="Password">
+	                                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+	                                          </div>
+	                                      </div>
 
 
-																		</form>`
-
-														</div><!-- modal-body-->
-
-
-
-<!--login form ends-->
-											</div><!--modal-content-->
+	        <a  href="forget.php" target="_blank">Forgot Password? </a>
+	        </br></br>
+	        <div class="modal-footer">
+	                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	                                <button type="submit" class="btn btn-warning">Log in</button>
+	                          </div> <!-- ending modal-footer -->
 
 
-							</div><!-- modal-dialog -->
-					</div>
+	                                  </form>`
 
-					<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title" id="myModalLabel">Registration form</h4>
-														<?php if(isset($signup_error)) { ?>
-														<div id="error" class="alert alert-danger" role="alert"><?php echo $signup_error["error_msg"] ?></div>
-													<?php } ?>
-                        </div><!--modal header-->
-                        <div class="modal-body">
+	                          </div><!-- modal-body-->
 
-				<!--form for registration -->
-                            <form class="pb-modalreglog-form-reg" method="post" action="process.php" onsubmit="return Validation();">
-				<div class="form-group">
-                                   	<label for="username">Username</label>
- 					<div class="input-group pb-modalreglog-input-group">
-						<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-						<input id="username" class="form-control"  type="text" name="username" placeholder="Username" value="<?php if(isset($signup_error)) { echo $signup_error['username']; } ?>" required/>
-                                        </div>
-    				</div>
-                                <div class="form-group">
-                                    <label for="email">Email address</label>
-                                    <div class="input-group pb-modalreglog-input-group">
-                                        <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                                        <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" value="<?php if(isset($signup_error)) { echo $signup_error['email']; } ?>" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <div class="input-group pb-modalreglog-input-group">
-                                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                                        <input type="password" class="form-control" id="pass" placeholder="Password" name="password" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="confirmpassword">Confirm password</label>
-                                    <div class="input-group pb-modalreglog-input-group">
-                                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                                        <input type="password" class="form-control" id="confirmpass" placeholder="Confirm Password" required>
-                                    </div>
-                                </div>
-				<div class="form-group">
-					<label for = "phoneno">Contact Number</label><br />
- 					<div class="input-group pb-modalreglog-input-group">
-                                        	<span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
-						 <input type = "text" class="form-control" name = "phoneno" id="phoneno" maxlength = "10" placeholder = "Enter a valid phone number" pattern = "[0-9]{10}" value="<?php if(isset($signup_error)) { echo $signup_error['phoneno']; } ?>">
-       					</div>
-				</div>
 
-                                <div class="form-group">
-                                    <input type="checkbox" id="ch" name="chs" required>
-                                    I agree with <a href="#" style="color:orange">terms and conditions.</a>
-                                </div>
-				<div class="modal-footer">
-                            		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            		<button type="submit" class="btn btn-warning">Sign up</button>
-                        	</div>
-                            </form>
-				<!-- form registration ended-->
-                        </div><!--modal-content -->
 
-                    </div><!-- "modal-dialog -->
-                </div><!-- modal fade -->
-            </div>
+	<!--login form ends-->
+	                    </div><!--modal-content-->
 
-					<?php } else { ?>
 
-						<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModal" aria-hidden="true">
-								<div class="modal-dialog" role="document">
-								<div class="modal-content">
-											<div class="modal-header">
-												<h3><?php echo $_SESSION["logged"]["username"]."'s account"; ?>
-													<button type="button" class="btn btn-default btn-sm pull-right" onclick="editme(); "><span class="glyphicon glyphicon-pencil"></span></button>
-												</h3>
-												<?php if(isset($pop_profile)) { ?>
-												<div id="error" class="alert alert-success" role="alert"><?php echo $pop_profile ?></div>
-											<?php } ?>
-											</div>
+	            </div><!-- modal-dialog -->
+	        </div>
 
-											<div class="modal-body">
-												<form action = "update.php" method="post" id="editform">
-													<input type="hidden" name="doc_id" value="<?php echo $_SESSION['logged']['_id']; ?>" readonly>
-												<table class="table">
-											    <tbody>
-											      <tr>
-											        <td>Username: </td>
-											        <td><input class="readonly" name="edit_username" id="edit_username" value="<?php echo $_SESSION["logged"]["username"]; ?>" readonly></td>
+	        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	              <div class="modal-dialog modal-sm" role="document">
+	                  <div class="modal-content">
+	                      <div class="modal-header">
+	                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                              <span aria-hidden="true">&times;</span>
+	                          </button>
+	                          <h4 class="modal-title" id="myModalLabel">Registration form</h4>
+	                          <?php if(isset($signup_error)) { ?>
+	                          <div id="error" class="alert alert-danger" role="alert"><?php echo $signup_error["error_msg"] ?></div>
+	                        <?php } ?>
+	                      </div><!--modal header-->
+	                      <div class="modal-body">
 
-											      </tr>
-											      <tr>
-											        <td>Email ID: </td>
-											        <td><input class="readonly" name="edit_email" id="edit_email" value="<?php echo $_SESSION["logged"]["email"]; ?>" readonly></td>
-											      </tr>
-											      <tr>
-											        <td>Phone No.:</td>
-											        <td><input class="readonly" name="edit_phoneno" id="edit_phoneno" value="<?php echo $_SESSION["logged"]["phoneno"]; ?>" readonly></td>
-											      </tr>
+	      <!--form for registration -->
+	                          <form class="pb-modalreglog-form-reg" method="post" action="process.php" onsubmit="return Validation();">
+	      <div class="form-group">
+	                                  <label for="username">Username</label>
+	        <div class="input-group pb-modalreglog-input-group">
+	          <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+	          <input id="username" class="form-control"  type="text" name="username" placeholder="Username" value="<?php if(isset($signup_error)) { echo $signup_error['username']; } ?>" required/>
+	                                      </div>
+	          </div>
+	                              <div class="form-group">
+	                                  <label for="email">Email address</label>
+	                                  <div class="input-group pb-modalreglog-input-group">
+	                                      <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+	                                      <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" value="<?php if(isset($signup_error)) { echo $signup_error['email']; } ?>" required>
+	                                  </div>
+	                              </div>
+	                              <div class="form-group">
+	                                  <label for="password">Password</label>
+	                                  <div class="input-group pb-modalreglog-input-group">
+	                                      <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+	                                      <input type="password" class="form-control" id="pass" placeholder="Password" name="password" required>
+	                                  </div>
+	                              </div>
+	                              <div class="form-group">
+	                                  <label for="confirmpassword">Confirm password</label>
+	                                  <div class="input-group pb-modalreglog-input-group">
+	                                      <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+	                                      <input type="password" class="form-control" id="confirmpass" placeholder="Confirm Password" required>
+	                                  </div>
+	                              </div>
+	      <div class="form-group">
+	        <label for = "phoneno">Contact Number</label><br />
+	        <div class="input-group pb-modalreglog-input-group">
+	                                        <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
+	           <input type = "text" class="form-control" name = "phoneno" id="phoneno" maxlength = "10" placeholder = "Enter a valid phone number" pattern = "[0-9]{10}" value="<?php if(isset($signup_error)) { echo $signup_error['phoneno']; } ?>">
+	              </div>
+	      </div>
 
-											    </tbody>
-											  </table>
-												<div class="modal-footer">
-														<button type="button" onclick=" window.location.href='change_password.php'; " class="btn btn-warning hidden"><span class="glyphicon glyphicon-lock"></span>Change Password</button>
-								            <button type="submit" class="btn btn-warning hidden"><span class="glyphicon glyphicon-edit"></span>Update Details</button>
-								        </div>
-											</form>
-												<form method="post" action=".">
-												<input type="hidden" value="logout" name="logout">
-												<button type="submit" class="btn btn-warning">Log Out</button>
-												<button type="button" class="btn btn-secondary pull-right" data-dismiss="modal">Close</button>
-											</form>
-											</div>
-								</div>
-								</div>
-							</div>
+	                              <div class="form-group">
+	                                  <input type="checkbox" id="ch" name="chs" required>
+	                                  I agree with <a href="#" style="color:orange">terms and conditions.</a>
+	                              </div>
+	      <div class="modal-footer">
+	                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	                              <button type="submit" class="btn btn-warning">Sign up</button>
+	                        </div>
+	                          </form>
+	      <!-- form registration ended-->
+	                      </div><!--modal-content -->
 
-						<?php } ?>
+	                  </div><!-- "modal-dialog -->
+	              </div><!-- modal fade -->
+	          </div>
 
-<?php if (isset($show_login) AND $show_login = True) { echo "<script type='text/javascript'>$('#myModal').modal('show');</script>"; } ?>
-<?php if (isset($signup_error)) {echo "<script type='text/javascript'>$('#myModal2').modal('show');</script>"; } ?>
-<?php if (isset($pop_profile)) {echo "<script type='text/javascript'>$('#userModal').modal('show');</script>"; } ?>
+	        <?php } else { ?>
+
+	          <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModal" aria-hidden="true">
+	              <div class="modal-dialog" role="document">
+	              <div class="modal-content">
+	                    <div class="modal-header">
+	                      <h3><?php echo $_SESSION["logged"]["username"]."'s account"; ?>
+	                        <button type="button" class="btn btn-default btn-sm pull-right" onclick="editme(); "><span class="glyphicon glyphicon-pencil"></span></button>
+	                      </h3>
+	                      <?php if(isset($pop_profile)) { ?>
+	                      <div id="error" class="alert alert-success" role="alert"><?php echo $pop_profile ?></div>
+	                    <?php } ?>
+	                    </div>
+
+	                    <div class="modal-body">
+	                      <form action = "update.php" method="post" id="editform">
+	                        <input type="hidden" name="doc_id" value="<?php echo $_SESSION['logged']['_id']; ?>" readonly>
+	                      <table class="table">
+	                        <tbody>
+	                          <tr>
+	                            <td>Username: </td>
+	                            <td><input class="readonly" name="edit_username" id="edit_username" value="<?php echo $_SESSION["logged"]["username"]; ?>" readonly></td>
+
+	                          </tr>
+	                          <tr>
+	                            <td>Email ID: </td>
+	                            <td><input class="readonly" name="edit_email" id="edit_email" value="<?php echo $_SESSION["logged"]["email"]; ?>" readonly></td>
+	                          </tr>
+	                          <tr>
+	                            <td>Phone No.:</td>
+	                            <td><input class="readonly" name="edit_phoneno" id="edit_phoneno" value="<?php echo $_SESSION["logged"]["phoneno"]; ?>" readonly></td>
+	                          </tr>
+
+	                        </tbody>
+	                      </table>
+	                      <div class="modal-footer">
+	                          <button type="button" onclick=" window.location.href='change_password.php'; " class="btn btn-warning hidden"><span class="glyphicon glyphicon-lock"></span>Change Password</button>
+	                          <button type="submit" class="btn btn-warning hidden"><span class="glyphicon glyphicon-edit"></span>Update Details</button>
+	                      </div>
+	                    </form>
+	                      <form method="post" action=".">
+	                      <input type="hidden" value="logout" name="logout">
+	                      <button type="submit" class="btn btn-warning">Log Out</button>
+	                      <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal">Close</button>
+	                    </form>
+	                    </div>
+	              </div>
+	              </div>
+	            </div>
+
+	          <?php } ?>
+
+	<?php if (isset($show_login) AND $show_login = True) { echo "<script type='text/javascript'>$('#myModal').modal('show');</script>"; } ?>
+	<?php if (isset($signup_error)) {echo "<script type='text/javascript'>$('#myModal2').modal('show');</script>"; } ?>
+	<?php if (isset($pop_profile)) {echo "<script type='text/javascript'>$('#userModal').modal('show');</script>"; } ?>
 	<!-- modals end -->
+	<!-- start footer -->
 
-
-<?php include("footer.php"); ?>
+	<?php include("footer.php"); ?>
