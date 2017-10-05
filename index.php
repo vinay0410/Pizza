@@ -44,7 +44,7 @@ include("header.php");
 					<h3 class="text-uppercase padding-bottom-10">Another Baker</h3>
 					<p>Pizza Villa is about much more than pizzas. From freshly sauteed pastas and delicious appetizers to mocktails, desserts, soups and salads, we have a wide range for you to feast on. All this, combined with the warm, inviting ambience and friendly service, will lead to endless conversations, laughter and memories that you'll cherish forever. So, let your hair down and feel at ease. Go ahead and enjoy the All New Pizza Villa experience!</p>
 
-
+					</div>
 				<div class="col-md-6 col-sm-6">
 					<img src="images/about-img1.jpg" class="img-responsive img-bordered img-about" alt="about img">
 				</div>
@@ -318,7 +318,7 @@ include("header.php");
 					<p><i class="fa fa-envelope-o contact-fa"></i>
                     	<a href="mailto:hello@pizzavilla.com" class="contact-link">hello@pizzavilla.com.com</a></p>
 				</div>
-				
+
 				<div class="col-md-4 col-sm-4">
 					<div class="google_map">
 						<div id="map-canvas" class="map"></div>
