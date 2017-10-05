@@ -1,0 +1,61 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "25e0e9b31d8a169f86ec2fbcb18d1c5d",
+    "packages": [
+        {
+            "name": "sag/sag",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sbisbee/sag.git",
+                "reference": "b81c26bdbda13341f86b3de41e0241a9005c7c08"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sbisbee/sag/zipball/b81c26bdbda13341f86b3de41e0241a9005c7c08",
+                "reference": "b81c26bdbda13341f86b3de41e0241a9005c7c08",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "lib-curl": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Sam Bisbee",
+                    "email": "sam@sbisbee.com",
+                    "homepage": "http://www.sbisbee.com/"
+                }
+            ],
+            "description": "A simple but powerful PHP library for talking to CouchDB.",
+            "homepage": "http://www.saggingcouch.com/",
+            "time": "2014-06-19 17:52:52"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "sag/sag": 20
+    },
+    "platform": [],
+    "platform-dev": []
+}
