@@ -29,8 +29,8 @@ if (isset($_POST["edit_username"])) {
   }
   if (empty($error_msg)) {
 
-    $result = $collection->findOne(array('username' => $username));
-    if (empty($result)) {
+    $result = $collection->findOne(array('_id' => new MongoId($id)));
+    if (($result["username"] == $username) || (!$collection->findOne(array('username' => $username)))) {
 
         //change password
         $collection->update(array('_id' => new MongoId($id)), array('$set'=>array("username" => $username, "email" => $email, "phoneno" => $phoneno)));
