@@ -23,6 +23,10 @@
     $result = $collection->findOne(array('email' => $email));
     if (!empty($result)) {
 
+
+
+
+
       $msg = "First line of text\nSecond line of text ".$result["password"];
 
   // use wordwrap() if lines are longer than 70 characters

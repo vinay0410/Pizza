@@ -1,5 +1,6 @@
 {
     "require": {
-        "sag/sag" : "dev-master"
+        "sag/sag" : "dev-master",
+	"sendgrid/sendgrid" : "2.1.1"
     }
 }
