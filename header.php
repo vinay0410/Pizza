@@ -156,8 +156,8 @@ background-color:white;
 					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { echo '#home'; } else {echo '.'; } ?>" class="smoothScroll">HOME</a></li>
 					<li><a href="#about" class="smoothScroll">ABOUT</a></li>
 					<li><a href="#menu" class="smoothScroll">MENU</a></li>
-					<li><a href="#gallery" class="smoothScroll">GALLERY</a></li>
 					<li><a href="#feedback" class="smoothScroll">FEEDBACK</a></li>
+					
 					<?php if(!isset($_SESSION["logged"])) { ?>
 					<li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal">Login</button><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal2">Register</button></a></li>
 				<?php } else { ?>

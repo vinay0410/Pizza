@@ -42,13 +42,9 @@ include("header.php");
 				</div>
 				<div class="col-md-6 col-sm-6">
 					<h3 class="text-uppercase padding-bottom-10">Another Baker</h3>
-					<p>Pizza responsive web template is provided by <a rel="nofollow" href="http://www.templatemo.com" target="_parent">templatemo</a> website. Feel free to download, adapt, and use this template for your websites. Credit goes to <a rel="nofollow" href="http://pixabay.com" target="_parent">Pixabay</a> for images used in this template.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet. Dolore magna aliquam erat volutpat.</p>
-					<p>Proin enim sem, ultricies sit amet convallis nec, sodales quis augue. Duis consequat felis ac justo luctus, a cursus tellus pharetra. In ullamcorper gravida enim id pulvinar.</p>
+					<p>Pizza Villa is about much more than pizzas. From freshly sauteed pastas and delicious appetizers to mocktails, desserts, soups and salads, we have a wide range for you to feast on. All this, combined with the warm, inviting ambience and friendly service, will lead to endless conversations, laughter and memories that you'll cherish forever. So, let your hair down and feel at ease. Go ahead and enjoy the All New Pizza Villa experience!</p>
 
-					<button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal">Login</button>
-          <button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal2">Register</button>
-				</div>
+
 				<div class="col-md-6 col-sm-6">
 					<img src="images/about-img1.jpg" class="img-responsive img-bordered img-about" alt="about img">
 				</div>
@@ -282,65 +278,6 @@ include("header.php");
 
 <!-- end menu -->
 
-	<!-- start gallery -->
-	<section id="gallery" class="templatemo-section templatemo-light-gray-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h2 class="text-center text-uppercase">Gallery</h2>
-					<hr>
-				</div>
-				<div class="col-md-4 col-sm-4">
-					<div class="gallery-wrapper">
-						<img src="images/gallery-img1.jpg" class="img-responsive gallery-img" alt="Pizza 1">
-						<div class="gallery-des">
-							<h3>Curabitur </h3>
-							<h5>Cras in ante mattis, elementum nunc sed.</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4">
-					<div class="gallery-wrapper">
-						<img src="images/gallery-img2.jpg" class="img-responsive gallery-img" alt="Pizza 2">
-						<div class="gallery-des">
-							<h3>Lorem ipsum</h3>
-							<h5>In ullamcorper gravida enim id pulvinar</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4">
-					<div class="gallery-wrapper">
-						<img src="images/gallery-img3.jpg" class="img-responsive gallery-img" alt="Pizza 3">
-						<div class="gallery-des">
-							<h3>Pellentesque</h3>
-							<h5>Maecenas efficitur nisi id sapien</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-sm-6">
-					<div class="gallery-wrapper">
-						<img src="images/gallery-img4.jpg" class="img-responsive gallery-img" alt="Pizza 4">
-						<div class="gallery-des">
-							<h3>Suspendisse</h3>
-							<h5>Mauris sit amet augue sit amet risus</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-sm-6">
-					<div class="gallery-wrapper">
-						<img src="images/gallery-img5.jpg" class="img-responsive gallery-img" alt="Pizza 5">
-						<div class="gallery-des">
-							<h3>Elementum</h3>
-							<h5>Maecenas efficitur nisi id sapien</h5>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- end gallery -->
-
-
 	<!-- start contact -->
 	<section id="feedback" class="templatemo-section">
 		<div class="container">
@@ -371,24 +308,17 @@ include("header.php");
 				</div>
 				<div class="col-md-2"></div>
 				<div class="col-md-4 col-sm-4">
-					<h3 class="padding-bottom-10 text-uppercase">Visit our shop</h3>
-					<p><i class="fa fa-map-marker contact-fa"></i> 63 Another Walking Street, BKK 18080</p>
+					<h3 class="padding-bottom-10 text-uppercase">Fet in Touch with us</h3>
+
 					<p>
 						<i class="fa fa-phone contact-fa"></i>
 						<a href="tel:010-020-0340" class="contact-link">010-020-0340</a>,
 						<a href="tel:080-090-0660" class="contact-link">080-090-0660</a>
 					</p>
 					<p><i class="fa fa-envelope-o contact-fa"></i>
-                    	<a href="mailto:hello@company.com" class="contact-link">hello@company.com</a></p>
+                    	<a href="mailto:hello@pizzavilla.com" class="contact-link">hello@pizzavilla.com.com</a></p>
 				</div>
-				<div class="col-md-4 col-sm-4">
-					<h3 class="text-uppercase">Opening hours</h3>
-					<p><i class="fa fa-clock-o contact-fa"></i> 7:00 AM - 11:00 PM</p>
-					<p><i class="fa fa-bell-o contact-fa"></i> Monday to Friday and Sunday</p>
-                    <p><i class="fa fa-download contact-fa"></i>
-                    	<a class="contact-link" rel="nofollow"
-                        	href="http://fontawesome.io/icons/" target="_blank">Change Icons</a></p>
-			  	</div>
+				
 				<div class="col-md-4 col-sm-4">
 					<div class="google_map">
 						<div id="map-canvas" class="map"></div>
