@@ -160,6 +160,9 @@ $outlet_array = array();
 			<?php if(isset($error_del_msg)) { ?>
 			<div id="error" class="alert alert-danger" role="alert"><?php echo $error_del_msg; ?></div>
 		<?php } ?>
+		<?php if(isset($error_outlet_msg)) { ?>
+		<div id="error" class="alert alert-danger" role="alert"><?php echo $error_outlet_msg; ?></div>
+	<?php } ?>
 			<?php if(isset($success)) { ?>
 			<div id="error" class="alert alert-success" role="alert"><?php echo $success; ?></div>
 		<?php } ?>
