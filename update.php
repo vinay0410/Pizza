@@ -29,17 +29,20 @@ if (isset($_POST["edit_username"])) {
   }
   if (empty($error_msg)) {
 
-    $result = $collection->findOne(array('_id' => new MongoId($id)));
-    var_dump($result);
+    $result = $collection->findOne(array('username' => $username));
+    if (empty($result)) {
 
         //change password
         $collection->update(array('_id' => new MongoId($id)), array('$set'=>array("username" => $username, "email" => $email, "phoneno" => $phoneno)));
         $result = $collection->findOne(array('_id' => new MongoId($id)));
-        $_SESSION["pop_profile"] = "Details Updated Successfully!";
+        $_SESSION["pop_profile"] = array("type" => "success", "msg" => "Details Updated Successfully!");
 
         $_SESSION["logged"] = $result;
         header("Location: .");
-
+      } else {
+        $_SESSION["pop_profile"] = array("type" => "danger", "msg" => "Username already exists!");
+        header("Location: .");
+      }
 
 
   }

@@ -1,28 +1,157 @@
-<!DOCTYPE html>
-<html>
-<head>
+<?php include("header.php"); ?>
 
 
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+<?php
+	if (isset($_POST["outlet"])) {
+		$outlet = $_POST["outlet"];
+		$outlet_addr = $_POST["outlet-addr"];
+		$supervisor_name = $_POST["supervisor-name"];
+		$supervisor_email = $_POST["supervisor-email"];
+		$supervisor_phone = $_POST["supervisor-phone"];
 
-	<!-- bootstrap -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-  <script src="js/jquery.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+		   try {
 
-	<link rel="stylesheet" href="css/font-awesome.min.css">
+		    $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+		    $db = $m->Pizza;
+		    $collection = $db->outlets;
 
-	<link rel="stylesheet" href="css/templatemo-style.css">
-	<!-- google font -->
-	<link href='//fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
-	<link href='//fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
+		   } catch(Exception $e) {
+		     #die("Caught Exception failed to Connect".$e->getMessage()."\n");
+
+
+		     $error_msg = "Couldn't Connect to Database";
+
+		   }
+
+			 if (empty($error_msg)) {
+				 $result = $collection->findOne(array('outlet' => $outlet));
+		     #var_dump($result);
+
+		       if (empty($result)) {
+
+
+						     $document = array(
+						         "outlet" => $outlet,
+						         "outlet_addr" => $outlet_addr,
+						         "supervisor_name" => $supervisor_name,
+						         "supervisor_email" => $supervisor_email,
+										 "supervisor_phone" => $supervisor_phone
+						      );
+
+						      $collection->insert($document);
+									
+
+		       } else {
+
+		         $error_msg = "Outlet Already Exists";
+		       }
+
+
+			 }
+
+	}
+
+
+
+?>
+
+<div class="container pb-modalreglog-container">
+
+
+<div class="panel panel-default">
+      <div class="panel-heading"><h3>Outlets
+				<button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#outletModal"><span class="glyphicon glyphicon-plus"></span>Add Outlet</button>
+			</h3>
+
+
+			</div>
+      <div class="panel-body">
+				<div class="list-group">
+  			<a href="#" class="list-group-item">
+	    		<h4 class="list-group-item-heading">Outlet Name</h4>
+	    		<p class="list-group-item-text">Details</p>
+  			</a>
+  			<a href="#" class="list-group-item">
+    <h4 class="list-group-item-heading">Outlet Name</h4>
+    <p class="list-group-item-text">Outlet Details</p>
+  </a>
+  <a href="#" class="list-group-item">
+    <h4 class="list-group-item-heading">Outlet Name</h4>
+    <p class="list-group-item-text">Outlet Details</p>
+  </a>
+</div>
+			</div>
+</div>
+
+</div>
+
+<!-- Outlet Modal start -->
+
+<div id="outletModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Outlet</h4>
+      </div>
+      <div class="modal-body">
+				<form class="form-horizontal" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+				  <div class="form-group">
+				    <label class="control-label col-sm-2" for="outlet">Outlet Name: </label>
+				    <div class="col-sm-3">
+				      <input type="text" class="form-control" name="outlet" id="outlet" placeholder="Outlet NickName">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="control-label col-sm-2" for="outlet-addr">Outlet Address</label>
+				    <div class="col-sm-3">
+				      <input type="text" class="form-control" id="outlet-addr" name="outlet-addr" placeholder="Enter Outlet Address">
+				      <input id="map-submit" type="button" class="btn btn-default" value="See on Map">
+				      <div id="map" style="width: 400px; height: 400px;"></div>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="control-label col-sm-2" for="supervisor-name">Supervisor Name: </label>
+				    <div class="col-sm-5">
+				      <input type="text" class="form-control" id="supervisor-name" name="sup-name" placeholder="Supervisor's name">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="control-label col-sm-2" for="supervisor-email">Supervisor Email: </label>
+				    <div class="col-sm-5">
+				      <input type="email" class="form-control" id="supervisor-email" name="sup-email" placeholder="Supervisor's email">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="control-label col-sm-2" for="supervisor-phone">Supervisor Contact No.: </label>
+				    <div class="col-sm-5">
+				      <input type="email" class="form-control" id="supervisor-phone" name="sup-phone" placeholder="Supervisor's phone">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-sm-offset-2 col-sm-10">
+				      <button type="submit" class="btn btn-default">Submit</button>
+				    </div>
+				  </div>
+				</form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Outlet Modal End -->
 
 	<script>
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
+          zoom: 3,
           center: {lat: 36.6139, lng: 60.2090}
         });
         var geocoder = new google.maps.Geocoder();
@@ -53,6 +182,8 @@
             alert('Geocode was not successful for the following reason: ' + status);
           }
         });
+
+				console.log(results[0].geometry.location);
       }
 
 
@@ -64,68 +195,9 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2nLH2Yr5OH-QJ8WxG5f-AZFmTLqtkC0I&callback=initMap">
     </script>
 
-</head>
-<body>
 
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#outletModal">Add Outlet</button>
-<div id="outletModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add Outlet</h4>
-      </div>
-      <div class="modal-body">
-				<form class="form-horizontal">
-				  <div class="form-group">
-				    <label class="control-label col-sm-2" for="outlet">Outlet Name: </label>
-				    <div class="col-sm-3">
-				      <input type="email" class="form-control" id="outlet" placeholder="Outlet NickName">
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <label class="control-label col-sm-2" for="outlet-addr">Outlet Address</label>
-				    <div class="col-sm-3">
-				      <input type="text" class="form-control" id="outlet-addr" placeholder="Enter Outlet Address">
-				      <input id="map-submit" type="button" class="btn btn-default" value="See on Map">
-				      <div id="map" style="width: 400px; height: 400px;"></div>
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <label class="control-label col-sm-2" for="supervisor-name">Supervisor Name: </label>
-				    <div class="col-sm-5">
-				      <input type="text" class="form-control" id="supervisor-name" placeholder="Supervisor's name">
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <label class="control-label col-sm-2" for="supervisor-email">Supervisor Email: </label>
-				    <div class="col-sm-5">
-				      <input type="email" class="form-control" id="supervisor-email" placeholder="Supervisor's email">
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <label class="control-label col-sm-2" for="supervisor-phone">Supervisor Contact No.: </label>
-				    <div class="col-sm-5">
-				      <input type="email" class="form-control" id="supervisor-phone" placeholder="Supervisor's phone">
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <div class="col-sm-offset-2 col-sm-10">
-				      <button type="submit" class="btn btn-default">Submit</button>
-				    </div>
-				  </div>
-				</form>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-</body>
-</html>
+<?php include("modals.php"); ?>
+<button type="button" class="btn btn-info btn-lg pull-right" data-toggle="modal" data-target="#outletModal">Add Outlet</button>
+<?php include("footer.php"); ?>

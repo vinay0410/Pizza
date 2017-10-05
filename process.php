@@ -2,7 +2,7 @@
 
 session_start();
 
-
+echo "to be printed";
 
 if (isset($_POST["username"])) {
 
@@ -19,7 +19,7 @@ if (isset($_POST["username"])) {
    $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
    $db = $m->Pizza;
    $collection = $db->users;
-
+   var_dump($collection);
   } catch(Exception $e) {
     #die("Caught Exception failed to Connect".$e->getMessage()."\n");
 
@@ -31,16 +31,16 @@ if (isset($_POST["username"])) {
         "phoneno" => $phoneno,
         "error_msg" => $error_msg
      );
-     header("Location: .");
 
+     header("Location: .");
   }
 
 
-  if (!isset($_SESSION["signup-error"])) {
-
+  if (empty($_SESSION["signup-error"])) {
+    echo "to be printed 1";
     $result = $collection->findOne(array('username' => $username));
     if (empty($result)) {
-
+    echo "to be printed 2";
     $document = array(
         "username" => $username,
         "email" => $email,
@@ -53,8 +53,7 @@ if (isset($_POST["username"])) {
      $_SESSION["reg-success"] = True;
      header("Location: .");
   }
-
-  } else {
+  else {
     $error_msg = "Username Already Exists";
     $_SESSION["signup-error"] = array(
         "username" => $username,
@@ -63,8 +62,11 @@ if (isset($_POST["username"])) {
         "phoneno" => $phoneno,
         "error_msg" => $error_msg
      );
+     echo "Already exists";
      header("Location: .");
   }
+
+}
 
 } else {
   echo "Access Denied, You, shouldn't be here";
