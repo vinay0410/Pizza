@@ -128,7 +128,7 @@
 		#die("Caught Exception failed to Connect".$e->getMessage()."\n");
 
 
-		$error_outlet_msg = "Couldn't Load Outlets";
+		$error_outlet_msg = "Couldn't Load Outlets, Connection Failed!";
 
 	}
 
