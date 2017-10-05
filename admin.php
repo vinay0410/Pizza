@@ -177,7 +177,7 @@ $outlet_array = array();
 				<div class="panel list-group">
 
 					<?php
-					if ($outlet_count == 0) {
+					if ($outlet_count == 0 && empty($error_outlet_msg)) {
 						echo '<p>Oh, Your chain has no Outlets yet!</p>';
 					} else {
 						$index = 0;
