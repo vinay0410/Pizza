@@ -243,7 +243,7 @@ $outlet_array = array();
 				  <div class="form-group">
 				    <label class="control-label col-sm-2" for="outlet-addr">Outlet Address</label>
 				    <div class="col-sm-5">
-				      <input type="text" class="form-control" id="outlet-addr" name="outlet-addr" placeholder="Enter Outlet Address" value="<?php if(isset($error_edit_msg)) { echo $outlet_addr; } ?>">
+				      <input type="text" class="form-control" id="outlet-edit-addr" name="outlet-addr" placeholder="Enter Outlet Address" value="<?php if(isset($error_edit_msg)) { echo $outlet_addr; } ?>">
 				      <input id="map-submit-edit" type="button" class="btn btn-default" value="See on Map">
 				      <div id="map-edit" style="width: 400px; height: 400px;"></div>
 				    </div>
@@ -403,7 +403,13 @@ $outlet_array = array();
       }
 
       function geocodeAddress(geocoder, resultsMap) {
-        var address = document.getElementById('outlet-addr').value;
+        var add_address = document.getElementById('outlet-addr').value;
+				var edit_address = document.getElementById('outlet-edit-addr').value;
+				if (add_address) {
+					address = add_address;
+				} else {
+					address = edit_address;
+				}
         geocoder.geocode({'address': address}, function(results, status) {
           if (status === 'OK') {
             resultsMap.setCenter(results[0].geometry.location);
@@ -418,7 +424,7 @@ $outlet_array = array();
           }
         });
 
-				console.log(results[0].geometry.location);
+
       }
 
 
