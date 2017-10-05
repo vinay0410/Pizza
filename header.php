@@ -157,12 +157,13 @@ background-color:white;
 					<li><a href="#about" class="smoothScroll">ABOUT</a></li>
 					<li><a href="#menu" class="smoothScroll">MENU</a></li>
 					<li><a href="#feedback" class="smoothScroll">FEEDBACK</a></li>
-					
+
 					<?php if(!isset($_SESSION["logged"])) { ?>
 					<li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal">Login</button><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal2">Register</button></a></li>
 				<?php } else { ?>
           <li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#userModal"><?php echo 'Hi '.$_SESSION["logged"]["username"]; ?></button></a></li>
 				<?php } ?>
+				<li><a href="admin.php"><button class="btn btn-warning pb-modalreglog-submit"> Admin's Portal</button></a></li>
 			</div>
 		</div>
 	</div>

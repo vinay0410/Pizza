@@ -16,10 +16,10 @@ $VcapSvs = $services_json["sendgrid"][0]["credentials"];
  $mySmtpHostname = $VcapSvs["hostname"];
 
  try {
-  $sendgrid = new SendGrid($myUsername, $myPassword, array("turn_off_ssl_verification" => true));
+  $sendgrid = new SendGrid("yjCiLKQCij", "CZyHi2OJ5orv9542", array("turn_off_ssl_verification" => true));
   $email = new SendGrid\Email();
-  $email->addTo(getenv("FROM_EMAIL"))->
-         setFrom(getenv("TO_EMAIL"))->
+  $email->addTo("vinay0410sharma@gmail.com")->
+         setFrom("someone@pizzavilla.com")->
          setSubject('Greetings')->
          setText('<strong>Hello from SendGrid!</strong>');
   // Assuming everything above was executed without error, we have sent the email
