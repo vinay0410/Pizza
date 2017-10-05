@@ -446,5 +446,4 @@ $outlet_array = array();
 
 
 <?php include("modals.php"); ?>
-<button type="button" class="btn btn-info btn-lg pull-right" data-toggle="modal" data-target="#outletModal">Add Outlet</button>
 <?php include("footer.php"); ?>
