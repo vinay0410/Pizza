@@ -2,12 +2,14 @@
 // Licensed under the Apache License. See footer for details.
 //We need the Sendgrid PHP library. The library is used to send email.
 //We only need to do this once!
+echo "I am here";
 require("vendor/autoload.php");
 //Get authentication Variables from VCAPS_SERVICES. We first need to pull in our Sendgrid
 //connection variables from the VCAPS_SERVICES environment variable. This environment variable
 //will be put in your project by Bluemix once you bind the Sendgrid service to your Bluemix
 //application.
 // vcap_services Extraction
+echo "loaded vendor files"
 $services_json = json_decode(getenv('VCAP_SERVICES'),true);
 $VcapSvs = $services_json["sendgrid"][0]["credentials"];
 //Debug: If you want to see all the variables returned you can use this line of code.
