@@ -1,54 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "25e0e9b31d8a169f86ec2fbcb18d1c5d",
+    "content-hash": "9cc8cf28bc80b68fedfa75fa67c5ed71",
     "packages": [
-        {
-            "name": "sag/sag",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sbisbee/sag.git",
-                "reference": "b81c26bdbda13341f86b3de41e0241a9005c7c08"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sbisbee/sag/zipball/b81c26bdbda13341f86b3de41e0241a9005c7c08",
-                "reference": "b81c26bdbda13341f86b3de41e0241a9005c7c08",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*"
-            },
-            "suggest": {
-                "lib-curl": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Sam Bisbee",
-                    "email": "sam@sbisbee.com",
-                    "homepage": "http://www.sbisbee.com/"
-                }
-            ],
-            "description": "A simple but powerful PHP library for talking to CouchDB.",
-            "homepage": "http://www.saggingcouch.com/",
-            "time": "2014-06-19 17:52:52"
-        },
         {
             "name": "mashape/unirest-php",
             "version": "1.2.1",
@@ -96,39 +53,135 @@
                 "http",
                 "rest"
             ],
-            "time": "2014-04-05 23:28:21"
+            "time": "2014-04-05T23:28:21+00:00"
         },
         {
-            "name": "sendgrid/sendgrid",
-            "version": "2.1.1",
+            "name": "sag/sag",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sendgrid/sendgrid-php.git",
-                "reference": "3fba6604d46c584547762c0ececdd98ea78709dd"
+                "url": "https://github.com/sbisbee/sag.git",
+                "reference": "b81c26bdbda13341f86b3de41e0241a9005c7c08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sendgrid/sendgrid-php/zipball/3fba6604d46c584547762c0ececdd98ea78709dd",
-                "reference": "3fba6604d46c584547762c0ececdd98ea78709dd",
+                "url": "https://api.github.com/repos/sbisbee/sag/zipball/b81c26bdbda13341f86b3de41e0241a9005c7c08",
+                "reference": "b81c26bdbda13341f86b3de41e0241a9005c7c08",
                 "shasum": ""
             },
             "require": {
-                "mashape/unirest-php": "1.2.1",
-                "php": ">=5.3",
-                "sendgrid/smtpapi": "0.0.1"
-            },
-            "replace": {
-                "sendgrid/sendgrid-php": "*"
+                "php": ">=5.2.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*",
-                "vlucas/phpdotenv": "1.0.2"
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "lib-curl": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Sam Bisbee",
+                    "email": "sam@sbisbee.com",
+                    "homepage": "http://www.sbisbee.com/"
+                }
+            ],
+            "description": "A simple but powerful PHP library for talking to CouchDB.",
+            "homepage": "http://www.saggingcouch.com/",
+            "time": "2014-06-19T17:52:52+00:00"
+        },
+        {
+            "name": "sendgrid/php-http-client",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sendgrid/php-http-client.git",
+                "reference": "01c3fc4b94df008cfe03ffb467d4c6dbe6dcfb2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sendgrid/php-http-client/zipball/01c3fc4b94df008cfe03ffb467d4c6dbe6dcfb2c",
+                "reference": "01c3fc4b94df008cfe03ffb467d4c6dbe6dcfb2c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.4",
+                "squizlabs/php_codesniffer": "2.*"
             },
             "type": "library",
             "autoload": {
                 "psr-0": {
                     "SendGrid": "lib/"
                 }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matt Bernier",
+                    "email": "dx@sendgrid.com"
+                },
+                {
+                    "name": "Elmer Thomas",
+                    "email": "elmer@thinkingserious.com"
+                }
+            ],
+            "description": "HTTP REST client, simplified for PHP",
+            "homepage": "http://github.com/sendgrid/php-http-client",
+            "keywords": [
+                "api",
+                "fluent",
+                "http",
+                "rest",
+                "sendgrid"
+            ],
+            "time": "2016-06-11T00:47:24+00:00"
+        },
+        {
+            "name": "sendgrid/sendgrid",
+            "version": "5.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sendgrid/sendgrid-php.git",
+                "reference": "1050d195525ff529036e7804f2c303261d65dca3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sendgrid/sendgrid-php/zipball/1050d195525ff529036e7804f2c303261d65dca3",
+                "reference": "1050d195525ff529036e7804f2c303261d65dca3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3",
+                "sendgrid/php-http-client": "3.1.0"
+            },
+            "replace": {
+                "sendgrid/sendgrid-php": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "squizlabs/php_codesniffer": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/SendGrid.php",
+                    "lib/helpers/mail/Mail.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -142,7 +195,7 @@
                 "send",
                 "sendgrid"
             ],
-            "time": "2014-07-17 17:19:22"
+            "time": "2016-07-08T02:55:23+00:00"
         },
         {
             "name": "sendgrid/smtpapi",
@@ -190,7 +243,7 @@
                 "smtpapi",
                 "xsmtp"
             ],
-            "time": "2014-01-01 01:37:15"
+            "time": "2014-01-01T01:37:15+00:00"
         }
     ],
     "packages-dev": [],
@@ -199,6 +252,8 @@
     "stability-flags": {
         "sag/sag": 20
     },
+    "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": [],
     "platform-dev": []
 }

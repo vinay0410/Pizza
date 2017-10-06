@@ -177,6 +177,7 @@ $outlet_array = array();
 				<div class="panel list-group">
 
 					<?php
+					if (isset($outlet_count) OR isset($outlet_cursor)) {
 					if ($outlet_count == 0 && empty($error_outlet_msg)) {
 						echo '<p>Oh, Your chain has no Outlets yet!</p>';
 					} else {
@@ -192,7 +193,7 @@ $outlet_array = array();
 							</h4>
 			    		<p class="list-group-item-text"><?php echo $document['outlet_addr']?></p>
 		  			</a>
-						<div id="<?php echo $document['_id']; ?>" class="sublinks collapse">
+						<div id="<?php echo $document['_id']; ?>" class="sublinks collapse <?php if($index==0) {echo "in"; } ?>">
 					   <a class="list-group-item"><?php echo "Supervisor's Name: ".$document["supervisor_name"] ?></a>
 					   <a class="list-group-item"><?php echo "Supervisor's EmailID: ".$document["supervisor_email"] ?></a>
 						 <a class="list-group-item"><?php echo "Supervisor's PhoneNo: ".$document["supervisor_phone"] ?></a>
@@ -203,7 +204,9 @@ $outlet_array = array();
 				}
 
 
-					}?>
+					}
+
+				}?>
 
 
 					<script type="text/javascript">
