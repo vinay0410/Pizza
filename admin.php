@@ -187,7 +187,7 @@ $outlet_array = array();
 						?>
 
 						<a href="#" class="list-group-item" data-toggle="collapse" data-target="<?php echo "#".$document['_id']; ?>" data-parent="#accordion">
-			    		<h4 class="list-group-item-heading"><?php echo $document['outlet']?>
+			    		<h4 class="list-group-item-heading accordion-toggle"><?php echo $document['outlet']?>
 								<button type="button" class="btn btn-danger btn-space pull-right" id="<?php echo $index; ?>" onclick="deleteOutlet(this);"><span class="glyphicon glyphicon-remove"></span> </button>
 								<button type="button" name="edit_modal" class="btn btn-default btn-space pull-right" data-toggle="modal" data-target="#outletEditModal" onclick="putContents(this); " id="<?php echo $index; ?>" ><span class="glyphicon glyphicon-pencil"></span> </button>
 							</h4>
@@ -362,6 +362,9 @@ $outlet_array = array();
 <!-- Outlet Modal End -->
 
 	<script>
+	
+
+
 			function deleteOutlet(param) {
 
 				var num = parseInt(param.id);
