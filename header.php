@@ -154,14 +154,14 @@ background-color:white;
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { echo '#home'; } else {echo '.'; } ?>" class="smoothScroll">HOME</a></li>
-					<li><a href="#about" class="smoothScroll">ABOUT</a></li>
-					<li><a href="#menu" class="smoothScroll">MENU</a></li>
-					<li><a href="#feedback" class="smoothScroll">FEEDBACK</a></li>
+					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { echo '#about'; } else {echo '.#about'; } ?>" class="smoothScroll">ABOUT</a></li>
+					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { echo '#home'; } else {echo '.#menu'; } ?>" class="smoothScroll">MENU</a></li>
+					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { echo '#home'; } else {echo '.#feedback'; } ?>" class="smoothScroll">FEEDBACK</a></li>
 
 					<?php if(!isset($_SESSION["logged"])) { ?>
 					<li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal">Login</button><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal2">Register</button></a></li>
 				<?php } else { ?>
-          <li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#userModal"><?php echo 'Hi '.$_SESSION["logged"]["username"]; ?></button></a></li>
+          <li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#userModal"><span class="glyphicon glyphicon-user"></span><?php echo ' Hi '.$_SESSION["logged"]["username"]; ?></button></a></li>
 				<?php } ?>
 				<li><a href="admin.php"><button class="btn btn-warning pb-modalreglog-submit"> Admin's Portal</button></a></li>
 			</div>
