@@ -1,0 +1,6 @@
+{
+    "require": {
+        "sag/sag" : "dev-master",
+	"sendgrid/sendgrid" : "^5.0"
+    }
+}
