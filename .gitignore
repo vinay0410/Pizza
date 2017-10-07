@@ -1,7 +1,4 @@
 manifest.yml
 composer.phar
 vendor
-composer.json
-composer.lock
-sendgrid.env
 sendgrid.env
