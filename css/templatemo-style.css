@@ -632,3 +632,7 @@ a:visited {
 .btn-space {
     margin-right: 5px;
 }
+
+a {
+  cursor: pointer !important;
+}

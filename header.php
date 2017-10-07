@@ -155,8 +155,8 @@ background-color:white;
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { echo '#home'; } else {echo '.'; } ?>" class="smoothScroll">HOME</a></li>
 					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { echo '#about'; } else {echo '.#about'; } ?>" class="smoothScroll">ABOUT</a></li>
-					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { echo '#home'; } else {echo '.#menu'; } ?>" class="smoothScroll">MENU</a></li>
-					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { echo '#home'; } else {echo '.#feedback'; } ?>" class="smoothScroll">FEEDBACK</a></li>
+					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { echo '#menu'; } else {echo '.#menu'; } ?>" class="smoothScroll">MENU</a></li>
+					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { echo '#feedback'; } else {echo '.#feedback'; } ?>" class="smoothScroll">FEEDBACK</a></li>
 
 					<?php if(!isset($_SESSION["logged"])) { ?>
 					<li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal">Login</button><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal2">Register</button></a></li>
