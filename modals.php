@@ -91,6 +91,13 @@
                                   </div>
                               </div>
                               <div class="form-group">
+                                  <label for="address">Address</label>
+                                  <div class="input-group pb-modalreglog-input-group">
+                                      <span class="input-group-addon"><span class="glyphicon glyphicon-home"></span></span>
+                                      <textarea type="text" class="form-control" id="address" name="address" placeholder="Enter your Address" required><?php if(isset($signup_error)) { echo $signup_error['address']; } ?></textarea>
+                                  </div>
+                              </div>
+                              <div class="form-group">
                                   <label for="password">Password</label>
                                   <div class="input-group pb-modalreglog-input-group">
                                       <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
@@ -144,21 +151,25 @@
 
                     <div class="modal-body">
                       <form action = "update.php" method="post" id="editform">
-                        <input type="hidden" name="doc_id" value="<?php echo $_SESSION['logged']['_id']; ?>" readonly>
+                        <input type="hidden" name="doc_id" value="<?php echo $_SESSION['logged']['_id']; ?>" readonly required>
                       <table class="table">
                         <tbody>
                           <tr>
                             <td>Username: </td>
-                            <td><input class="readonly" name="edit_username" id="edit_username" value="<?php echo $_SESSION["logged"]["username"]; ?>" readonly></td>
+                            <td><input class="readonly" name="edit_username" id="edit_username" value="<?php echo $_SESSION["logged"]["username"]; ?>" readonly required></td>
 
                           </tr>
                           <tr>
                             <td>Email ID: </td>
-                            <td><input class="readonly" name="edit_email" id="edit_email" value="<?php echo $_SESSION["logged"]["email"]; ?>" readonly></td>
+                            <td><input class="readonly" name="edit_email" id="edit_email" value="<?php echo $_SESSION["logged"]["email"]; ?>" readonly required></td>
+                          </tr>
+                          <tr>
+                            <td>Address: </td>
+                            <td><input class="readonly" name="edit_address" id="edit_address" value="<?php if(isset($_SESSION['logged']['address'])) { echo $_SESSION['logged']['address']; } else { echo ""; } ?>" placeholder="Please Enter an Address" readonly required></td>
                           </tr>
                           <tr>
                             <td>Phone No.:</td>
-                            <td><input class="readonly" name="edit_phoneno" id="edit_phoneno" value="<?php echo $_SESSION["logged"]["phoneno"]; ?>" readonly></td>
+                            <td><input class="readonly" name="edit_phoneno" id="edit_phoneno" value="<?php echo $_SESSION["logged"]["phoneno"]; ?>" readonly required></td>
                           </tr>
 
                         </tbody>

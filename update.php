@@ -8,6 +8,7 @@ if (isset($_POST["edit_username"])) {
   $id = $_POST["doc_id"];
   $username = $_POST["edit_username"];
   $email = $_POST["edit_email"];
+  $addr = $_POST["edit_address"];
   $phoneno = $_POST["edit_phoneno"];
 
 
@@ -30,17 +31,22 @@ if (isset($_POST["edit_username"])) {
   if (empty($error_msg)) {
 
     $result = $collection->findOne(array('_id' => new MongoId($id)));
-    if (($result["username"] == $username) || (!$collection->findOne(array('username' => $username)))) {
+    if ( (($result["username"] == $username) || (!$collection->findOne(array('username' => $username)))) AND  (($result["email"] == $email) || (!$collection->findOne(array('email' => $email))))    ) {
+
+
 
         //change password
-        $collection->update(array('_id' => new MongoId($id)), array('$set'=>array("username" => $username, "email" => $email, "phoneno" => $phoneno)));
+        $collection->update(array('_id' => new MongoId($id)), array('$set'=>array("username" => $username, "email" => $email, "address" => $addr, "phoneno" => $phoneno)));
         $result = $collection->findOne(array('_id' => new MongoId($id)));
         $_SESSION["pop_profile"] = array("type" => "success", "msg" => "Details Updated Successfully!");
 
         $_SESSION["logged"] = $result;
         header("Location: .");
-      } else {
+      } elseif ($result["username"] != $username) {
         $_SESSION["pop_profile"] = array("type" => "danger", "msg" => "Username already exists!");
+        header("Location: .");
+      } else {
+        $_SESSION["pop_profile"] = array("type" => "danger", "msg" => "Email Address already registered!");
         header("Location: .");
       }
 

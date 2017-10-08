@@ -8,6 +8,7 @@ if (isset($_POST["username"])) {
 
   $username = $_POST["username"];
   $email = $_POST["email"];
+  $addr = $_POST["address"];
   $password = $_POST["password"];
   $phoneno = $_POST["phoneno"];
 
@@ -27,6 +28,7 @@ if (isset($_POST["username"])) {
     $_SESSION["signup-error"] = array(
         "username" => $username,
         "email" => $email,
+        "address" => $addr,
         "password" => $password,
         "phoneno" => $phoneno,
         "error_msg" => $error_msg
@@ -38,12 +40,14 @@ if (isset($_POST["username"])) {
 
   if (empty($_SESSION["signup-error"])) {
     echo "to be printed 1";
-    $result = $collection->findOne(array('username' => $username));
-    if (empty($result)) {
-    echo "to be printed 2";
+    $result_username = $collection->findOne(array('username' => $username));
+    $result_email = $collection->findOne(array('email' => $email));
+    if (empty($result_username) AND empty($result_email)) {
+
     $document = array(
         "username" => $username,
         "email" => $email,
+        "address" => $addr,
         "password" => $password,
         "phoneno" => $phoneno,
      );
@@ -53,11 +57,24 @@ if (isset($_POST["username"])) {
      $_SESSION["reg-success"] = True;
      header("Location: .");
   }
-  else {
+  elseif (!empty($result_username)) {
     $error_msg = "Username Already Exists";
     $_SESSION["signup-error"] = array(
         "username" => $username,
         "email" => $email,
+        "address" => $addr,
+        "password" => $password,
+        "phoneno" => $phoneno,
+        "error_msg" => $error_msg
+     );
+     echo "Already exists";
+     header("Location: .");
+  } else {
+    $error_msg = "Email Address Already Registered";
+    $_SESSION["signup-error"] = array(
+        "username" => $username,
+        "email" => $email,
+        "address" => $addr,
         "password" => $password,
         "phoneno" => $phoneno,
         "error_msg" => $error_msg
