@@ -7,89 +7,83 @@ session_start();
 
 
 
-if(isset($_SESSION["feedback_msg"])) {
-	$feedback_msg = $_SESSION["feedback_msg"];
-	unset($_SESSION["feedback_msg"]);
+if (isset($_SESSION["feedback_msg"])) {
+    $feedback_msg = $_SESSION["feedback_msg"];
+    unset($_SESSION["feedback_msg"]);
 }
 
 
-if(isset($_SESSION["pop_login"])) {
-	$pop_login = $_SESSION["pop_login"];
-	unset($_SESSION["pop_login"]);
+if (isset($_SESSION["pop_login"])) {
+    $pop_login = $_SESSION["pop_login"];
+    unset($_SESSION["pop_login"]);
 }
 
-if(isset($_SESSION["pop_profile"])) {
-	$pop_profile = $_SESSION["pop_profile"];
-	unset($_SESSION["pop_profile"]);
+if (isset($_SESSION["pop_profile"])) {
+    $pop_profile = $_SESSION["pop_profile"];
+    unset($_SESSION["pop_profile"]);
 }
 
-if(isset($_SESSION["pleaselogin"])) {
-	echo "<script type='text/javascript'>alert('Please Login, To be able to change passowrd')</script>";
-	unset($_SESSION["pleaselogin"]);
+if (isset($_SESSION["pleaselogin"])) {
+    echo "<script type='text/javascript'>alert('Please Login, To be able to change passowrd')</script>";
+    unset($_SESSION["pleaselogin"]);
 }
 
 
 if (isset($_SESSION["reg-success"])) {
-	echo "<script type='text/javascript'>alert('Registration Successfull, Login to continue')</script>";
+    echo "<script type='text/javascript'>alert('Registration Successfull, Login to continue')</script>";
 
-	unset($_SESSION["reg-success"]);
+    unset($_SESSION["reg-success"]);
 }
 
 if (isset($_POST["logout"])) {
-	echo "<script type='text/javascript'>alert('LogOut Successful')</script>";
-	unset($_SESSION["logged"]);
+    echo "<script type='text/javascript'>alert('LogOut Successful')</script>";
+    unset($_SESSION["logged"]);
 }
 
 if (isset($_SESSION["signup-error"])) {
-	$signup_error = $_SESSION["signup-error"];
-	unset($_SESSION["signup-error"]);
-
+    $signup_error = $_SESSION["signup-error"];
+    unset($_SESSION["signup-error"]);
 }
 
 if (isset($_POST["username"])) {
 
 #echo phpinfo();
-$username = $_POST["username"];
-$pass = $_POST["pass"];
-$error = False;
-$error_msg;
-try {
+    $username = $_POST["username"];
+    $pass = $_POST["pass"];
+    $error = false;
+    $error_msg;
+    try {
+        $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+        $db = $m->Pizza;
+        $collection = $db->users;
+    } catch (Exception $e) {
+        #die("Caught Exception failed to Connect".$e->getMessage()."\n");
 
- $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
- $db = $m->Pizza;
- $collection = $db->users;
+        $show_login = true;
+        $error_msg = "Couldn't Connect to Database";
+        $error = true;
+    }
+    if (!$error) {
+        $result = $collection->findOne(array('username' => $username));
 
-} catch(Exception $e) {
-	#die("Caught Exception failed to Connect".$e->getMessage()."\n");
-
-	$show_login = True;
-	$error_msg = "Couldn't Connect to Database";
-	$error = True;
-}
-if (!$error) {
-	$result = $collection->findOne(array('username' => $username));
-
-	if (!empty($result)) {
-		if ($result["password"] == $pass) {
-			echo "<script type='text/javascript'>alert('Logged in Successfully');</script>";
-			$_SESSION["logged"] = $result;
-			if ($username == "admin") {
-				header("Location: ./admin.php");
-			}
-		} else {
-			$show_login = True;
-			$error = True;
-			$error_msg = "Passwords don't match";
-		}
-
-	} else {
-		$show_login = True;
-		$error_msg = "Username not Registered, Register First!\n";
-		$error = True;
-	}
-
-}
-
+        if (!empty($result)) {
+            if ($result["password"] == $pass) {
+                echo "<script type='text/javascript'>alert('Logged in Successfully');</script>";
+                $_SESSION["logged"] = $result;
+                if ($username == "admin") {
+                    header("Location: ./admin.php");
+                }
+            } else {
+                $show_login = true;
+                $error = true;
+                $error_msg = "Passwords don't match";
+            }
+        } else {
+            $show_login = true;
+            $error_msg = "Username not Registered, Register First!\n";
+            $error = true;
+        }
+    }
 }
 
 ?>
@@ -149,20 +143,44 @@ background-color:white;
 					<span class="icon icon-bar"></span>
 					<span class="icon icon-bar"></span>
 				</button>
-				<a href="<?php if (basename($_SERVER['PHP_SELF']) == "index.php") { echo "#home"; } else {echo "."; } ?>" class="navbar-brand smoothScroll"><strong>PIZZA Villa</strong></a>
+				<a href="<?php if (basename($_SERVER['PHP_SELF']) == "index.php") {
+    echo "#home";
+} else {
+    echo ".";
+} ?>" class="navbar-brand smoothScroll"><strong>PIZZA Villa</strong></a>
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { echo '#home'; } else {echo '.'; } ?>" class="smoothScroll">HOME</a></li>
-					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { echo '#about'; } else {echo '.#about'; } ?>" class="smoothScroll">ABOUT</a></li>
-					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { echo '#menu'; } else {echo '.#menu'; } ?>" class="smoothScroll">MENU</a></li>
-					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { echo '#feedback'; } else {echo '.#feedback'; } ?>" class="smoothScroll">FEEDBACK</a></li>
+					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') {
+    echo '#home';
+} else {
+    echo '.';
+} ?>" class="smoothScroll">HOME</a></li>
+					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') {
+    echo '#about';
+} else {
+    echo '.#about';
+} ?>" class="smoothScroll">ABOUT</a></li>
+					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') {
+    echo '#menu';
+} else {
+    echo '.#menu';
+} ?>" class="smoothScroll">MENU</a></li>
+					<li><a href="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') {
+    echo '#feedback';
+} else {
+    echo '.#feedback';
+} ?>" class="smoothScroll">FEEDBACK</a></li>
 
-					<?php if(!isset($_SESSION["logged"])) { ?>
+					<?php if (!isset($_SESSION["logged"])) {
+    ?>
 					<li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal">Login</button><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal2">Register</button></a></li>
-				<?php } else { ?>
+				<?php
+} else {
+        ?>
           <li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#userModal"><span class="glyphicon glyphicon-user"></span><?php echo ' Hi '.$_SESSION["logged"]["username"]; ?></button></a></li>
-				<?php } ?>
+				<?php
+    } ?>
 				<li><a href="admin.php"><button class="btn btn-warning pb-modalreglog-submit"> Admin's Portal</button></a></li>
 			</div>
 		</div>

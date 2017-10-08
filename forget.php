@@ -1,60 +1,47 @@
 <?php include("header.php") ?>
 
 <?php if (isset($_POST["forget_email"])) {
+    $email = $_POST["forget_email"];
 
-  $email = $_POST["forget_email"];
+    $error_msg;
+    try {
+        $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+        $db = $m->Pizza;
+        $collection = $db->users;
+    } catch (Exception $e) {
+        #die("Caught Exception failed to Connect".$e->getMessage()."\n");
 
-  $error_msg;
-  try {
-
-   $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
-   $db = $m->Pizza;
-   $collection = $db->users;
-
-  } catch(Exception $e) {
-    #die("Caught Exception failed to Connect".$e->getMessage()."\n");
-
-    $error_msg = "Couldn't Connect to Database";
-
-  }
-
-  if (empty($error_msg)) {
-
-    $result = $collection->findOne(array('email' => $email));
-    if (!empty($result)) {
-
-      require 'vendor/autoload.php';
-
-
-      $from = new SendGrid\Email("PizzaVilla", "help@pizzavila.com");
-      $subject = "Contains Password";
-      $to = new SendGrid\Email("Example User", $result['email']);
-      $content = new SendGrid\Content("text/plain", "Your Password is ".$result['password']);
-      $mail = new SendGrid\Mail($from, $subject, $to, $content);
-      $apiKey = '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';
-      $sg = new \SendGrid($apiKey);
-      $response = $sg->client->mail()->send()->post($mail);
-      //echo $response->statusCode();
-      //print_r($response->headers());
-      //echo $response->body();
-
-      if ($response->statusCode() == 202) {
-        $_SESSION["pop_login"] = "Your password has been Successfully sent to the registered emailID.";
-        header("Location: .");
-      } else {
-        $error_msg = "Failed to send email. Please try again!";
-      }
-
-  } else {
-
-        $error_msg = "The Provided Email address is not registered. Please Register First!";
-      }
-
-
-
+        $error_msg = "Couldn't Connect to Database";
     }
 
+    if (empty($error_msg)) {
+        $result = $collection->findOne(array('email' => $email));
+        if (!empty($result)) {
+            require 'vendor/autoload.php';
 
+
+            $from = new SendGrid\Email("PizzaVilla", "help@pizzavila.com");
+            $subject = "Contains Password";
+            $to = new SendGrid\Email("Example User", $result['email']);
+            $content = new SendGrid\Content("text/plain", "Your Password is ".$result['password']);
+            $mail = new SendGrid\Mail($from, $subject, $to, $content);
+            $apiKey = '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';
+            $sg = new \SendGrid($apiKey);
+            $response = $sg->client->mail()->send()->post($mail);
+            //echo $response->statusCode();
+            //print_r($response->headers());
+            //echo $response->body();
+
+            if ($response->statusCode() == 202) {
+                $_SESSION["pop_login"] = "Your password has been Successfully sent to the registered emailID.";
+                header("Location: .");
+            } else {
+                $error_msg = "Failed to send email. Please try again!";
+            }
+        } else {
+            $error_msg = "The Provided Email address is not registered. Please Register First!";
+        }
+    }
 }
 
 ?>
@@ -82,9 +69,11 @@ color: orange;
 			<div class="form" >
 			<legend class="fp">Forgot Password</legend>
 			<fieldset>
-        <?php if(isset($error_msg)) { ?>
+        <?php if (isset($error_msg)) {
+    ?>
         <div id="error" class="alert alert-danger" role="alert"><?php echo $error_msg ?></div>
-      <?php } ?>
+      <?php
+} ?>
 			<form method="post" action="#" onsubmit="return checkEmail();">
 
 					<div class="form-group">

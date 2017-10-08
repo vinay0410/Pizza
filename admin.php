@@ -3,142 +3,112 @@
 
 <?php
 
-	if(isset($_POST["deleteOutlet"])) {
-		$outlet = $_POST["deleteOutlet"];
-		try {
-
-		 $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
-		 $db = $m->Pizza;
-		 $collection = $db->outlets;
-
-		} catch(Exception $e) {
-			#die("Caught Exception failed to Connect".$e->getMessage()."\n");
+    if (isset($_POST["deleteOutlet"])) {
+        $outlet = $_POST["deleteOutlet"];
+        try {
+            $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+            $db = $m->Pizza;
+            $collection = $db->outlets;
+        } catch (Exception $e) {
+            #die("Caught Exception failed to Connect".$e->getMessage()."\n");
 
 
-			$error_del_msg = "Couldn't Connect to Database, Please try again";
+            $error_del_msg = "Couldn't Connect to Database, Please try again";
+        }
 
-		}
-
-		if (empty($error_msg)) {
-			$result = $collection->remove(array('outlet' => $outlet));
-			$success = "Database Deleted Successfully";
-		}
-	}
-
-
-	if (isset($_POST["outlet"])) {
-		$outlet = $_POST["outlet"];
-		$outlet_addr = $_POST["outlet-addr"];
-		$supervisor_name = $_POST["sup-name"];
-		$supervisor_email = $_POST["sup-email"];
-		$supervisor_phone = $_POST["sup-phone"];
-
-		   try {
-
-		    $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
-		    $db = $m->Pizza;
-		    $collection = $db->outlets;
-
-		   } catch(Exception $e) {
-		     #die("Caught Exception failed to Connect".$e->getMessage()."\n");
+        if (empty($error_msg)) {
+            $result = $collection->remove(array('outlet' => $outlet));
+            $success = "Database Deleted Successfully";
+        }
+    }
 
 
-		     $error_msg = "Couldn't Connect to Database";
+    if (isset($_POST["outlet"])) {
+        $outlet = $_POST["outlet"];
+        $outlet_addr = $_POST["outlet-addr"];
+        $supervisor_name = $_POST["sup-name"];
+        $supervisor_email = $_POST["sup-email"];
+        $supervisor_phone = $_POST["sup-phone"];
 
-		   }
-
-			 if (empty($error_msg)) {
-				 $result = $collection->findOne(array('outlet' => $outlet));
-		     #var_dump($result);
-
-		       if (empty($result)) {
-
-
-						     $document = array(
-						         "outlet" => $outlet,
-						         "outlet_addr" => $outlet_addr,
-						         "supervisor_name" => $supervisor_name,
-						         "supervisor_email" => $supervisor_email,
-										 "supervisor_phone" => $supervisor_phone
-						      );
-
-						      $collection->insert($document);
-									$success = "Outlet added successfully!";
-
-		       } else {
-
-		         $error_msg = "Outlet Already Exists";
-		       }
+        try {
+            $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+            $db = $m->Pizza;
+            $collection = $db->outlets;
+        } catch (Exception $e) {
+            #die("Caught Exception failed to Connect".$e->getMessage()."\n");
 
 
-			 }
+            $error_msg = "Couldn't Connect to Database";
+        }
 
-	} elseif (isset($_POST["outlet-edit"])) {
-		$id = $_POST["doc-id"];
-		$outlet = $_POST["outlet-edit"];
-		$outlet_addr = $_POST["outlet-addr"];
-		$supervisor_name = $_POST["sup-name"];
-		$supervisor_email = $_POST["sup-email"];
-		$supervisor_phone = $_POST["sup-phone"];
+        if (empty($error_msg)) {
+            $result = $collection->findOne(array('outlet' => $outlet));
+            #var_dump($result);
 
-			 try {
+            if (empty($result)) {
+                $document = array(
+                                 "outlet" => $outlet,
+                                 "outlet_addr" => $outlet_addr,
+                                 "supervisor_name" => $supervisor_name,
+                                 "supervisor_email" => $supervisor_email,
+                                         "supervisor_phone" => $supervisor_phone
+                              );
 
-				$m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
-				$db = $m->Pizza;
-				$collection = $db->outlets;
+                $collection->insert($document);
+                $success = "Outlet added successfully!";
+            } else {
+                $error_msg = "Outlet Already Exists";
+            }
+        }
+    } elseif (isset($_POST["outlet-edit"])) {
+        $id = $_POST["doc-id"];
+        $outlet = $_POST["outlet-edit"];
+        $outlet_addr = $_POST["outlet-addr"];
+        $supervisor_name = $_POST["sup-name"];
+        $supervisor_email = $_POST["sup-email"];
+        $supervisor_phone = $_POST["sup-phone"];
 
-			 } catch(Exception $e) {
-				 #die("Caught Exception failed to Connect".$e->getMessage()."\n");
-
-
-				 $error_edit_msg = "Couldn't Connect to Database";
-
-			 }
-
-			 if (empty($error_edit_msg)) {
-
-				 $result = $collection->findOne(array('_id' => new MongoId($id)));
-
-				 if (($result["outlet"] == $outlet) || (!$collection->findOne(array('outlet' => $outlet)))) {
-
-						 //change password
-						 $collection->update(array('_id' => new MongoId($id)), array('$set'=>array("outlet" => $outlet, "outlet_addr" => $outlet_addr, "supervisor_name" => $supervisor_name, "supervisor_email" => $supervisor_email, "supervisor_phone" => $supervisor_phone)));
-						 $success = "Outlet Details Updated Successfully";
-
-
-					 } else {
-						 $error_edit_msg = "Outlet Name already Exists";
-
-					 }
+        try {
+            $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+            $db = $m->Pizza;
+            $collection = $db->outlets;
+        } catch (Exception $e) {
+            #die("Caught Exception failed to Connect".$e->getMessage()."\n");
 
 
+            $error_edit_msg = "Couldn't Connect to Database";
+        }
 
-			 }
+        if (empty($error_edit_msg)) {
+            $result = $collection->findOne(array('_id' => new MongoId($id)));
 
-	}
+            if (($result["outlet"] == $outlet) || (!$collection->findOne(array('outlet' => $outlet)))) {
 
-
-	try {
-
-	 $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
-	 $db = $m->Pizza;
-	 $collection = $db->outlets;
-
-	} catch(Exception $e) {
-		#die("Caught Exception failed to Connect".$e->getMessage()."\n");
-
-
-		$error_outlet_msg = "Couldn't Load Outlets, Connection Failed!";
-
-	}
-
-	if (empty($error_outlet_msg)) {
-		$outlet_cursor = $collection->find();
-		$outlet_count = $collection->count();
+                         //change password
+                $collection->update(array('_id' => new MongoId($id)), array('$set'=>array("outlet" => $outlet, "outlet_addr" => $outlet_addr, "supervisor_name" => $supervisor_name, "supervisor_email" => $supervisor_email, "supervisor_phone" => $supervisor_phone)));
+                $success = "Outlet Details Updated Successfully";
+            } else {
+                $error_edit_msg = "Outlet Name already Exists";
+            }
+        }
+    }
 
 
+    try {
+        $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+        $db = $m->Pizza;
+        $collection = $db->outlets;
+    } catch (Exception $e) {
+        #die("Caught Exception failed to Connect".$e->getMessage()."\n");
 
-	}
+
+        $error_outlet_msg = "Couldn't Load Outlets, Connection Failed!";
+    }
+
+    if (empty($error_outlet_msg)) {
+        $outlet_cursor = $collection->find();
+        $outlet_count = $collection->count();
+    }
 
 
 $outlet_array = array();
@@ -157,15 +127,21 @@ $outlet_array = array();
       <div class="panel-heading"><h3>Outlets
 				<button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#outletModal" name="add_modal"><span class="glyphicon glyphicon-plus"></span>Add Outlet</button>
 			</h3>
-			<?php if(isset($error_del_msg)) { ?>
+			<?php if (isset($error_del_msg)) {
+    ?>
 			<div id="error" class="alert alert-danger" role="alert"><?php echo $error_del_msg; ?></div>
-		<?php } ?>
-		<?php if(isset($error_outlet_msg)) { ?>
+		<?php
+} ?>
+		<?php if (isset($error_outlet_msg)) {
+        ?>
 		<div id="error" class="alert alert-danger" role="alert"><?php echo $error_outlet_msg; ?></div>
-	<?php } ?>
-			<?php if(isset($success)) { ?>
+	<?php
+    } ?>
+			<?php if (isset($success)) {
+        ?>
 			<div id="error" class="alert alert-success" role="alert"><?php echo $success; ?></div>
-		<?php } ?>
+		<?php
+    } ?>
 
 			</div>
       <div class="panel-body" id="accordion">
@@ -177,36 +153,36 @@ $outlet_array = array();
 				<div class="panel list-group">
 
 					<?php
-					if (isset($outlet_count) OR isset($outlet_cursor)) {
-					if ($outlet_count == 0 && empty($error_outlet_msg)) {
-						echo '<p>Oh, Your chain has no Outlets yet!</p>';
-					} else {
-						$index = 0;
-					foreach ($outlet_cursor as $document) {
-						array_push($outlet_array, $document);
-						?>
+                    if (isset($outlet_count) or isset($outlet_cursor)) {
+                        if ($outlet_count == 0 && empty($error_outlet_msg)) {
+                            echo '<p>Oh, Your chain has no Outlets yet!</p>';
+                        } else {
+                            $index = 0;
+                            foreach ($outlet_cursor as $document) {
+                                array_push($outlet_array, $document); ?>
 
-						<a class="list-group-item <?php if($index==0) {echo "disabled"; } ?>" data-toggle="collapse" data-target="<?php echo "#".$document['_id']; ?>" data-parent="#accordion">
+						<a class="list-group-item <?php if ($index==0) {
+                                    echo "disabled";
+                                } ?>" data-toggle="collapse" data-target="<?php echo "#".$document['_id']; ?>" data-parent="#accordion">
 			    		<h4 class="list-group-item-heading accordion-toggle"><?php echo $document['outlet']?>
 								<button type="button" class="btn btn-danger btn-space pull-right" id="<?php echo $index; ?>" onclick="deleteOutlet(this);"><span class="glyphicon glyphicon-remove"></span> </button>
 								<button type="button" name="edit_modal" class="btn btn-default btn-space pull-right" data-toggle="modal" data-target="#outletEditModal" onclick="putContents(this); " id="<?php echo $index; ?>" ><span class="glyphicon glyphicon-pencil"></span> </button>
 							</h4>
 			    		<p class="list-group-item-text"><?php echo $document['outlet_addr']?></p>
 		  			</a>
-						<div id="<?php echo $document['_id']; ?>" class="sublinks collapse <?php if($index==0) {echo "in"; } ?>">
+						<div id="<?php echo $document['_id']; ?>" class="sublinks collapse <?php if ($index==0) {
+                                    echo "in";
+                                } ?>">
 					   <a class="list-group-item"><?php echo "Supervisor's Name: ".$document["supervisor_name"] ?></a>
 					   <a class="list-group-item"><?php echo "Supervisor's EmailID: ".$document["supervisor_email"] ?></a>
 						 <a class="list-group-item"><?php echo "Supervisor's PhoneNo: ".$document["supervisor_phone"] ?></a>
 					  </div>
 
 					<?php
-					$index++;
-				}
-
-
-					}
-
-				}?>
+                    $index++;
+                            }
+                        }
+                    }?>
 
 
 					<script type="text/javascript">
@@ -233,9 +209,11 @@ $outlet_array = array();
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title" id="modal_heading">Edit Outlet</h4>
 
-				<?php if(isset($error_edit_msg)) { ?>
+				<?php if (isset($error_edit_msg)) {
+                        ?>
 				<div id="error" class="alert alert-danger" role="alert"><?php echo $error_edit_msg; ?></div>
-			<?php } ?>
+			<?php
+                    } ?>
       </div>
       <div class="modal-body">
 				<form class="form-horizontal" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
@@ -243,13 +221,17 @@ $outlet_array = array();
 				  <div class="form-group">
 				    <label class="control-label col-sm-2" for="outlet">Unique Outlet Name: </label>
 				    <div class="col-sm-5">
-				      <input type="text" class="form-control" name="outlet-edit" id="outlet" placeholder="Unique NickName" value="<?php if(isset($error_edit_msg)) { echo $outlet; } ?>">
+				      <input type="text" class="form-control" name="outlet-edit" id="outlet" placeholder="Unique NickName" value="<?php if (isset($error_edit_msg)) {
+                        echo $outlet;
+                    } ?>">
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <label class="control-label col-sm-2" for="outlet-addr">Outlet Address</label>
 				    <div class="col-sm-5">
-				      <input type="text" class="form-control" id="outlet-edit-addr" name="outlet-addr" placeholder="Enter Outlet Address" value="<?php if(isset($error_edit_msg)) { echo $outlet_addr; } ?>">
+				      <input type="text" class="form-control" id="outlet-edit-addr" name="outlet-addr" placeholder="Enter Outlet Address" value="<?php if (isset($error_edit_msg)) {
+                        echo $outlet_addr;
+                    } ?>">
 				      <input id="map-submit-edit" type="button" class="btn btn-default" value="See on Map">
 				      <div id="map-edit" style="width: 400px; height: 400px;"></div>
 				    </div>
@@ -257,19 +239,25 @@ $outlet_array = array();
 				  <div class="form-group">
 				    <label class="control-label col-sm-2" for="supervisor-name">Supervisor Name: </label>
 				    <div class="col-sm-5">
-				      <input type="text" class="form-control" id="supervisor-name" name="sup-name" placeholder="Supervisor's name" value="<?php if(isset($error_edit_msg)) { echo $supervisor_name; } ?>">
+				      <input type="text" class="form-control" id="supervisor-name" name="sup-name" placeholder="Supervisor's name" value="<?php if (isset($error_edit_msg)) {
+                        echo $supervisor_name;
+                    } ?>">
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <label class="control-label col-sm-2" for="supervisor-email">Supervisor Email: </label>
 				    <div class="col-sm-5">
-				      <input type="email" class="form-control" id="supervisor-email" name="sup-email" placeholder="Supervisor's email" value="<?php if(isset($error_edit_msg)) { echo $supervisor_email; } ?>">
+				      <input type="email" class="form-control" id="supervisor-email" name="sup-email" placeholder="Supervisor's email" value="<?php if (isset($error_edit_msg)) {
+                        echo $supervisor_email;
+                    } ?>">
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <label class="control-label col-sm-2" for="supervisor-phone">Supervisor Contact No.: </label>
 				    <div class="col-sm-5">
-				      <input type="text" class="form-control" id="supervisor-phone" name="sup-phone" placeholder="Supervisor's phone" maxlength = "10" pattern = "[0-9]{10}" value="<?php if(isset($error_edit_msg)) { echo $supervisor_phone; } ?>">
+				      <input type="text" class="form-control" id="supervisor-phone" name="sup-phone" placeholder="Supervisor's phone" maxlength = "10" pattern = "[0-9]{10}" value="<?php if (isset($error_edit_msg)) {
+                        echo $supervisor_phone;
+                    } ?>">
 				    </div>
 				  </div>
 				  <div class="form-group">
@@ -302,9 +290,11 @@ $outlet_array = array();
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title" id="modal_heading">Add Outlet</h4>
-				<?php if(isset($error_msg)) { ?>
+				<?php if (isset($error_msg)) {
+                        ?>
 				<div id="error" class="alert alert-danger" role="alert"><?php echo $error_msg; ?></div>
-			<?php } ?>
+			<?php
+                    } ?>
       </div>
       <div class="modal-body">
 				<form class="form-horizontal" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
@@ -312,13 +302,17 @@ $outlet_array = array();
 				  <div class="form-group">
 				    <label class="control-label col-sm-2" for="outlet">Unique Outlet Name: </label>
 				    <div class="col-sm-5">
-				      <input type="text" class="form-control" name="outlet" id="outlet" placeholder="Unique NickName" value="<?php if(isset($error_msg)) { echo $outlet; } ?>">
+				      <input type="text" class="form-control" name="outlet" id="outlet" placeholder="Unique NickName" value="<?php if (isset($error_msg)) {
+                        echo $outlet;
+                    } ?>">
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <label class="control-label col-sm-2" for="outlet-addr">Outlet Address</label>
 				    <div class="col-sm-5">
-				      <input type="text" class="form-control" id="outlet-addr" name="outlet-addr" placeholder="Enter Outlet Address" value="<?php if(isset($error_msg)) { echo $outlet_addr; } ?>">
+				      <input type="text" class="form-control" id="outlet-addr" name="outlet-addr" placeholder="Enter Outlet Address" value="<?php if (isset($error_msg)) {
+                        echo $outlet_addr;
+                    } ?>">
 				      <input id="map-submit-add" type="button" class="btn btn-default" value="See on Map">
 				      <div id="map-add" style="width: 400px; height: 400px;"></div>
 				    </div>
@@ -326,19 +320,25 @@ $outlet_array = array();
 				  <div class="form-group">
 				    <label class="control-label col-sm-2" for="supervisor-name">Supervisor Name: </label>
 				    <div class="col-sm-5">
-				      <input type="text" class="form-control" id="supervisor-name" name="sup-name" placeholder="Supervisor's name" value="<?php if(isset($error_msg)) { echo $supervisor_name; } ?>">
+				      <input type="text" class="form-control" id="supervisor-name" name="sup-name" placeholder="Supervisor's name" value="<?php if (isset($error_msg)) {
+                        echo $supervisor_name;
+                    } ?>">
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <label class="control-label col-sm-2" for="supervisor-email">Supervisor Email: </label>
 				    <div class="col-sm-5">
-				      <input type="email" class="form-control" id="supervisor-email" name="sup-email" placeholder="Supervisor's email" value="<?php if(isset($error_msg)) { echo $supervisor_email; } ?>">
+				      <input type="email" class="form-control" id="supervisor-email" name="sup-email" placeholder="Supervisor's email" value="<?php if (isset($error_msg)) {
+                        echo $supervisor_email;
+                    } ?>">
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <label class="control-label col-sm-2" for="supervisor-phone">Supervisor Contact No.: </label>
 				    <div class="col-sm-5">
-				      <input type="text" class="form-control" id="supervisor-phone" name="sup-phone" placeholder="Supervisor's phone" maxlength = "10" pattern = "[0-9]{10}" value="<?php if(isset($error_msg)) { echo $supervisor_phone; } ?>">
+				      <input type="text" class="form-control" id="supervisor-phone" name="sup-phone" placeholder="Supervisor's phone" maxlength = "10" pattern = "[0-9]{10}" value="<?php if (isset($error_msg)) {
+                        echo $supervisor_phone;
+                    } ?>">
 				    </div>
 				  </div>
 				  <div class="form-group">
@@ -356,8 +356,12 @@ $outlet_array = array();
 
   </div>
 </div>
-<?php if (isset($error_msg)) {echo "<script type='text/javascript'>$('#outletModal').modal('show');</script>"; } ?>
-<?php if (isset($error_edit_msg)) {echo "<script type='text/javascript'>$('#outletEditModal').modal('show');</script>"; } ?>
+<?php if (isset($error_msg)) {
+                        echo "<script type='text/javascript'>$('#outletModal').modal('show');</script>";
+                    } ?>
+<?php if (isset($error_edit_msg)) {
+                        echo "<script type='text/javascript'>$('#outletEditModal').modal('show');</script>";
+                    } ?>
 
 <!-- Outlet Modal End -->
 

@@ -1,4 +1,5 @@
-<?php if(!isset($_SESSION["logged"])) { ?>
+<?php if (!isset($_SESSION["logged"])) {
+    ?>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -10,12 +11,16 @@
                                   </button>
 
                                  <h4 class="modal-title" id="myModalLabel">Login form</h4>
-                                 <?php if(isset($pop_login)) { ?>
+                                 <?php if (isset($pop_login)) {
+        ?>
                                  <div id="error" class="alert alert-success" role="alert"><?php echo $pop_login ?></div>
-                               <?php } ?>
-                                 <?php if(isset($error) AND $error) { ?>
+                               <?php
+    } ?>
+                                 <?php if (isset($error) and $error) {
+        ?>
                                  <div id="error" class="alert alert-danger" role="alert"><?php echo $error_msg; ?></div>
-                               <?php } ?>
+                               <?php
+    } ?>
                             </div><!--ending modal header-->
 
 
@@ -24,7 +29,9 @@
                                       <div class="form-group">
                                           <label for="username">Username</label>
                 <div class="input-group pb-modalreglog-input-group">
-                  <input id="username" class="form-control"  type="text" name="username" placeholder="Username" value="<?php if(isset($error) AND $error) {echo $username;} ?>" />
+                  <input id="username" class="form-control"  type="text" name="username" placeholder="Username" value="<?php if (isset($error) and $error) {
+        echo $username;
+    } ?>" />
                                                 <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                 </div>
                   </div>
@@ -68,9 +75,11 @@
                               <span aria-hidden="true">&times;</span>
                           </button>
                           <h4 class="modal-title" id="myModalLabel">Registration form</h4>
-                          <?php if(isset($signup_error)) { ?>
+                          <?php if (isset($signup_error)) {
+        ?>
                           <div id="error" class="alert alert-danger" role="alert"><?php echo $signup_error["error_msg"] ?></div>
-                        <?php } ?>
+                        <?php
+    } ?>
                       </div><!--modal header-->
                       <div class="modal-body">
 
@@ -80,21 +89,27 @@
                                   <label for="username">Username</label>
         <div class="input-group pb-modalreglog-input-group">
           <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-          <input id="username" class="form-control"  type="text" name="username" placeholder="Username" value="<?php if(isset($signup_error)) { echo $signup_error['username']; } ?>" required/>
+          <input id="username" class="form-control"  type="text" name="username" placeholder="Username" value="<?php if (isset($signup_error)) {
+        echo $signup_error['username'];
+    } ?>" required/>
                                       </div>
           </div>
                               <div class="form-group">
                                   <label for="email">Email address</label>
                                   <div class="input-group pb-modalreglog-input-group">
                                       <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                                      <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" value="<?php if(isset($signup_error)) { echo $signup_error['email']; } ?>" required>
+                                      <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" value="<?php if (isset($signup_error)) {
+        echo $signup_error['email'];
+    } ?>" required>
                                   </div>
                               </div>
                               <div class="form-group">
                                   <label for="address">Address</label>
                                   <div class="input-group pb-modalreglog-input-group">
                                       <span class="input-group-addon"><span class="glyphicon glyphicon-home"></span></span>
-                                      <textarea type="text" class="form-control" id="address" name="address" placeholder="Enter your Address" required><?php if(isset($signup_error)) { echo $signup_error['address']; } ?></textarea>
+                                      <textarea type="text" class="form-control" id="address" name="address" placeholder="Enter your Address" required><?php if (isset($signup_error)) {
+        echo $signup_error['address'];
+    } ?></textarea>
                                   </div>
                               </div>
                               <div class="form-group">
@@ -115,7 +130,9 @@
         <label for = "phoneno">Contact Number</label><br />
         <div class="input-group pb-modalreglog-input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
-           <input type = "text" class="form-control" name = "phoneno" id="phoneno" maxlength = "10" placeholder = "Enter a valid phone number" pattern = "[0-9]{10}" value="<?php if(isset($signup_error)) { echo $signup_error['phoneno']; } ?>">
+           <input type = "text" class="form-control" name = "phoneno" id="phoneno" maxlength = "10" placeholder = "Enter a valid phone number" pattern = "[0-9]{10}" value="<?php if (isset($signup_error)) {
+        echo $signup_error['phoneno'];
+    } ?>">
               </div>
       </div>
 
@@ -135,7 +152,9 @@
               </div><!-- modal fade -->
           </div>
 
-        <?php } else { ?>
+        <?php
+} else {
+        ?>
 
           <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModal" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -144,9 +163,11 @@
                       <h3><?php echo $_SESSION["logged"]["username"]."'s account"; ?>
                         <button type="button" class="btn btn-default btn-sm pull-right" onclick="editme(); "><span class="glyphicon glyphicon-pencil"></span>Edit</button>
                       </h3>
-                      <?php if(isset($pop_profile)) { ?>
+                      <?php if (isset($pop_profile)) {
+            ?>
                       <div id="error" class="alert alert-<?php echo $pop_profile['type']; ?>" role="alert"><?php echo $pop_profile["msg"]; ?></div>
-                    <?php } ?>
+                    <?php
+        } ?>
                     </div>
 
                     <div class="modal-body">
@@ -165,7 +186,11 @@
                           </tr>
                           <tr>
                             <td>Address: </td>
-                            <td><input class="readonly" name="edit_address" id="edit_address" value="<?php if(isset($_SESSION['logged']['address'])) { echo $_SESSION['logged']['address']; } else { echo ""; } ?>" placeholder="Please Enter an Address" readonly required></td>
+                            <td><input class="readonly" name="edit_address" id="edit_address" value="<?php if (isset($_SESSION['logged']['address'])) {
+            echo $_SESSION['logged']['address'];
+        } else {
+            echo "";
+        } ?>" placeholder="Please Enter an Address" readonly required></td>
                           </tr>
                           <tr>
                             <td>Phone No.:</td>
@@ -189,9 +214,18 @@
               </div>
             </div>
 
-          <?php } ?>
+          <?php
+    } ?>
 
-<?php if (isset($show_login) AND $show_login = True) { echo "<script type='text/javascript'>$('#myModal').modal('show');</script>"; } ?>
-<?php if (isset($signup_error)) {echo "<script type='text/javascript'>$('#myModal2').modal('show');</script>"; } ?>
-<?php if (isset($pop_profile)) {echo "<script type='text/javascript'>$('#userModal').modal('show');</script>"; } ?>
-<?php if (isset($pop_login)) {echo "<script type='text/javascript'>$('#myModal').modal('show');</script>"; } ?>
+<?php if (isset($show_login) and $show_login = true) {
+        echo "<script type='text/javascript'>$('#myModal').modal('show');</script>";
+    } ?>
+<?php if (isset($signup_error)) {
+        echo "<script type='text/javascript'>$('#myModal2').modal('show');</script>";
+    } ?>
+<?php if (isset($pop_profile)) {
+        echo "<script type='text/javascript'>$('#userModal').modal('show');</script>";
+    } ?>
+<?php if (isset($pop_login)) {
+        echo "<script type='text/javascript'>$('#myModal').modal('show');</script>";
+    } ?>

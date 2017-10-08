@@ -3,35 +3,32 @@
     http://www.templatemo.com/preview/templatemo_459_pizza
 */
 
-body
-{
+body {
   font-family: 'Signika', sans-serif;
   font-weight: 400;
   position: relative;
 }
 
-h1,h2, h3, h4,
-.navbar-default .navbar-nav li a,
-.navbar-default .navbar-nav>li>a:focus
-{
+h1, h2, h3, h4, .navbar-default .navbar-nav li a, .navbar-default .navbar-nav>li>a:focus {
   color: #ffa400;
   font-family: 'Chewy', cursive;
   font-weight: 400;
 }
 
-.navbar-default .navbar-nav>.active>a,
-.navbar-default .navbar-nav>.active>a:focus {
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus {
   background-color: transparent;
 }
-a:hover { text-decoration: none; }
-hr
-{
+
+a:hover {
+  text-decoration: none;
+}
+
+hr {
   border: 1px solid #ffa400;
   width: 100px;
 }
 
-img
-{
+img {
   max-width: 100%;
   height: auto;
 }
@@ -41,11 +38,13 @@ img
     width: 700px;
   }
 }
+
 @media (min-width: 992px) {
   .container {
     width: 900px;
   }
 }
+
 @media (min-width: 1200px) {
   .container {
     width: 1000px;
@@ -53,17 +52,18 @@ img
 }
 
 /* start all section */
-.templatemo-section
-{
+
+.templatemo-section {
   padding-top: 100px;
   padding-bottom: 100px;
   position: relative;
 }
+
 /* end all section */
 
 /* start nagivation */
-.navbar-default
-{
+
+.navbar-default {
   background: #ffffff;
   border: none;
   -webkit-box-shadow: 0 2px 8px 0 rgba(50, 50, 50, 0.08);
@@ -71,36 +71,40 @@ img
   margin: 0;
   padding: 0;
 }
-.navbar-default .navbar-brand
-{
+
+.navbar-default .navbar-brand {
   color: #ffa400;
   font-size: 40px;
   line-height: 35px;
 }
-.navbar-default .navbar-nav li a
-{
+
+.navbar-default .navbar-nav li a {
   line-height: 35px;
 }
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav > .active > a:hover {
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover {
   color: #555;
   background-color: transparent;
 }
-.navbar-default .navbar-toggle
-{
+
+.navbar-default .navbar-toggle {
   border: none;
   padding-top: 10px;
 }
-.navbar-default .navbar-toggle .icon-bar
-{
+
+.navbar-default .navbar-toggle .icon-bar {
   background: #ffa400;
   border-color: transparent;
 }
-.navbar-default .navbar-toggle:hover,
-.navbar-default .navbar-toggle:focus { background-color: transparent }
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: transparent
+}
+
 /* end navigation */
 
 /* start flexslider */
+
 .flexslider {
   margin-top: 114px;
   width: 100%;
@@ -128,28 +132,33 @@ img
   z-index: 999;
   color: white;
 }
+
 .slider-title {
   font-size: 50px;
 }
+
 .slider-subtitle {
   color: #ffffff;
 }
-.slider-title,
-.slider-subtitle {
+
+.slider-title, .slider-subtitle {
   text-transform: uppercase;
 }
+
 .slider-description {
   font-size: 18px;
   line-height: 28px;
   padding-left: 200px;
   padding-right: 200px;
 }
-.no-js .slides > li:first-child {
+
+.no-js .slides>li:first-child {
   display: block;
 }
 
 /* FlexSlider Default Theme
 *********************************/
+
 .flexslider {
   margin: 0;
   position: relative;
@@ -175,6 +184,7 @@ img
 }
 
 /* Direction Nav */
+
 .flex-direction-nav {
   height: 0;
 }
@@ -232,6 +242,7 @@ img
 }
 
 /* Pause/Play */
+
 .flex-pauseplay a {
   display: block;
   width: 20px;
@@ -262,6 +273,7 @@ img
 }
 
 /* Control Nav */
+
 .flex-control-nav {
   width: 100%;
   position: absolute;
@@ -332,22 +344,23 @@ img
     opacity: 1;
     left: 10px;
   }
-
   .flex-direction-nav .flex-next {
     opacity: 1;
     right: 10px;
   }
 }
+
 .flexslider {
   padding: 65px 0 0 0;
 }
 
-.flexslider .slides > li {
+.flexslider .slides>li {
   display: none;
   -webkit-backface-visibility: hidden;
 }
 
 /* Hide the slides before the JS is loaded. Avoids image jumping */
+
 .flexslider .slides img {
   width: 100%;
   display: block;
@@ -358,6 +371,7 @@ img
 }
 
 /* Clearfix for the .slides element */
+
 .slides:after {
   content: "\0020";
   display: block;
@@ -374,120 +388,123 @@ html[xmlns] .slides {
 * html .slides {
   height: 1%;
 }
-.flex-container a:active,
-.flexslider a:active,
-.flex-container a:focus,
-.flexslider a:focus {
+
+.flex-container a:active, .flexslider a:active, .flex-container a:focus, .flexslider a:focus {
   outline: none;
 }
 
-.slides,
-.flex-control-nav,
-.flex-direction-nav {
+.slides, .flex-control-nav, .flex-direction-nav {
   margin: 0;
   padding: 0;
   list-style: none;
 }
+
 /* end flexslider */
 
 /* start about */
-.padding-bottom-10
-{
+
+.padding-bottom-10 {
   padding-bottom: 10px;
 }
-.img-bordered
-{
+
+.img-bordered {
   border: 2px solid #f2f2f2;
   padding: 14px;
 }
+
 /* end about */
 
 /* start gallery */
 
-.templatemo-light-gray-bg
-{
+.templatemo-light-gray-bg {
   background: #f9f9f9;
 }
-.gallery-wrapper
-{
+
+.gallery-wrapper {
   background: #ffffff;
   margin-top: 20px;
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
-.gallery-wrapper:hover
-{
+
+.gallery-wrapper:hover {
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
   transform: scale(1.1);
 }
-.gallery-des
-{
+
+.gallery-des {
   padding: 0 20px 14px 20px;
 }
+
 .gallery-img {
   margin: 0 auto;
 }
+
 /* end gallery */
 
 /* start contact */
-.map
-{
+
+.map {
   height: 200px;
 }
-.contact-fa
-{
+
+.contact-fa {
   color: #202020;
   font-size: 18px;
   padding-right: 10px;
 }
-.contact-link { color: #F0A00E; }
-.form-control
-{
+
+.contact-link {
+  color: #F0A00E;
+}
+
+.form-control {
   border: 2px solid #f2f2f2;
   border-radius: 0;
   -webkit-box-shadow: none;
   box-shadow: none;
-
-
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
-.form-control:focus,
-.form-control:active
-{
+
+.form-control:focus, .form-control:active {
   border-color: #ffa400;
 }
-input
-{
+
+input {
   /*height: 50px;*/
 }
-input[type="submit"]
-{
+
+input[type="submit"] {
   font-weight: bold;
   margin-bottom: 80px;
   margin-top: 20px;
 }
-input[type="submit"]:hover
-{
+
+input[type="submit"]:hover {
   background: #ffa400;
   color: #ffffff;
 }
+
 .form-control::-moz-placeholder {
   color: #666;
   opacity: 1;
 }
+
 .form-control:-ms-input-placeholder {
   color: #666;
 }
+
 .form-control::-webkit-input-placeholder {
   color: #666;
 }
+
 /* end contact */
 
 /* start footer */
-footer
-{
+
+footer {
   background: #202020;
   border-bottom: 10px solid #ffffff;
   color: #ffffff;
@@ -495,22 +512,23 @@ footer
   padding-top: 100px;
   padding-bottom: 100px;
 }
+
 /* end footer */
 
 /* start social icon */
-.social-icon
-{
+
+.social-icon {
   position: relative;
   padding: 0;
   margin: 0;
 }
-.social-icon li
-{
+
+.social-icon li {
   display: inline-block;
   list-style: none;
 }
-.social-icon li a
-{
+
+.social-icon li a {
   color: #666;
   font-size: 13px;
   text-decoration: none;
@@ -521,26 +539,35 @@ footer
   line-height: 40px;
   text-align: center;
 }
-.social-icon li a:hover
-{
+
+.social-icon li a:hover {
   background: #ffa400;
   color: #ffffff;
 }
+
 /* end social icon */
 
 @media only screen and (max-width:360px) {
-  .navbar-default .navbar-brand { padding-top: 6px; }
-  .img-about { margin-top: 40px; }
+  .navbar-default .navbar-brand {
+    padding-top: 6px;
+  }
+  .img-about {
+    margin-top: 40px;
+  }
 }
 
 /********************************
 IPAD LANDSCAPE (1024x768)
 ********************************/
+
 /********************************
 IPAD PORTRAIT (768x1024)
 ********************************/
+
 @media only screen and (max-width: 960px) {
-  .flex-caption { top: 20%; }
+  .flex-caption {
+    top: 20%;
+  }
   .slider-title {
     font-size: 24px;
     margin-bottom: 20px;
@@ -552,71 +579,70 @@ IPAD PORTRAIT (768x1024)
     padding-right: 100px;
   }
 }
+
 @media only screen and (max-width: 768px) {
- .navbar-default .navbar-brand {
-  font-size: 35px;
-  padding-top: 10px;
+  .navbar-default .navbar-brand {
+    font-size: 35px;
+    padding-top: 10px;
+  }
 }
-}
+
 /********************************
 IPHONE 4-4S-5 LANDSCAPE (568x320)
 ********************************/
+
 @media only screen and (max-width: 760px) {
-  .flexslider { padding: 50px 0 0 0; }
-  .flex-caption { display: none; }
-  .flex-direction-nav a { top: 60%; }
+  .flexslider {
+    padding: 50px 0 0 0;
+  }
+  .flex-caption {
+    display: none;
+  }
+  .flex-direction-nav a {
+    top: 60%;
+  }
   .templatemo-section {
     padding-top: 50px;
     padding-bottom: 50px;
   }
 }
+
 /********************************
 IPHONE 4-4S-5 PORTRAIT (320x568)
 ********************************/
 
-
-
-
-
 /* custom CSS */
 
-
 a:visited {
-    color: orange;
-    background-color: transparent;
-    text-decoration: none;
+  color: orange;
+  background-color: transparent;
+  text-decoration: none;
 }
-    .pb-modalreglog-container
-    {
-        margin-top: 100px;
-    }
 
-    .pb-modalreglog-legend
-    {
-        text-align: center;
-    }
+.pb-modalreglog-container {
+  margin-top: 100px;
+}
 
-    .pb-modalreglog-input-group
-    {
-        margin: auto;
-    }
+.pb-modalreglog-legend {
+  text-align: center;
+}
 
-    .pb-modalreglog-submit
-    {
-        margin-left: 5px;
-    }
+.pb-modalreglog-input-group {
+  margin: auto;
+}
 
-    .pb-modalreglog-form-reg
-    {
-        text-align: center;
-    }
+.pb-modalreglog-submit {
+  margin-left: 5px;
+}
 
-    .pb-modalreglog-footer p
-    {
-        text-align: center;
-        margin-top: 20px;
-    }
+.pb-modalreglog-form-reg {
+  text-align: center;
+}
 
+.pb-modalreglog-footer p {
+  text-align: center;
+  margin-top: 20px;
+}
 
 .readonly {
   border-color: transparent;
@@ -628,9 +654,8 @@ a:visited {
   display: none;
 }
 
-
 .btn-space {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 a {
