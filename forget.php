@@ -23,19 +23,22 @@
     $result = $collection->findOne(array('email' => $email));
     if (!empty($result)) {
 
+      require 'vendor/autoload.php';
 
 
+      $from = new SendGrid\Email("PizzaVilla", "help@pizzavila.com");
+      $subject = "Contains Password";
+      $to = new SendGrid\Email("Example User", $result['email']);
+      $content = new SendGrid\Content("text/plain", "Your Password is ".$result['password']);
+      $mail = new SendGrid\Mail($from, $subject, $to, $content);
+      $apiKey = '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';
+      $sg = new \SendGrid($apiKey);
+      $response = $sg->client->mail()->send()->post($mail);
+      //echo $response->statusCode();
+      //print_r($response->headers());
+      //echo $response->body();
 
-
-      $msg = "First line of text\nSecond line of text ".$result["password"];
-
-  // use wordwrap() if lines are longer than 70 characters
-      $msg = wordwrap($msg,70);
-
-  // send email
-      $if_sent = mail($email,"Contains Password", $msg);
-
-      if ($if_sent) {
+      if ($response->statusCode() == 202) {
         $_SESSION["pop_login"] = "Your password has been Successfully sent to the registered emailID.";
         header("Location: .");
       } else {
