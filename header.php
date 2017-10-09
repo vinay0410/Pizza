@@ -113,11 +113,9 @@ if (isset($_POST["username"])) {
 	<link href='//fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
 	<script src="js/jquery.js"></script>
-  <!--<script src="js/scroll.js"></script>
-  <script>$(function() {
- $('html').smoothScroll();
-});</script>-->
-	<script src="js/bootstrap.min.js"></script>
+
+  <script src="js/bootstrap.min.js"></script>
+
 
 <style>
 .front img{
@@ -176,6 +174,8 @@ background-color:white;
     echo '.#feedback';
 } ?>" class="smoothScroll">FEEDBACK</a></li>
 
+
+
 					<?php if (!isset($_SESSION["logged"])) {
     ?>
 					<li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal">Login</button><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal2">Register</button></a></li>
@@ -189,3 +189,10 @@ background-color:white;
 			</div>
 		</div>
 	</div>
+
+  <script src="js/scroll.js"></script>
+  <script>
+     $(function() {
+      $('html').smoothScroll(500);
+     });
+    </script>
