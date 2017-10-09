@@ -99,7 +99,7 @@
         $db = $m->Pizza;
         $collection = $db->outlets;
     } catch (Exception $e) {
-        #die("Caught Exception failed to Connect".$e->getMessage()."\n");
+        die("Caught Exception failed to Connect".$e->getMessage()."\n");
 
 
         $error_outlet_msg = "Couldn't Load Outlets, Connection Failed!";

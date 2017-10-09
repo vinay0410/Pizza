@@ -113,6 +113,10 @@ if (isset($_POST["username"])) {
 	<link href='//fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
 	<script src="js/jquery.js"></script>
+  <!--<script src="js/scroll.js"></script>
+  <script>$(function() {
+ $('html').smoothScroll();
+});</script>-->
 	<script src="js/bootstrap.min.js"></script>
 
 <style>
