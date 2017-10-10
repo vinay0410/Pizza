@@ -2,10 +2,8 @@
 include("header.php");
 
 
+
 ?>
-
-
-
 
 	<!-- end navigation -->
 
@@ -33,6 +31,7 @@ include("header.php");
 	</div>
 	<!-- end flexslider -->
 
+
 	<!-- start about -->
 	<section id="about" class="templatemo-section templatemo-top-130">
 		<div class="container">
@@ -52,6 +51,9 @@ include("header.php");
 		</div>
 	</section>
 	<!-- end about -->
+
+
+
 <!-- start menu -->
 <section id="menu" class="templatemo-section templatemo-light-gray-bg">
 <div class="product">
@@ -331,6 +333,13 @@ include("header.php");
 	</section>
 	<!-- end contact -->
 	<!-- modals start -->
+	<script src="js/scroll.js"></script>
+		<script>
+			 $(function() {
+				$('html').smoothScroll(500);
+			 });
+			</script>
+
 
 	<?php include("modals.php"); ?>
 	<!-- start footer -->

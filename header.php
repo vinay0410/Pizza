@@ -189,10 +189,3 @@ background-color:white;
 			</div>
 		</div>
 	</div>
-
-  <script src="js/scroll.js"></script>
-  <script>
-     $(function() {
-      $('html').smoothScroll(500);
-     });
-    </script>
