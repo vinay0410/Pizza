@@ -161,18 +161,14 @@ $outlet_array = array();
                             foreach ($outlet_cursor as $document) {
                                 array_push($outlet_array, $document); ?>
 
-						<a class="list-group-item <?php if ($index==0) {
-                                    echo "disabled";
-                                } ?>" data-toggle="collapse" data-target="<?php echo "#".$document['_id']; ?>" data-parent="#accordion">
+						<a class="list-group-item" data-toggle="collapse" data-target="<?php echo "#".$document['_id']; ?>" data-parent="#accordion">
 			    		<h4 class="list-group-item-heading accordion-toggle"><?php echo $document['outlet']?>
 								<button type="button" class="btn btn-danger btn-space pull-right" id="<?php echo $index; ?>" onclick="deleteOutlet(this);"><span class="glyphicon glyphicon-remove"></span> </button>
 								<button type="button" name="edit_modal" class="btn btn-default btn-space pull-right" data-toggle="modal" data-target="#outletEditModal" onclick="putContents(this); " id="<?php echo $index; ?>" ><span class="glyphicon glyphicon-pencil"></span> </button>
 							</h4>
 			    		<p class="list-group-item-text"><?php echo $document['outlet_addr']?></p>
 		  			</a>
-						<div id="<?php echo $document['_id']; ?>" class="sublinks collapse <?php if ($index==0) {
-                                    echo "in";
-                                } ?>">
+						<div id="<?php echo $document['_id']; ?>" class="sublinks collapse">
 					   <a class="list-group-item"><?php echo "Supervisor's Name: ".$document["supervisor_name"] ?></a>
 					   <a class="list-group-item"><?php echo "Supervisor's EmailID: ".$document["supervisor_email"] ?></a>
 						 <a class="list-group-item"><?php echo "Supervisor's PhoneNo: ".$document["supervisor_phone"] ?></a>
@@ -185,18 +181,25 @@ $outlet_array = array();
                     }?>
 
 
-					<script type="text/javascript">
-
-    				var complex = <?php echo json_encode($outlet_array); ?>;
-
-						console.log(complex);
-					</script>
 
 				</div>
 			</div>
+
 </div>
 
 </div>
+
+<script type="text/javascript">
+  $("#accordion .list-group .list-group-item:first-child").click();
+
+  var complex = <?php echo json_encode($outlet_array); ?>;
+
+  console.log(complex);
+
+
+</script>
+
+
 
 <!-- Edit Modal Start -->
 
@@ -366,9 +369,7 @@ $outlet_array = array();
 <!-- Outlet Modal End -->
 
 	<script>
-			$(".list-group-item").on("click", function() {
-				$(this).toggleClass("disabled");
-			});
+
 
 			function deleteOutlet(param) {
 

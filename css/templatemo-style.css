@@ -662,3 +662,12 @@ a:visited {
 a {
   cursor: pointer !important;
 }
+
+
+.list-group-item {
+  background-color: #f1f1f1 !important;
+}
+
+.collapsed {
+  background: inherit !important;
+}
