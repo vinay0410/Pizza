@@ -6,7 +6,7 @@
     if (isset($_POST["deleteOutlet"])) {
         $outlet = $_POST["deleteOutlet"];
         try {
-            $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+            $m = new MongoClient();
             $db = $m->Pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
@@ -31,7 +31,7 @@
         $supervisor_phone = $_POST["sup-phone"];
 
         try {
-            $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+            $m = new MongoClient();
             $db = $m->Pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
@@ -95,7 +95,7 @@
 
 
     try {
-        $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+        $m = new MongoClient();
         $db = $m->Pizza;
         $collection = $db->outlets;
     } catch (Exception $e) {
@@ -190,6 +190,7 @@ $outlet_array = array();
 
 <div class="panel panel-default">
   <div class="panel-heading"><h3>Users</h3></div>
+  <div class="panel-body">
   <div class="form-group">
   <br>
     <div class="input-group pb-modalreglog-input-group col-sm-5">
@@ -200,7 +201,7 @@ $outlet_array = array();
 
   </div>
 
-  <div class="form-group user-input">
+  <div class="form-group">
    <div class="input-group pb-modalreglog-input-group col-sm-5">
     <label for="sel1">Search By:</label>
       <select class="form-control" id="sel1">
@@ -212,10 +213,14 @@ $outlet_array = array();
   </div>
 
 
-    <div class="panel-body" id="accordion_users">
+    <div id="accordion_users" style="display: none;">
 
 
     </div>
+    <div class="loader col-xs-6 col-xs-offset-5" style="display: none;">
+   </div>
+
+  </div>
 
   </div>
 
@@ -225,14 +230,42 @@ $outlet_array = array();
 
 <script type="text/javascript">
 
+var currentRequest = null;
 $(document).ready(function(){
-    $(".form-group").on('keyup change blur click', function(){
+
+    $(".form-group").on('keyup change blur', function(){
         txt = $("#user_search").val();
         search_by = $("option:selected").val().toLowerCase();
+        if (txt) {
         console.log(txt);
         console.log(search_by);
-        $("#accordion_users").load("data.php", {suggest: txt, search_by});
+        currentRequest = $.ajax({
+    data: {suggest: txt, search_by: search_by},
+    url: 'data.php',
+    beforeSend : function()    {
+        if(currentRequest != null) {
+            currentRequest.abort();
+        }
+        $("#accordion_users").slideUp("slow");
+        $(".loader").show();
+    },
+    success: function(result) {
+        $("#accordion_users").html(result);
+        $(".loader").hide();
+        $("#accordion_users").slideDown("slow");
+    },
+    error:function(e){
+      if (currentRequest == null) {
+      $(".loader").hide();
+      alert("Error Loading data");
+    }
+    }
     });
+  } else {
+    $("#accordion_users").slideUp("slow");
+    $(".loader").hide();
+  }
+  });
 });
 
 
