@@ -187,7 +187,7 @@ $outlet_array = array();
 
 </div>
 
-
+<!--
 <div class="panel panel-default panel-users">
   <div class="panel-heading"><h3>Users</h3></div>
   <div class="form-group">
@@ -218,14 +218,14 @@ $outlet_array = array();
     </div>
 
   </div>
-
+-->
 
 
 
 </div>
 
 <script type="text/javascript">
-
+/*
 $(document).ready(function(){
     $(".panel").on('keyup change click', function(){
         txt = $(".panel-users div div input").val();
@@ -235,7 +235,7 @@ $(document).ready(function(){
         $("#accordion_users").load("data.php", {suggest: txt, search_by});
     });
 });
-
+*/
 
 
 
