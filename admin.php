@@ -188,7 +188,7 @@ $outlet_array = array();
 </div>
 
 
-<div class="panel panel-default">
+<div class="panel panel-default panel-users">
   <div class="panel-heading"><h3>Users</h3></div>
   <div class="form-group">
   <br>
@@ -228,8 +228,10 @@ $outlet_array = array();
 
 $(document).ready(function(){
     $(".panel").on('keyup change click', function(){
-        txt = $("input").val();
+        txt = $(".panel-users div div input").val();
         search_by = $("option:selected").val().toLowerCase();
+        console.log(txt);
+        console.log(search_by);
         $("#accordion_users").load("data.php", {suggest: txt, search_by});
     });
 });
