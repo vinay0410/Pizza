@@ -262,6 +262,8 @@ $(document).ready(function(){
     }
     });
   } else {
+    console.log("empty");
+    currentRequest.abort();
     $("#accordion_users").slideUp("slow");
     $(".loader").hide();
   }
