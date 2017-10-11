@@ -212,7 +212,7 @@ $outlet_array = array();
   </div>
 
 
-    <div class="panel-body" id="accordion">
+    <div class="panel-body" id="accordion_users">
 
 
     </div>
@@ -230,7 +230,7 @@ $(document).ready(function(){
     $(".panel").on('keyup change click', function(){
         txt = $("input").val();
         search_by = $("option:selected").val().toLowerCase();
-        $("#accordion").load("data.php", {suggest: txt, search_by});
+        $("#accordion_users").load("data.php", {suggest: txt, search_by});
     });
 });
 
