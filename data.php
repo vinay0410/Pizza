@@ -28,8 +28,8 @@
         <?php echo '<p>'.$row['email'].'</p>'; ?>
     </a>
     <div id="<?php echo $row['_id']; ?>" class="sublinks collapse">
-      <a class="list-group-item"><?php echo "Address: ".$document["address"] ?></a>
-      <a class="list-group-item"><?php echo "Contact: ".$document["phoneno"] ?></a>
+      <a class="list-group-item">Address: <?php if (isset($row["address"])) { echo " ".$row["address"]; } else { echo " None"; }?></a>
+      <a class="list-group-item"><?php echo "Contact: ".$row["phoneno"]; ?></a>
     </div>
 
 <?php

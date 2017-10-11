@@ -187,20 +187,20 @@ $outlet_array = array();
 
 </div>
 
-<!--
-<div class="panel panel-default panel-users">
+
+<div class="panel panel-default">
   <div class="panel-heading"><h3>Users</h3></div>
   <div class="form-group">
   <br>
     <div class="input-group pb-modalreglog-input-group col-sm-5">
       <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-      <input type="text" name="search_text" class="form-control" placeholder="Search">
+      <input type="text" name="search_text" id="user_search" class="form-control" placeholder="Search">
 
     </div>
 
   </div>
 
-  <div class="form-group">
+  <div class="form-group user-input">
    <div class="input-group pb-modalreglog-input-group col-sm-5">
     <label for="sel1">Search By:</label>
       <select class="form-control" id="sel1">
@@ -218,24 +218,23 @@ $outlet_array = array();
     </div>
 
   </div>
--->
 
 
 
 </div>
 
 <script type="text/javascript">
-/*
+
 $(document).ready(function(){
-    $(".panel").on('keyup change click', function(){
-        txt = $(".panel-users div div input").val();
+    $(".form-group").on('keyup change blur click', function(){
+        txt = $("#user_search").val();
         search_by = $("option:selected").val().toLowerCase();
         console.log(txt);
         console.log(search_by);
         $("#accordion_users").load("data.php", {suggest: txt, search_by});
     });
 });
-*/
+
 
 
 

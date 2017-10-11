@@ -1,7 +1,7 @@
 <?php include("header.php"); ?>
 <script>
 $(document).ready(function(){
-    $(".panel").on('keyup change click', function(){
+    $(".panel").on('keyup change', function(){
         txt = $("input").val();
         search_by = $("option:selected").val().toLowerCase();
         $("#accordion").load("data.php", {suggest: txt, search_by});
