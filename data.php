@@ -22,8 +22,8 @@
     <a class="list-group-item" data-toggle="collapse" data-target="<?php echo "#".$row['_id']; ?>" data-parent="#accordion_users">
       <h4 class="list-group-item-heading accordion-toggle">
         <?php echo $row["username"]; ?>
-        <button type="button" class="btn btn-danger btn-space pull-right" onclick="deleteOutlet(this);"><span class="glyphicon glyphicon-remove"></span> </button>
-
+        <!--<button type="button" class="btn btn-danger btn-space pull-right" onclick="deleteOutlet(this);"><span class="glyphicon glyphicon-remove"></span> </button>
+        -->
       </h4>
         <?php echo '<p>'.$row['email'].'</p>'; ?>
     </a>
