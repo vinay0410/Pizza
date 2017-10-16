@@ -132,6 +132,23 @@ background-color:orange;
 background-color:white;
 }
 </style>
+<!--style for cart -->
+ <style>
+.glyphicon{
+line-height:3;
+}
+  .badge-notify{
+    background:orange;
+    position:relative;
+    top: -20px;
+    right: 10px;
+  }
+  .my-cart-icon-affix {
+    position: relative;
+    z-index: 999;
+  }
+  </style>
+<!-- ending style for cart -->
 
 </head>
 <body id="home" data-spy="scroll" data-target=".navbar-collapse">
@@ -187,6 +204,17 @@ background-color:white;
 				<?php
     } ?>
 				<li><a href="admin.php"><button class="btn btn-warning pb-modalreglog-submit"> Admin's Portal</button></a></li>
+<!--shopping cart -->
+
+    <li>
+
+        <span class="glyphicon glyphicon-shopping-cart my-cart-icon smoothScroll"style="cursor: pointer">Cart</span><span class="badge badge-notify my-cart-badge"></span>
+    </li>
+    
+  
+<!--ending shopping cart -->
+
+
 			</div>
 		</div>
 	</div>

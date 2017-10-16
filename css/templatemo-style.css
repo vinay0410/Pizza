@@ -90,7 +90,8 @@ img {
 
 .navbar-default .navbar-toggle {
   border: none;
-  padding-top: 10px;
+ /* padding-top: 10px; changing */
+padding-top: 0px;
 }
 
 .navbar-default .navbar-toggle .icon-bar {

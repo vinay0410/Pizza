@@ -141,7 +141,7 @@ li.w3pages .dropdown-menu > li > a:hover,li.w3pages .dropdown-menu > li > a.acti
     color: #3d3246; 
 }
 ul.nav.navbar-nav.navbar-right {
-    margin: 2em 3em 0 0;
+    margin: -1em -2em 0 0;
 }
 .navbar-nav > li { 
     margin: 0 1em;
