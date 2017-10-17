@@ -113,6 +113,12 @@ if (isset($_POST["username"])) {
 	<!-- google font -->
 	<link href='//fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
+<<<<<<< HEAD
+=======
+	<script src="js/jquery.js"></script>
+
+
+>>>>>>> cart_new
 
 
 <style>
@@ -146,6 +152,22 @@ line-height:3;
   }
   </style>
 <!-- ending style for cart -->
+
+<style>
+.glyphicon{
+line-height:3;
+}
+  .badge-notify{
+    background:orange;
+    position:relative;
+    top: -20px;
+    right: 10px;
+  }
+  .my-cart-icon-affix {
+    position: relative;
+    z-index: 999;
+  }
+  </style>
 
 </head>
 <body id="home" data-spy="scroll" data-target=".navbar-collapse">
@@ -200,18 +222,15 @@ line-height:3;
           <li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#userModal"><span class="glyphicon glyphicon-user"></span><?php echo ' Hi '.$_SESSION["logged"]["username"]; ?></button></a></li>
 				<?php
     } ?>
-				<li><a href="admin.php"><button class="btn btn-warning pb-modalreglog-submit"> Admin's Portal</button></a></li>
-<!--shopping cart -->
 
-  <!  <li>
+        <li>
 
-        <span class="glyphicon glyphicon-shopping-cart my-cart-icon smoothScroll"style="cursor: pointer">Cart</span><span class="badge badge-notify my-cart-badge"></span>
+        <span class="glyphicon glyphicon-shopping-cart my-cart-icon smoothScroll" style="cursor: pointer">Cart</span><span class="badge badge-notify my-cart-badge">0</span>
     </li>
 
 
-<!--ending shopping cart -->
-</ul>
 
-			</div>
+      </ul>
+      </div>
 		</div>
 	</div>
