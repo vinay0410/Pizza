@@ -6,7 +6,10 @@ try {
   //$m = new MongoDB\Client();
   $db = $m->Pizza;
   $collection = $db->users;
-  var_dump($collection);
+  $result = $collection->find();
+  foreach($result as $doc) {
+    var_dump($doc["username"]);
+  }
 
 } catch (Exception $e) {
   echo "Error ".$e->getMessage();
