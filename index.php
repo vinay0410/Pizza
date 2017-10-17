@@ -55,228 +55,8 @@ include("header.php");
 
 
 <!-- start menu -->
-<section id="menu" class="templatemo-section templatemo-light-gray-bg">
-<div class="product">
-<div class="container">
-<div class="row">
 
-				<div class="col-md-12">
-					<h2 class="text-center text-uppercase">Menu</h2>
-					<hr>
-				</div>
-				<div class="header">
-						<div class="cart cart box_1">
-							<form action="#" method="post" class="last">
-								<input type="hidden" name="cmd" value="_cart" />
-								<input type="hidden" name="display" value="1" />
-								<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-							</form>
-						</div>
-
-				</div><!-- header ends (for cart) -->
-
-				<!-- -->
-				<div class="products-row" >
-					<div class="col-md-4 col-sm-4 product-grids">
-						<div class="flip-container">
-							<div class="flipper agile-products">
-								<div class="front">
-									<img src="menu/1.jpg" class="img-responsive" alt="img">
-									<!--<div class="agile-product-text">
-										<h5>Voluptate</h5>
-									</div> -->
-
-									<div class="gallery-des">
-									<h3>Voluptate</h3>
-									</div>
-
-
-								</div>
-								<div class="back">
-									<h4>Voluptate </h4>
-									<p>Cheese, tomato, mushrooms, onions.</p>
-									<h6>50<sup>$</sup></h6>
-									<form action="#" method="post">
-										<input type="hidden" name="cmd" value="_cart">
-										<input type="hidden" name="add" value="1">
-										<input type="hidden" name="w3ls_item" value="Voluptate">
-										<input type="hidden" name="amount" value="50">
-										<button type="submit" class="w3ls-cart pw3ls-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
-										<span class="w3-agile-line"> </span>
-										<a href="#" data-toggle="modal" data-target="#myModal1">Explore</a>
-									</form>
-								</div><!-- front-->
-							</div><!--flipper agileproducts -->
-						</div> <!--flip container-->
-					</div>
-					<div class="col-md-4 col-sm-4 product-grids">
-						<div class="flip-container">
-							<div class="flipper agile-products">
-								<div class="front">
-								<img src="menu/2.jpeg" class="img-responsive" alt="img">
-									<!--<div class="agile-product-text">
-										<h5>Voluptate</h5>
-
-									</div> -->
-
-									<div class="gallery-des">
-									<h3>Arcu pede</h3>
-									</div>
-
-								</div>
-								<div class="back">
-									<h4>Arcu pede</h4>
-									<p>Tuna, Sweetcorn, Cheese</p>
-									<h6>50<sup>$</sup></h6>
-									<form action="#" method="post">
-										<input type="hidden" name="cmd" value="_cart">
-										<input type="hidden" name="add" value="1">
-										<input type="hidden" name="w3ls_item" value="Arcu pede">
-										<input type="hidden" name="amount" value="50">
-										<button type="submit" class="w3ls-cart pw3ls-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
-										<span class="w3-agile-line"> </span>
-										<a href="#" data-toggle="modal" data-target="#myModal1">Explore</a>
-									</form>
-								</div><!-- front-->
-							</div><!--flipper agileproducts -->
-						</div> <!--flip container-->
-					</div>
-					<div class="col-md-4 col-sm-4 product-grids">
-						<div class="flip-container">
-							<div class="flipper agile-products">
-								<div class="front">
-									<img src="menu/3.jpg" class="img-responsive" alt="img">
-
-									<div class="gallery-des">
-									<h3>Quam semper </h3>
-									</div>
-
-								</div>
-								<div class="back" >
-									<h4>Quam semper  </h4>
-									<p>Cheese, tomato, mushrooms, onions.</p>
-									<h6>25<sup>$</sup></h6>
-									<form action="#" method="post">
-										<input type="hidden" name="cmd" value="_cart">
-										<input type="hidden" name="add" value="1">
-										<input type="hidden" name="w3ls_item" value="Quam semper">
-										<input type="hidden" name="amount" value="25">
-										<button type="submit" class="w3ls-cart pw3ls-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
-										<span class="w3-agile-line"> </span>
-										<a href="#" data-toggle="modal" data-target="#myModal1">Explore</a>
-									</form>
-								</div><!-- back-->
-							</div><!--flipper agileproducts -->
-						</div> <!--flip container-->
-					</div>
-
-					<br/><br/><br/><br/><div></div>
-				</div> <!-- product rows -->
-
-				<div class="products-row" >
-					<div class="col-md-4 col-sm-4 product-grids">
-						<div class="flip-container">
-							<div class="flipper agile-products">
-								<div class="front">
-									<img src="menu/4.jpg" class="img-responsive" alt="img">
-									<!--<div class="agile-product-text">
-										<h5>Voluptate</h5>
-
-									</div> -->
-
-									<div class="gallery-des">
-									<h3>Donec sodales</h3>
-									</div>
-
-								</div>
-								<div class="back">
-									<h4>Donec sodales</h4>
-									<p>Double Cheese, onions.</p>
-									<h6>70<sup>$</sup></h6>
-									<form action="#" method="post">
-										<input type="hidden" name="cmd" value="_cart">
-										<input type="hidden" name="add" value="1">
-										<input type="hidden" name="w3ls_item" value="Donec sodales">
-										<input type="hidden" name="amount" value="70">
-										<button type="submit" class="w3ls-cart pw3ls-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
-										<span class="w3-agile-line"> </span>
-										<a href="#" data-toggle="modal" data-target="#myModal1">Explore</a>
-									</form>
-								</div><!-- front-->
-							</div><!--flipper agileproducts -->
-						</div> <!--flip container-->
-					</div>
-					<div class="col-md-4 col-sm-4 product-grids">
-						<div class="flip-container">
-							<div class="flipper agile-products">
-								<div class="front">
-									<img src="menu/5.jpg" class="img-responsive" alt="img">
-									<!--<div class="agile-product-text">
-										<h5>Voluptate</h5>
-									</div> -->
-
-									<div class="gallery-des">
-									<h3>Nam eget</h3>
-									</div>
-
-								</div>
-								<div class="back">
-									<h4>Nam eget </h4>
-									<p>Chicken, mozzarella cheese, onions.</p>
-									<h6>50<sup>$</sup></h6>
-									<form action="#" method="post">
-										<input type="hidden" name="cmd" value="_cart">
-										<input type="hidden" name="add" value="1">
-										<input type="hidden" name="w3ls_item" value="Nam eget">
-										<input type="hidden" name="amount" value="50">
-										<button type="submit" class="w3ls-cart pw3ls-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
-										<span class="w3-agile-line"> </span>
-										<a href="#" data-toggle="modal" data-target="#myModal1">Explore</a>
-									</form>
-								</div><!-- front-->
-							</div><!--flipper agileproducts -->
-						</div> <!--flip container-->
-					</div>
-					<div class="col-md-4 col-sm-4 product-grids">
-						<div class="flip-container">
-							<div class="flipper agile-products">
-								<div class="front">
-									<img src="menu/6.jpeg" class="img-responsive" alt="img">
-
-									<div class="gallery-des">
-									<h3>Metus varius</h3>
-									</div>
-
-								</div>
-								<div class="back">
-									<h4>Metus varius</h4>
-									<p>Chicken, mozzarella cheese, onions.</p>
-									<h6>50<sup>$</sup></h6>
-									<form action="#" method="post">
-										<input type="hidden" name="cmd" value="_cart">
-										<input type="hidden" name="add" value="1">
-										<input type="hidden" name="w3ls_item" value="Metus varius">
-										<input type="hidden" name="amount" value="50">
-										<button type="submit" class="w3ls-cart pw3ls-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
-										<span class="w3-agile-line"> </span>
-										<a href="#" data-toggle="modal" data-target="#myModal1">Explore</a>
-									</form>
-								</div><!-- back-->
-							</div><!--flipper agileproducts -->
-						</div> <!--flip container-->
-					</div>
-
-
-				</div> <!-- product rows -->
-				<!-- -- >
-
-
-</div>
-</div> <!--row-->
-</div> <!--container -->
-</div><!--section-->
-
-
+<?php include("menu.html") ?>
 
 <!-- end menu -->
 
@@ -333,12 +113,74 @@ include("header.php");
 	</section>
 	<!-- end contact -->
 	<!-- modals start -->
-	<script src="js/scroll.js"></script>
-		<script>
-			 $(function() {
-				$('html').smoothScroll(500);
-			 });
-			</script>
+
+
+<!--<script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>-->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.mycart.js"></script>
+<script src="js/scroll.js"></script>
+	<script>
+		 $(function() {
+			$('html').smoothScroll(500);
+		 });
+		</script>
+
+
+<script type="text/javascript">
+  $(function () {
+
+    var goToCartIcon = function($addTocartBtn){
+      var $cartIcon = $(".my-cart-icon");
+      var $image = $('<img width="30px" height="30px" src="' + $addTocartBtn.data("image") + '"/>').css({"position": "fixed", "z-index": "999"});
+      $addTocartBtn.prepend($image);
+      var position = $cartIcon.position();
+      $image.animate({
+        top: position.top,
+        left: position.left
+      }, 500 , "linear", function() {
+        $image.remove();
+      });
+    }
+
+    $('.my-cart-btn').myCart({
+      currencySymbol: '$',
+      classCartIcon: 'my-cart-icon',
+      classCartBadge: 'my-cart-badge',
+      classProductQuantity: 'my-product-quantity',
+      classProductRemove: 'my-product-remove',
+      classCheckoutCart: 'my-cart-checkout',
+      affixCartIcon: true,
+      showCheckoutModal: true,
+      numberOfDecimals: 2,
+      cartItems: [],
+      clickOnAddToCart: function($addTocart){
+        goToCartIcon($addTocart);
+      },
+      afterAddOnCart: function(products, totalPrice, totalQuantity) {
+        console.log("afterAddOnCart", products, totalPrice, totalQuantity);
+      },
+      clickOnCartIcon: function($cartIcon, products, totalPrice, totalQuantity) {
+        console.log("cart icon clicked", $cartIcon, products, totalPrice, totalQuantity);
+      },
+      checkoutCart: function(products, totalPrice, totalQuantity) {
+        var checkoutString = "Total Price: " + totalPrice + "\nTotal Quantity: " + totalQuantity;
+        checkoutString += "\n\n id \t name \t\t\t\t  price \t\t\t quantity \t\t\t image path";
+        $.each(products, function(){
+          checkoutString += ("\n " + this.id + " \t " + this.name + " \t \t\t  " + this.price + " \t\t\t\t " + this.quantity + " \t\t\t\t " + this.image);
+        });
+        alert(checkoutString)
+        console.log("checking out", products, totalPrice, totalQuantity);
+      },
+      getDiscountPrice: function(products, totalPrice, totalQuantity) {
+        console.log("calculating discount", products, totalPrice, totalQuantity);
+        return totalPrice * 0.5;
+      }
+    });
+
+
+  });
+  </script>
+
 
 
 	<?php include("modals.php"); ?>
