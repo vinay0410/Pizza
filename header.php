@@ -210,8 +210,8 @@ line-height:3;
 
         <span class="glyphicon glyphicon-shopping-cart my-cart-icon smoothScroll"style="cursor: pointer">Cart</span><span class="badge badge-notify my-cart-badge"></span>
     </li>
-    
-  
+
+
 <!--ending shopping cart -->
 
 
