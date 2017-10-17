@@ -91,7 +91,7 @@ img {
 .navbar-default .navbar-toggle {
   border: none;
  /* padding-top: 10px; changing */
-padding-top: 0px;
+padding-top: 10px;
 }
 
 .navbar-default .navbar-toggle .icon-bar {

@@ -113,9 +113,6 @@ if (isset($_POST["username"])) {
 	<!-- google font -->
 	<link href='//fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
-	<script src="js/jquery.js"></script>
-
-  <script src="js/bootstrap.min.js"></script>
 
 
 <style>
@@ -206,14 +203,14 @@ line-height:3;
 				<li><a href="admin.php"><button class="btn btn-warning pb-modalreglog-submit"> Admin's Portal</button></a></li>
 <!--shopping cart -->
 
-    <li>
+  <!  <li>
 
         <span class="glyphicon glyphicon-shopping-cart my-cart-icon smoothScroll"style="cursor: pointer">Cart</span><span class="badge badge-notify my-cart-badge"></span>
     </li>
 
 
 <!--ending shopping cart -->
-
+</ul>
 
 			</div>
 		</div>

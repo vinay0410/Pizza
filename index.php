@@ -85,7 +85,7 @@ include("header.php");
 									<h4>Voluptate </h4>
 									<p>Cheese, tomato, mushrooms, onions.</p>
 									<h6>50<sup>$</sup></h6>
-									
+
 <!-- button for cart -->
 <button class="w3ls-cart pw3ls-cart my-cart-btn" data-id="1" data-name="Voluptate " data-summary="Cheese, tomato, mushrooms, onions." data-price="50" data-quantity="1" data-image="menu/1.jpg"><i class="fa fa-cart-plus" aria-hidden="true"></i>Add to Cart</button>
 <span class="w3-agile-line"> </span>
@@ -142,7 +142,7 @@ include("header.php");
 <button class="w3ls-cart pw3ls-cart my-cart-btn" data-id="3" data-name="Quam semper" data-summary="summary 1" data-price="25" data-quantity="1" data-image="menu/3.jpg"><i class="fa fa-cart-plus" aria-hidden="true"></i>Add to Cart</button>
 <span class="w3-agile-line"> </span>
      <a href="#" data-toggle="modal" data-target="#myModal1">Explore</a>
-<!--ending button for cart -->								
+<!--ending button for cart -->
 								</div><!-- back-->
 							</div><!--flipper agileproducts -->
 						</div> <!--flip container-->
@@ -175,8 +175,8 @@ include("header.php");
 <button class="w3ls-cart pw3ls-cart my-cart-btn" data-id="4" data-name="Donec sodales" data-summary="summary 1" data-price="70" data-quantity="1" data-image="menu/4.jpg"><i class="fa fa-cart-plus" aria-hidden="true"></i>Add to Cart</button>
 <span class="w3-agile-line"> </span>
      <a href="#" data-toggle="modal" data-target="#myModal1">Explore</a>
-<!--ending button for cart -->								
-				
+<!--ending button for cart -->
+
 								</div><!-- front-->
 							</div><!--flipper agileproducts -->
 						</div> <!--flip container-->
@@ -203,7 +203,7 @@ include("header.php");
 <button class="w3ls-cart pw3ls-cart my-cart-btn" data-id="5" data-name="Nam eget" data-summary="summary 1" data-price="50" data-quantity="1" data-image="menu/5.jpg"><i class="fa fa-cart-plus" aria-hidden="true"></i>Add to Cart</button>
 <span class="w3-agile-line"> </span>
      <a href="#" data-toggle="modal" data-target="#myModal1">Explore</a>
-<!--ending button for cart -->	
+<!--ending button for cart -->
 								</div><!-- front-->
 							</div><!--flipper agileproducts -->
 						</div> <!--flip container-->
@@ -227,7 +227,7 @@ include("header.php");
 <button class="w3ls-cart pw3ls-cart my-cart-btn" data-id="6" data-name="Metus varius" data-summary="summary 1" data-price="50" data-quantity="1" data-image="menu/6.jpeg"><i class="fa fa-cart-plus" aria-hidden="true"></i>Add to Cart</button>
 <span class="w3-agile-line"> </span>
      <a href="#" data-toggle="modal" data-target="#myModal1">Explore</a>
-<!--ending button for cart -->	
+<!--ending button for cart -->
 								</div><!-- back-->
 							</div><!--flipper agileproducts -->
 						</div> <!--flip container-->
@@ -300,16 +300,17 @@ include("header.php");
 	</section>
 	<!-- end contact -->
 	<!-- modals start -->
+	<
+<!--script for add to cart -->
+ <script src="js/jquery-2.2.3.min.js"></script>
+  <script type='text/javascript' src="js/bootstrap.min.js"></script>
+  <script type='text/javascript' src="js/jquery.mycart.js"></script>
 	<script src="js/scroll.js"></script>
 		<script>
 			 $(function() {
 				$('html').smoothScroll(500);
 			 });
 			</script>
-<!--script for add to cart -->
- <script src="js/jquery-2.2.3.min.js"></script>
-  <script type='text/javascript' src="js/bootstrap.min.js"></script>
-  <script type='text/javascript' src="js/jquery.mycart.js"></script>
   <script type="text/javascript">
   $(function () {
 
@@ -361,7 +362,7 @@ include("header.php");
       }
     });
 
-   
+
   });
   </script>
 <!-- ending add to cart -->
