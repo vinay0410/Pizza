@@ -139,7 +139,10 @@ background-color:white;
 </style>
 <!--style for cart -->
  <style>
-.glyphicon{
+
+
+
+.my-cart-parent .glyphicon {
 line-height:3;
 }
   .badge-notify{
@@ -152,24 +155,11 @@ line-height:3;
     position: relative;
     z-index: 999;
   }
+
+
   </style>
 <!-- ending style for cart -->
 
-<style>
-.glyphicon{
-line-height:3;
-}
-  .badge-notify{
-    background:orange;
-    position:relative;
-    top: -20px;
-    right: 10px;
-  }
-  .my-cart-icon-affix {
-    position: relative;
-    z-index: 999;
-  }
-  </style>
 
 </head>
 <body id="home" data-spy="scroll" data-target=".navbar-collapse">
@@ -225,7 +215,7 @@ line-height:3;
 				<?php
     } ?>
 
-        <li>
+        <li class="my-cart-parent">
 
         <span class="glyphicon glyphicon-shopping-cart my-cart-icon smoothScroll" style="cursor: pointer">Cart</span><span class="badge badge-notify my-cart-badge">0</span>
     </li>

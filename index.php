@@ -143,7 +143,7 @@ include("header.php");
       }, 200 , "swing", function() {
 				$cartIcon.parent().effect("bounce", {
                     times: 2
-                }, 200);
+                }, 400);
 				$image.remove();
       });
     }

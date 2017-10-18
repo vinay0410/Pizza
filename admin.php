@@ -226,9 +226,32 @@ $outlet_array = array();
 
 
 
+
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3>Menu</h3></div>
+    <div class="panel-body">
+      <div class="menu"></div>
+
+
+
+    </div>
+
+    <div class="menu-loader col-xs-6 col-xs-offset-5" style="display: none;">
+   </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+
 </div>
 
 <script type="text/javascript">
+
 
 var currentRequest = null;
 $(document).ready(function(){
@@ -268,6 +291,34 @@ $(document).ready(function(){
     $(".loader").hide();
   }
   });
+});
+
+
+
+var currentRequestMenu = null;
+$(document).ready(function(){
+
+    currentRequestMenu = $.ajax({
+    url: 'menu.php',
+    beforeSend : function()    {
+        if(currentRequestMenu != null) {
+            currentRequestMenu.abort();
+        }
+        $(".menu").slideUp("slow");
+        $(".menu-loader").show();
+    },
+    success: function(result) {
+        $(".menu").html(result);
+        $(".menu-loader").hide();
+        $(".menu").slideDown("slow");
+    },
+    error:function(e){
+      if (currentRequestMenu == null) {
+      $(".menu-loader").hide();
+      alert("Error Loading data");
+    }
+    }
+    });
 });
 
 

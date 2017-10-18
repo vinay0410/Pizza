@@ -1,15 +1,5 @@
-<section id="menu" class="templatemo-section templatemo-light-gray-bg">
-  <div class="product">
 
-    <div class="container">
-      <div class="row">
-
-        <div class="col-md-12">
-          <h2 class="text-center text-uppercase">Menu</h2>
-          <hr>
-        </div>
-        <!-- -->
-        <div class="products-row">
+  <!--      <div class="products-row">
 
           <div class="col-md-4 col-sm-4 product-grids">
             <div class="flip-container">
@@ -43,15 +33,12 @@
             </div>
             <!--flip container-->
           </div>
-          <div class="col-md-4 col-sm-4 product-grids">
+    <!--      <div class="col-md-4 col-sm-4 product-grids">
             <div class="flip-container">
               <div class="flipper agile-products">
                 <div class="front">
                   <img src="menu/2.jpeg" class="img-responsive" alt="img">
-                  <!--<div class="agile-product-text">
-											<h5>Voluptate</h5>
 
-										</div> -->
 
                   <div class="gallery-des">
                     <h3>Arcu pede</h3>
@@ -74,7 +61,7 @@
             </div>
             <!--flip container-->
           </div>
-          <div class="col-md-4 col-sm-4 product-grids">
+    <!--      <div class="col-md-4 col-sm-4 product-grids">
             <div class="flip-container">
               <div class="flipper agile-products">
                 <div class="front">
@@ -101,13 +88,13 @@
             </div>
             <!--flip container-->
           </div>
-
+<!--
           <br><br><br><br>
           <div></div>
         </div>
-        <!-- product rows -->
+       product rows -->
 
-        <div class="products-row">
+    <!--    <div class="products-row">
           <div class="col-md-4 col-sm-4 product-grids">
             <div class="flip-container">
               <div class="flipper agile-products">
@@ -140,7 +127,7 @@
             </div>
             <!--flip container-->
           </div>
-          <div class="col-md-4 col-sm-4 product-grids">
+    <!--      <div class="col-md-4 col-sm-4 product-grids">
             <div class="flip-container">
               <div class="flipper agile-products">
                 <div class="front">
@@ -170,7 +157,7 @@
             </div>
             <!--flip container-->
           </div>
-          <div class="col-md-4 col-sm-4 product-grids">
+    <!--      <div class="col-md-4 col-sm-4 product-grids">
             <div class="flip-container">
               <div class="flipper agile-products">
                 <div class="front">
@@ -199,14 +186,6 @@
           </div>
 
 
-        </div>
-        <!-- product rows -->
+  <!--      </div>
+         product rows -->
         <!-- -- >
-
-
-	   </div>
-   </div> <!--container-->
-  </div>
-      <!--product -->
-
-</section>
