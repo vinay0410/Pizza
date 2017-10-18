@@ -22,6 +22,7 @@ try {
 
 <?php
       if ($result->count() != 0 AND !empty($q)) {
+        
       foreach ($result as $row) { ?>
 
     <a class="list-group-item" data-toggle="collapse" data-target="<?php echo "#".$row['_id']; ?>" data-parent="#accordion_users">
