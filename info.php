@@ -1,17 +1,12 @@
 <?php
 require "vendor/autoload.php";
+echo phpinfo();
 
 try {
-  $m = new MongoDB\Client("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/compose?ssl=true&authSource=admin");
+  $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
 
   //$m = new MongoDB\Client();
-  $db = $m->Pizza;
-  $collection = $db->users;
-  $result = $collection->find();
-  foreach($result as $doc) {
-    var_dump($doc["username"]);
-  }
-
+  
 } catch (Exception $e) {
   echo "Error ".$e->getMessage();
 }

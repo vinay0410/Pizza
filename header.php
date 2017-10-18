@@ -57,8 +57,8 @@ if (isset($_POST["username"])) {
     $error = false;
     $error_msg;
     try {
-        $m = new MongoDB\Client("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin");
-        $db = $m->Pizza;
+        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $db = $m->pizza;
         $collection = $db->users;
     } catch (Exception $e) {
         #die("Caught Exception failed to Connect".$e->getMessage()."\n");

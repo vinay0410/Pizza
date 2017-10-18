@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "09b900874bb6b29935f18ae69ddb80b4",
+    "content-hash": "d5efa630a6afb314a8e0f1bb117ff6b0",
     "packages": [
         {
             "name": "mashape/unirest-php",
@@ -57,16 +57,16 @@
         },
         {
             "name": "mongodb/mongodb",
-            "version": "1.1.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mongodb/mongo-php-library.git",
-                "reference": "a307dd60e71e1291c60927ea4f3a1905146063f5"
+                "reference": "9dfb2c5fc917d7438b44eb8f4d247ba3e3984e75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/a307dd60e71e1291c60927ea4f3a1905146063f5",
-                "reference": "a307dd60e71e1291c60927ea4f3a1905146063f5",
+                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/9dfb2c5fc917d7438b44eb8f4d247ba3e3984e75",
+                "reference": "9dfb2c5fc917d7438b44eb8f4d247ba3e3984e75",
                 "shasum": ""
             },
             "require": {
@@ -77,6 +77,11 @@
                 "phpunit/phpunit": "^4.8"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "MongoDB\\": "src/"
@@ -111,7 +116,7 @@
                 "mongodb",
                 "persistence"
             ],
-            "time": "2017-02-16T18:40:32+00:00"
+            "time": "2016-12-06T14:54:33+00:00"
         },
         {
             "name": "sag/sag",
@@ -119,12 +124,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sbisbee/sag.git",
-                "reference": "b81c26bdbda13341f86b3de41e0241a9005c7c08"
+                "reference": "124129dcb5ef86a8bddfdf6d98ffecc696aa09cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sbisbee/sag/zipball/b81c26bdbda13341f86b3de41e0241a9005c7c08",
-                "reference": "b81c26bdbda13341f86b3de41e0241a9005c7c08",
+                "url": "https://api.github.com/repos/sbisbee/sag/zipball/124129dcb5ef86a8bddfdf6d98ffecc696aa09cf",
+                "reference": "124129dcb5ef86a8bddfdf6d98ffecc696aa09cf",
                 "shasum": ""
             },
             "require": {
@@ -155,7 +160,7 @@
             ],
             "description": "A simple but powerful PHP library for talking to CouchDB.",
             "homepage": "http://www.saggingcouch.com/",
-            "time": "2014-06-19T17:52:52+00:00"
+            "time": "2016-10-22T22:44:36+00:00"
         },
         {
             "name": "sendgrid/php-http-client",
