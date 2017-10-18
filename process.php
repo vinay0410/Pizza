@@ -49,7 +49,7 @@ if (isset($_POST["username"])) {
         "phoneno" => $phoneno,
      );
 
-            $collection->insertOne($document);
+            $collection->insert($document);
             echo "Document Inserted Successfully";
             $_SESSION["reg-success"] = true;
             header("Location: .");

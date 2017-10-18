@@ -26,7 +26,7 @@
            );
 
 
-          $collection->insertOne($document);
+          $collection->insert($document);
           $_SESSION["feedback_msg"] = "Feedback Submitted Successfully, Thanks for your time!";
           header("Location: .");
       }
