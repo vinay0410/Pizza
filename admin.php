@@ -6,7 +6,7 @@
     if (isset($_POST["deleteOutlet"])) {
         $outlet = $_POST["deleteOutlet"];
         try {
-            $m = new MongoDB\Client();
+            $m = new MongoDB\Client("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin");
             $db = $m->Pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
@@ -31,7 +31,7 @@
         $supervisor_phone = $_POST["sup-phone"];
 
         try {
-            $m = new MongoDB\Client();
+            $m = new MongoDB\Client("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin");
             $db = $m->Pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
@@ -69,7 +69,7 @@
         $supervisor_phone = $_POST["sup-phone"];
 
         try {
-            $m = new MongoDB\Client();
+            $m = new MongoDB\Client("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin");
             $db = $m->Pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
@@ -95,7 +95,7 @@
 
 
     try {
-        $m = new MongoDB\Client();
+        $m = new MongoDB\Client("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin");
         $db = $m->Pizza;
         $collection = $db->outlets;
     } catch (Exception $e) {

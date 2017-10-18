@@ -57,7 +57,7 @@ if (isset($_POST["username"])) {
     $error = false;
     $error_msg;
     try {
-        $m = new MongoDB\Client();
+        $m = new MongoDB\Client("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin");
         $db = $m->Pizza;
         $collection = $db->users;
     } catch (Exception $e) {
