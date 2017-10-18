@@ -57,7 +57,7 @@ if (isset($_POST["username"])) {
     $error = false;
     $error_msg;
     try {
-        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $db = $m->pizza;
         $collection = $db->users;
     } catch (Exception $e) {
@@ -113,13 +113,13 @@ if (isset($_POST["username"])) {
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<!-- custom -->
 	<link rel="stylesheet" href="css/templatemo-style.css">
-  <link rel="stylesheet" href="js/jquery-ui.min.css">
+  
 	<!-- google font -->
 	<link href='//fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
 
-	<script src="js/jquery.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+
+
 
 
 

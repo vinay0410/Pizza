@@ -3,7 +3,7 @@
 require "vendor/autoload.php";
 
     try {
-        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $db = $m->pizza;
         $collection = $db->menu;
     } catch (Exception $e) {
@@ -31,6 +31,10 @@ require "vendor/autoload.php";
         <div class="col-md-12">
           <h2 class="text-center text-uppercase">Menu</h2>
           <hr>
+          <?php if (isset($error_menu_msg)) { ?>
+					<div id="error" class="alert alert-danger" role="alert"><?php echo $error_menu_msg ?></div>
+				
+					<?php } ?>
         </div>
         <!-- -->
 

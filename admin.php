@@ -6,7 +6,7 @@
     if (isset($_POST["deleteOutlet"])) {
         $outlet = $_POST["deleteOutlet"];
         try {
-            $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+            $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
             $db = $m->pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
@@ -31,7 +31,7 @@
         $supervisor_phone = $_POST["sup-phone"];
 
         try {
-            $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+            $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
             $db = $m->pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
@@ -54,7 +54,7 @@
                                          "supervisor_phone" => $supervisor_phone
                               );
 
-                $collection->insertOne($document);
+                $collection->insert($document);
                 $success = "Outlet added successfully!";
             } else {
                 $error_msg = "Outlet Already Exists";
@@ -69,7 +69,7 @@
         $supervisor_phone = $_POST["sup-phone"];
 
         try {
-            $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+            $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
             $db = $m->pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
@@ -95,11 +95,11 @@
 
 
     try {
-        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $db = $m->pizza;
         $collection = $db->outlets;
     } catch (Exception $e) {
-        die("Caught Exception failed to Connect".$e->getMessage()."\n");
+        //die("Caught Exception failed to Connect".$e->getMessage()."\n");
 
 
         $error_outlet_msg = "Couldn't Load Outlets, Connection Failed!";
@@ -249,6 +249,15 @@ $outlet_array = array();
 
 
 </div>
+
+
+<script src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+
+
+
 
 <script type="text/javascript">
 
@@ -503,6 +512,10 @@ $(document).ready(function(){
                     } ?>
 
 <!-- Outlet Modal End -->
+
+
+
+
 
 	<script>
 
