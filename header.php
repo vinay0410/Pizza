@@ -3,6 +3,9 @@
 <head>
 
 <?php
+
+require "vendor/autoload.php";
+
 session_start();
 
 
@@ -54,7 +57,7 @@ if (isset($_POST["username"])) {
     $error = false;
     $error_msg;
     try {
-        $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+        $m = new MongoDB\Client();
         $db = $m->Pizza;
         $collection = $db->users;
     } catch (Exception $e) {
@@ -110,15 +113,14 @@ if (isset($_POST["username"])) {
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<!-- custom -->
 	<link rel="stylesheet" href="css/templatemo-style.css">
+  <link rel="stylesheet" href="js/jquery-ui.min.css">
 	<!-- google font -->
 	<link href='//fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
-<<<<<<< HEAD
-=======
+
 	<script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
 
-
->>>>>>> cart_new
 
 
 <style>

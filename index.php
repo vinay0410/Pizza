@@ -115,7 +115,7 @@ include("header.php");
 	<!-- modals start -->
 
 
-<!--<script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>-->
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>-->
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery.mycart.js"></script>
 <script src="js/scroll.js"></script>
@@ -131,14 +131,20 @@ include("header.php");
 
     var goToCartIcon = function($addTocartBtn){
       var $cartIcon = $(".my-cart-icon");
-      var $image = $('<img width="30px" height="30px" src="' + $addTocartBtn.data("image") + '"/>').css({"position": "fixed", "z-index": "999"});
-      $addTocartBtn.prepend($image);
-      var position = $cartIcon.position();
+      var $image = $('<img width="30px" height="30px" src="' + $addTocartBtn.data("image") + '"/>').css({"position": "absolute", "z-index": "10000", "top" : $addTocartBtn.offset().top, "left" : $addTocartBtn.offset().left}).appendTo('body');
+
+			//$addTocartBtn.prepend($image);
+      var position = $cartIcon.offset();
+			console.log($cartIcon.parent());
+
       $image.animate({
-        top: position.top,
-        left: position.left
-      }, 500 , "linear", function() {
-        $image.remove();
+        top : position.top,
+        left : position.left
+      }, 200 , "swing", function() {
+				$cartIcon.parent().effect("bounce", {
+                    times: 2
+                }, 200);
+				$image.remove();
       });
     }
 
