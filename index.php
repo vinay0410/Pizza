@@ -56,7 +56,7 @@ include("header.php");
 
 <!-- start menu -->
 
-<?php include("menu.html") ?>
+<?php include("menu.php") ?>
 
 <!-- end menu -->
 
