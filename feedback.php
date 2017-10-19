@@ -8,8 +8,8 @@
       $subject = $_POST["subject"];
       $message = $_POST["message"];
       try {
-          $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
-          $db = $m->pizza;
+          $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+          $db = $m->Pizza;
           $collection = $db->feedback;
       } catch (Exception $e) {
           #die("Caught Exception failed to Connect".$e->getMessage()."\n");

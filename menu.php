@@ -2,9 +2,12 @@
 
 require "vendor/autoload.php";
 
+if (isset($_GET["admin"])) {
+$admin = $_GET["admin"];
+}
     try {
-        $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
-        $db = $m->pizza;
+        $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+        $db = $m->Pizza;
         $collection = $db->menu;
     } catch (Exception $e) {
         #die("Caught Exception failed to Connect".$e->getMessage()."\n");
@@ -22,18 +25,14 @@ require "vendor/autoload.php";
  ?>
 
 
-<section id="menu" class="templatemo-section templatemo-light-gray-bg">
-  <div class="product">
 
-    <div class="container">
-      <div class="row">
 
-        <div class="col-md-12">
-          <h2 class="text-center text-uppercase">Menu</h2>
+       <div class="col-md-12">
+         <h2 class="text-center text-uppercase">Menu</h2>
           <hr>
           <?php if (isset($error_menu_msg)) { ?>
 					<div id="error" class="alert alert-danger" role="alert"><?php echo $error_menu_msg ?></div>
-				
+
 					<?php } ?>
         </div>
         <!-- -->
@@ -67,14 +66,20 @@ require "vendor/autoload.php";
 
                                     </div>
                                     <div class="back">
-                                      <h4><?php echo $document["name"]; ?></h4>
-                                      <p><?php echo $document["ingredients"]; ?></p>
-                                      <h6><?php echo $document["price"]; ?><sup>$</sup></h6>
+                                      <input type="hidden" name="item_id" id="item_id" value="<?php echo $document["_id"]; ?>">
+                                      <h4 class="editable"><?php echo $document["name"]; ?></h4>
+                                      <p class="editable"><?php echo $document["ingredients"]; ?></p>
+                                      <h6 class="editable"><?php echo $document["price"]; ?><sup>$</sup></h6>
+
 
                                       <!-- button for cart -->
-                                      <button class="w3ls-cart pw3ls-cart my-cart-btn" data-id="1" data-name="Voluptate " data-summary="Cheese, tomato, mushrooms, onions." data-price="50" data-quantity="1" data-image="menu/1.jpg"><i class="fa fa-cart-plus" aria-hidden="true"></i>Add to Cart</button>
-                                      <span class="w3-agile-line"> </span>
-                                      <a href="#" data-toggle="modal" data-target="#myModal1">Explore</a>
+                                      <?php if (isset($admin) AND $admin) { ?>
+                                        <button type="button" class="btn btn-danger btn-space bottomright" id=""><span class="glyphicon glyphicon-remove"></span> </button>
+                        								<button type="button" name="edit_modal" class="btn btn-default btn-space pull-right" onclick="editable(this);"><span class="glyphicon glyphicon-pencil"></span> </button>
+
+                                    <?php } else { ?>
+                                      <button class="w3ls-cart pw3ls-cart my-cart-btn" data-id="<?php echo $index + 1; ?>" data-name="<?php echo $document['name']; ?>" data-summary="<?php echo $document['ingredients']; ?>" data-price="<?php echo $document['price']; ?>" data-quantity="1" data-image="<?php echo $document['path']; ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i>Add to Cart</button>
+                                    <?php } ?>
                                       <!--ending button for cart -->
                                     </div>
                                     <!--back -->
@@ -89,7 +94,7 @@ require "vendor/autoload.php";
 
                               <?php
 
-                              if ($index%3 == 0) { ?>
+                              if ($index%3 == 2) { ?>
                                 <br><br><br><br>
                                 </div>
 
@@ -103,8 +108,39 @@ require "vendor/autoload.php";
 
 
 
-        	   </div>
-           </div> <!--container-->
-          </div>
-              <!--product -->
-</section>
+                <div class="back" id="back-edit-form">
+                  <form class="form-horizontal" id="edititem">
+                    <input type="hidden" name="item_id" id="item_id">
+                    <div class="input-group">
+                    <label for="name" class="col-xs-3 control-label">Name:</label>
+                    <div class="col-xs-8">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+                  </div>
+                  </div>
+                  <div class="input-group">
+                    <label for="ingredients" class="col-xs-3 control-label">Toppings:</label>
+                    <div class="col-xs-8">
+                    <input type="text" class="form-control" id="ingredients" name="ingredients" placeholder="Ingredients" required>
+                  </div>
+                  </div>
+                  <div class="input-group">
+                    <label for="price" class="col-xs-3 control-label">Price:</label>
+                    <div class="col-xs-8">
+                  <input type="text" class="form-control" id="price" name="price" placeholder="Price" required>
+                </div>
+                </div>
+                <div class="input-group">
+                  <label for="image" class="col-xs-3 control-label">Image:</label>
+                  <div class="col-xs-8">
+                <input type="file" name="image" id="imageToUpload">
+              </div>
+              </div>
+                  <!-- button for cart -->
+
+                    <button type="button" class="btn btn-danger btn-space pull-right" onclick="$(this).parent().parent().remove();">Cancel</button>
+                    <button type="button" name="edit_modal" class="btn btn-default btn-space pull-right" onclick="update(this)">Update</button>
+                  </form>
+
+                  <!--ending button for cart -->
+
+                </div>

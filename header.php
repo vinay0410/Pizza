@@ -57,8 +57,8 @@ if (isset($_POST["username"])) {
     $error = false;
     $error_msg;
     try {
-        $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
-        $db = $m->pizza;
+        $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+        $db = $m->Pizza;
         $collection = $db->users;
     } catch (Exception $e) {
         #die("Caught Exception failed to Connect".$e->getMessage()."\n");
@@ -113,7 +113,7 @@ if (isset($_POST["username"])) {
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<!-- custom -->
 	<link rel="stylesheet" href="css/templatemo-style.css">
-  
+
 	<!-- google font -->
 	<link href='//fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
@@ -125,13 +125,14 @@ if (isset($_POST["username"])) {
 
 <style>
 .front img{
-height:150px;
+height:200px;
 }
 .gallery-des{
 color:white;
 }
 .back{
-background-color:orange;
+background-color:white;
+border: 2px solid orange;
 }
 .front{
 background-color:white;

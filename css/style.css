@@ -1054,7 +1054,7 @@ h3.w3ls-title.w3ls-title1 {
 	transform: rotateY(0deg);
 }
 .front img{
-	width:100%;
+	vertical-align: middle;
 }
 /* back, initially hidden pane */
 .back {
@@ -1098,8 +1098,8 @@ h3.w3ls-title.w3ls-title1 {
     transform: rotateX(180deg);
 }
 .back h4 {
-    color: #fff;
-    font-size: 1.4em;
+    color: orange;
+    font-size: 1.3em;
     text-transform: uppercase;
     font-weight: 300;
     letter-spacing: 4px;
@@ -1107,13 +1107,13 @@ h3.w3ls-title.w3ls-title1 {
 }
 .back p {
     margin: 0.8em 0;
-    color: #fff;
+    color: orange;
     border-bottom: 1px solid rgba(238, 238, 238, 0.35);
     padding-bottom: 0.5em;
 }
 .back h6 {
-    font-size: 3em;
-    color: #fff;
+    font-size: 2.5em;
+    color: orange;
     font-family: 'Yantramanav', sans-serif;
 }
 .back h6 sup {

@@ -3,7 +3,7 @@ require "vendor/autoload.php";
 echo phpinfo();
 
 try {
-  $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+  $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
 
   //$m = new MongoClient();
 

@@ -55,9 +55,16 @@ include("header.php");
 
 
 <!-- start menu -->
+<section id="menu" class="templatemo-section templatemo-light-gray-bg">
+	<div class="product">
 
+    <div class="container">
+      <div class="row">
 <?php include("menu.php") ?>
-
+			</div>
+		</div>
+	</div>
+</section>
 <!-- end menu -->
 
 	<!-- start contact -->
@@ -112,7 +119,7 @@ include("header.php");
 	<!-- end contact -->
 	<!-- modals start -->
 
-	<script src="js/jquery.js"></script>
+	<script src="js/jquery-2.2.3.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/jquery.mycart.js"></script>

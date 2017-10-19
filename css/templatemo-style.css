@@ -677,14 +677,22 @@ a {
 .loader {
     border: 16px solid #f3f3f3; /* Light grey */
     border-top: 16px solid #3498db; /* Blue */
-    border-bottom: 16px solid #3498db;
+    /*border-bottom: 16px solid #3498db;*/
     border-radius: 50%;
     width: 120px;
     height: 120px;
-    animation: spin 1.8s linear infinite;
+    animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+#back-edit-form {
+  padding: 1em;
+  z-index: 10000;
+}
+#back-edit-form .input-group {
+  margin-bottom: 7px;
 }

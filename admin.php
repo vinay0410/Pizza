@@ -6,8 +6,8 @@
     if (isset($_POST["deleteOutlet"])) {
         $outlet = $_POST["deleteOutlet"];
         try {
-            $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
-            $db = $m->pizza;
+            $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+            $db = $m->Pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
             #die("Caught Exception failed to Connect".$e->getMessage()."\n");
@@ -31,8 +31,8 @@
         $supervisor_phone = $_POST["sup-phone"];
 
         try {
-            $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
-            $db = $m->pizza;
+            $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+            $db = $m->Pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
             #die("Caught Exception failed to Connect".$e->getMessage()."\n");
@@ -69,8 +69,8 @@
         $supervisor_phone = $_POST["sup-phone"];
 
         try {
-            $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
-            $db = $m->pizza;
+            $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+            $db = $m->Pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
             #die("Caught Exception failed to Connect".$e->getMessage()."\n");
@@ -95,8 +95,8 @@
 
 
     try {
-        $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
-        $db = $m->pizza;
+        $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
+        $db = $m->Pizza;
         $collection = $db->outlets;
     } catch (Exception $e) {
         //die("Caught Exception failed to Connect".$e->getMessage()."\n");
@@ -217,7 +217,7 @@ $outlet_array = array();
 
 
     </div>
-    <div class="loader col-xs-6 col-xs-offset-5" style="display: none;">
+    <div class="user-loader loader col-xs-6 col-xs-offset-5" style="display: none;">
    </div>
 
   </div>
@@ -233,11 +233,10 @@ $outlet_array = array();
       <div class="menu"></div>
 
 
+      <div class="menu-loader loader col-xs-6 col-xs-offset-5"></div>
 
     </div>
 
-    <div class="menu-loader col-xs-6 col-xs-offset-5" style="display: none;">
-   </div>
 
     </div>
 
@@ -248,10 +247,7 @@ $outlet_array = array();
 
 
 
-</div>
-
-
-<script src="js/jquery.js"></script>
+<script src="js/jquery-2.2.3.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 
@@ -279,16 +275,16 @@ $(document).ready(function(){
             currentRequest.abort();
         }
         $("#accordion_users").slideUp("slow");
-        $(".loader").show();
+        $(".user-loader").show();
     },
     success: function(result) {
         $("#accordion_users").html(result);
-        $(".loader").hide();
+        $(".user-loader").hide();
         $("#accordion_users").slideDown("slow");
     },
     error:function(e){
       if (currentRequest == null) {
-      $(".loader").hide();
+      $(".user-loader").hide();
       alert("Error Loading data");
     }
     }
@@ -297,40 +293,78 @@ $(document).ready(function(){
     console.log("empty");
     currentRequest.abort();
     $("#accordion_users").slideUp("slow");
-    $(".loader").hide();
+    $(".user-loader").hide();
   }
   });
 });
 
 
 
+
+
 var currentRequestMenu = null;
-$(document).ready(function(){
 
-    currentRequestMenu = $.ajax({
-    url: 'menu.php',
-    beforeSend : function()    {
-        if(currentRequestMenu != null) {
-            currentRequestMenu.abort();
-        }
-        $(".menu").slideUp("slow");
-        $(".menu-loader").show();
-    },
-    success: function(result) {
-        $(".menu").html(result);
-        $(".menu-loader").hide();
-        $(".menu").slideDown("slow");
-    },
-    error:function(e){
-      if (currentRequestMenu == null) {
+function load_menu() {
+  currentRequestMenu = $.ajax({
+  data: {admin: "True"},
+  url: 'menu.php',
+  beforeSend : function()    {
+      if(currentRequestMenu != null) {
+          currentRequestMenu.abort();
+      }
+      $(".menu").slideUp("slow");
+      $(".menu-loader").show();
+  },
+  success: function(result) {
+      $(".menu").html(result);
       $(".menu-loader").hide();
-      alert("Error Loading data");
-    }
-    }
+      $(".menu").slideDown("slow");
+  },
+  error:function(e){
+    if (currentRequestMenu == null) {
+    $(".menu-loader").hide();
+    alert("Error Loading data");
+  }
+  }
+  });
+}
+
+$(window).on("load", load_menu);
+
+
+function editable(el) {
+  var parent = $(el).parent();
+  var form = $(document).find("#back-edit-form");
+  $(form).find("form input[name=item_id]").val($(parent).find("input[name=item_id]").val());
+  $(form).find("form input[name=name]").val($(parent).find("h4").text());
+  $(form).find("form input[name=ingredients]").val($(parent).find("p").text());
+  $(form).find("form input[name=price]").val($(parent).find("h6").clone().children().remove().end().text());
+  $(parent).after(form.clone());
+
+}
+
+function update(el) {
+
+    console.log("hi");
+    var formData = new FormData($(el).parent()[0]);
+    console.log(formData);
+    var div = $(el).parent().parent().parent().parent();
+    var loader = $(document).find(".menu-loader").css("display", "block");
+    console.log(loader);
+    $(div).html(loader.clone());
+      $.ajax({
+        url: "edit_item.php", // Url to which the request is send
+        type: "POST",             // Type of request to be send, called as method
+        data: formData, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+        contentType: false,       // The content type used when sending data to the server.
+        cache: false,             // To unable request pages to be cached
+        processData:false,        // To send DOMDocument or non processed data file it is set to false
+        success: function(data) {
+          console.log(data);
+          $(div).html(data);
+        }
     });
-});
-
-
+  }
 
 
 
