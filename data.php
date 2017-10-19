@@ -6,8 +6,8 @@
 
 
 try {
-  $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
-  $db = $m->Pizza;
+  $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+  $db = $m->pizza;
   $collection = $db->users;
 
   $result = $collection->find(array($search_by => new MongoRegex("/$q/i")));
@@ -22,7 +22,6 @@ try {
 
 <?php
       if ($result->count() != 0 AND !empty($q)) {
-        
       foreach ($result as $row) { ?>
 
     <a class="list-group-item" data-toggle="collapse" data-target="<?php echo "#".$row['_id']; ?>" data-parent="#accordion_users">
