@@ -339,7 +339,7 @@ function editable(el) {
   $(form).find("form input[name=name]").val($(parent).find("h4").text());
   $(form).find("form input[name=ingredients]").val($(parent).find("p").text());
   $(form).find("form input[name=price]").val($(parent).find("h6").clone().children().remove().end().text());
-  $(parent).after(form.clone());
+  $(parent).after(form.clone().fadeIn());
 
 }
 

@@ -108,7 +108,7 @@ $admin = $_GET["admin"];
 
 
 
-                <div class="back" id="back-edit-form">
+                <div class="back" id="back-edit-form" style="display: none;">
                   <form class="form-horizontal" id="edititem">
                     <input type="hidden" name="item_id" id="item_id">
                     <div class="input-group">
