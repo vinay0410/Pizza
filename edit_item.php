@@ -43,7 +43,7 @@
         }
 
         //change password
-            $collection->update(array('_id' => new MongoId($id)), array('$set'=>array("name" => $name, "ingredients" => $ing, "price" => $price)));
+            $collection->update(array('_id' => new MongoId($id)), array('$set'=>$document));
             $result = $collection->findOne(array('_id' => new MongoId($id))); ?>
 
             <div class="flipper agile-products">
