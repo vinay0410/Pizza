@@ -14,7 +14,10 @@
 
 
     }
-
+        $item = $collection->findOne(array('_id' => new MongoId($id)));
         $result = $collection->remove(array('_id' => new MongoId($id)));
+        if (isset($item["path"])) {
+          unlink($item["path"]);
+        }
         ?>
         <div id="success" class="alert alert-success" role="alert"><?php echo "Item Deleted Successfully"; ?></div>

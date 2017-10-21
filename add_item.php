@@ -6,9 +6,16 @@
     $ing = strtolower($_POST["toppings"]);
     $price = strtolower($_POST["item_price"]);
 
+    if (!empty($_FILES["image"]["name"])) {
+      $target_dir = "menu/";
+      $target_file = $target_dir . basename($_FILES["image"]["name"]);
+    if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+        //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+      } else {
+        die("Failed to Upload file");
+      }
 
-
-
+      }
 
     try {
         $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
@@ -23,10 +30,12 @@
         $result = $collection->findOne(array('name' => $name));
         if ( empty($result) )  {
 
-
-
+          $document = array("name" => $name, "ingredients" => $ing, "price" => $price);
+          if (!empty($_FILES["image"]["name"])) {
+            $document["path"] = $target_file;
+          }
         //change password
-            $collection->insert(array("name" => $name, "ingredients" => $ing, "price" => $price));
+            $collection->insert($document);
             $result = $collection->findOne(array('name' => $name ));
 
 

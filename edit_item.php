@@ -8,6 +8,16 @@
     $ing = $_POST["ingredients"];
     $price = $_POST["price"];
 
+    if (!empty($_FILES["image"]["name"])) {
+    $target_dir = "menu/";
+    $target_file = $target_dir . basename($_FILES["image"]["name"]);
+    if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+        //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+      } else {
+        die("Failed to Upload file");
+      }
+
+      }
 
 
 
@@ -21,11 +31,16 @@
 
 
     }
-    
+
         $result = $collection->findOne(array('_id' => new MongoId($id)));
         if ( ($result["name"] == $name) || (!$collection->findOne(array('name' => $name))) )  {
-
-
+          $document = array("name" => $name, "ingredients" => $ing, "price" => $price);
+          if (!empty($_FILES["image"]["name"])) {
+            $document["path"] = $target_file;
+            if (isset($result["path"])) {
+              unlink($result["path"]);
+          }
+        }
 
         //change password
             $collection->update(array('_id' => new MongoId($id)), array('$set'=>array("name" => $name, "ingredients" => $ing, "price" => $price)));
