@@ -16,6 +16,7 @@ $admin = $_GET["admin"];
 
     if (empty($error_menu_msg)) {
         $menu_cursor = $collection->find();
+        $menu_cursor->sort(array('_id' => -1));
         $menu_count = $collection->count();
     }
 
@@ -47,17 +48,24 @@ $admin = $_GET["admin"];
                               //array_push($outlet_array, $document);
                               if ($index%3 == 0) { ?>
 
-                                <div class="products-row">
+                                <div class="products-row menu-row">
 
                             <?php
                               }
+
+                              if (isset($document["path"])) {
+                                $path = $document["path"];
+                              } else {
+                                $path = "menu/no_image.jpg";
+                              }
+
                               ?>
 
                               <div class="col-md-4 col-sm-4 product-grids">
                                 <div class="flip-container">
                                   <div class="flipper agile-products">
                                     <div class="front">
-                                      <img src="<?php echo $document["path"]; ?>" class="img-responsive" alt="img">
+                                      <img src="<?php echo $path; ?>" class="img-responsive" alt="img">
 
                                       <div class="gallery-des">
                                         <h3><?php echo $document["name"]; ?></h3>
@@ -78,7 +86,7 @@ $admin = $_GET["admin"];
                         								<button type="button" name="edit_modal" class="btn btn-default btn-space pull-right" onclick="editable(this);"><span class="glyphicon glyphicon-pencil"></span> </button>
 
                                     <?php } else { ?>
-                                      <button class="w3ls-cart pw3ls-cart my-cart-btn" data-id="<?php echo $index + 1; ?>" data-name="<?php echo $document['name']; ?>" data-summary="<?php echo $document['ingredients']; ?>" data-price="<?php echo $document['price']; ?>" data-quantity="1" data-image="<?php echo $document['path']; ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i>Add to Cart</button>
+                                      <button class="w3ls-cart pw3ls-cart my-cart-btn" data-id="<?php echo $index + 1; ?>" data-name="<?php echo $document['name']; ?>" data-summary="<?php echo $document['ingredients']; ?>" data-price="<?php echo $document['price']; ?>" data-quantity="1" data-image="<?php echo $path; ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i>Add to Cart</button>
                                     <?php } ?>
                                       <!--ending button for cart -->
                                     </div>

@@ -191,7 +191,7 @@ $outlet_array = array();
 <div class="panel panel-default">
   <div class="panel-heading"><h3>Users</h3></div>
   <div class="panel-body">
-  <div class="form-group">
+  <div class="form-group user-group">
   <br>
     <div class="input-group pb-modalreglog-input-group col-sm-5">
       <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
@@ -201,7 +201,7 @@ $outlet_array = array();
 
   </div>
 
-  <div class="form-group">
+  <div class="form-group user-group">
    <div class="input-group pb-modalreglog-input-group col-sm-5">
     <label for="sel1">Search By:</label>
       <select class="form-control" id="sel1">
@@ -228,7 +228,9 @@ $outlet_array = array();
 
 
   <div class="panel panel-default">
-    <div class="panel-heading"><h3>Menu</h3></div>
+    <div class="panel-heading"><h3>Menu
+      <button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#itemModal" name="add_modal"><span class="glyphicon glyphicon-plus"></span>Add Item</button>
+    </h3></div>
     <div class="panel-body">
       <div class="menu"></div>
 
@@ -261,7 +263,7 @@ $outlet_array = array();
 var currentRequest = null;
 $(document).ready(function(){
 
-    $(".form-group").on('keyup change blur', function(){
+    $(".user-group").on('keyup change blur', function(){
         txt = $("#user_search").val();
         search_by = $("option:selected").val().toLowerCase();
         if (txt) {
@@ -380,7 +382,7 @@ function update(el) {
         $.ajax({
           url: "item_delete.php", // Url to which the request is send
           type: "POST",             // Type of request to be send, called as method
-          data: {id :item_id}, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+          data: {id :item_id},
           success: function(data) {
             $(div).html(data);
             setTimeout(function(){
@@ -392,7 +394,36 @@ function update(el) {
       });
     }
 
+$(document).ready(function() {
+  $("#itemform").on("submit", function(e) {
+    e.preventDefault();
+    console.log("aftet default");
+    var formData = new FormData(this);
+    $("#itemModal").modal('toggle');
+    //e.stopPropagation();
+    var new_div = $("<div class='col-md-4 col-sm-4 product-grids'><div class='menu-loader loader col-xs-6 col-xs-offset-5'></div></div>");
+    $.ajax({
+      url: "add_item.php", // Url to which the request is send
+      type: "POST",             // Type of request to be send, called as method
+      data: formData, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+      contentType: false,       // The content type used when sending data to the server.
+      cache: false,             // To unable request pages to be cached
+      processData:false,
+      beforeSend : function()    {
+        console.log($('.menu').children().eq(1));
+          $('.menu').children().eq(1).prepend(new_div);
 
+
+      },
+      success: function(data) {
+        $("#itemform")[0].reset();
+        console.log(data);
+        $(new_div).html(data).fadeIn("slow");
+      }
+  });
+
+});
+});
 
 
 
@@ -566,6 +597,65 @@ function update(el) {
 
   </div>
 </div>
+
+
+<div id="itemModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="modal_heading">Add Item</h4>
+
+      </div>
+      <div class="modal-body">
+				<form class="form-horizontal" method="post" id="itemform">
+					<input type="hidden" id="dummy">
+				  <div class="form-group">
+				    <label class="control-label col-sm-2" for="outlet">Item Name: </label>
+				    <div class="col-sm-5">
+				      <input type="text" class="form-control" name="item_name" id="item_name" placeholder="Item" required>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="control-label col-sm-2" for="outlet-addr">Toppings: </label>
+				    <div class="col-sm-5">
+				      <input type="text" class="form-control" id="toppings" name="toppings" placeholder="Toppings" required>
+
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="control-label col-sm-2" for="supervisor-name">Price: </label>
+				    <div class="col-sm-5">
+				      <input type="number" class="form-control" id="item_price" name="item_price" placeholder="Price" required>
+				    </div>
+				  </div>
+
+				  <div class="form-group">
+				    <label class="control-label col-sm-2" for="supervisor-phone">Image: </label>
+				    <div class="col-sm-5">
+				      <input type="file" name="image" id="imageToUpload">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-sm-offset-2 col-sm-10">
+				      <button type="submit" class="btn btn-warning" id="modal_submit">Add Item</button>
+              <input type="reset" class="btn btn-default" value="Reset">
+				    </div>
+				  </div>
+				</form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
 <?php if (isset($error_msg)) {
                         echo "<script type='text/javascript'>$('#outletModal').modal('show');</script>";
                     } ?>
