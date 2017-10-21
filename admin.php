@@ -351,9 +351,9 @@ function update(el) {
     var formData = new FormData($(el).parent()[0]);
     console.log(formData);
     var div = $(el).parent().parent().parent().parent();
-    var loader = $(document).find(".menu-loader").css("display", "block");
+    var loader = $(document).find(".menu-loader").clone();
     console.log(loader);
-    $(div).html(loader.clone());
+    $(div).html(loader.css("display", "block"));
       $.ajax({
         url: "edit_item.php", // Url to which the request is send
         type: "POST",             // Type of request to be send, called as method
