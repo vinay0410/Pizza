@@ -367,6 +367,34 @@ function update(el) {
   }
 
 
+  function delete_item(el) {
+
+      console.log("hi");
+
+      var item_id = $(el).parent().find("#item_id").val();
+      console.log(item_id);
+      var div = $(el).parent().parent().parent().parent();
+      var loader = $(document).find(".menu-loader");
+      console.log(loader);
+      $(div).html(loader.clone().css("display", "block"));
+        $.ajax({
+          url: "item_delete.php", // Url to which the request is send
+          type: "POST",             // Type of request to be send, called as method
+          data: {id :item_id}, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+          success: function(data) {
+            $(div).html(data);
+            setTimeout(function(){
+              $(div).slideUp("slow");
+
+             }, 3000);
+
+          }
+      });
+    }
+
+
+
+
 
 
   $("#accordion .list-group .list-group-item:first-child").click();
