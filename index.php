@@ -60,12 +60,20 @@ include("header.php");
 
     <div class="container">
       <div class="row">
-<?php include("menu.php") ?>
+				<div class="col-md-12 menu">
+					<h2 class="text-center text-uppercase">Menu</h2>
+           <hr>
+				</div>
+
+				<div class="menu-loader loader col-xs-6 col-xs-offset-5"></div>
+
 			</div>
+
 		</div>
 	</div>
 </section>
 <!-- end menu -->
+
 
 	<!-- start contact -->
 	<section id="feedback" class="templatemo-section">
@@ -128,6 +136,33 @@ include("header.php");
 			 $(function() {
 				$('html').smoothScroll(500);
 			 });
+			</script>
+
+			<script>
+
+			$(document).ready(function() {
+				console.log("here");
+				$.ajax({
+				url: 'menu.php',
+				beforeSend : function()    {
+						console.log("before");
+						$(".menu-loader").show();
+				},
+				success: function(result) {
+					$(".menu").slideUp("slow");
+						$(".menu").html(result);
+						$(".menu-loader").hide();
+						$(".menu").slideDown("slow");
+						console.log("success");
+				},
+				error:function(e){
+					console.log("error");
+					$(".menu-loader").hide();
+					alert("Error Loading data");
+
+				}
+				});
+			});
 			</script>
 
 
