@@ -558,6 +558,7 @@ img.w3order-img {
     -moz-transition: all 0.8s;
     -o-transition: all 0.8s;
     -ms-transition: all 0.8s;
+		-webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
 	-webkit-transform:scale(0);
 	-moz-transform:scale(0);
@@ -1000,7 +1001,9 @@ h3.w3ls-title.w3ls-title1 {
 }
 /* entire container, keeps perspective */
 .flip-container {
+	-webkit-perspective: 1000px;
 	perspective: 1000px;
+	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
 }
 	/*  UPDATED! flip the pane when hovered */
@@ -1029,6 +1032,7 @@ h3.w3ls-title.w3ls-title1 {
 /* flip speed goes here */
 .flipper {
 	transition: 0.6s;
+	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
 	position: relative;
 }
@@ -1036,7 +1040,9 @@ h3.w3ls-title.w3ls-title1 {
 /* hide back of pane during swap */
 .front, .back {
 	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
 	transition: 0.4s;
+	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
 	position: absolute;
 	top: 0;
