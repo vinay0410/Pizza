@@ -351,6 +351,7 @@ function update(el) {
     var formData = new FormData($(el).parent()[0]);
     console.log(formData);
     var div = $(el).parent().parent().parent().parent();
+    var copy_div = div.clone();
     var loader = $(document).find(".menu-loader").clone();
     console.log(loader);
     $(div).html(loader.css("display", "block"));
@@ -362,8 +363,15 @@ function update(el) {
         cache: false,             // To unable request pages to be cached
         processData:false,        // To send DOMDocument or non processed data file it is set to false
         success: function(data) {
-          console.log(data);
-          $(div).html(data);
+          try {
+          var value = JSON.parse(data);
+          $(copy_div).prepend("<div class='alert alert-danger alert-dismissable fade in'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>" + value.msg + "</div>");
+          console.log(copy_div);
+          $(div).html(copy_div.children());
+        } catch (e) {
+            $(div).html(data);
+            console.log(e);
+          }
         }
     });
   }
@@ -416,9 +424,19 @@ $(document).ready(function() {
 
       },
       success: function(data) {
+        try {
+        var value = JSON.parse(data);
+        $(new_div).html("<div class='alert alert-danger fade in'>" + value.msg + "</div>");
+        setTimeout(function(){
+          $(new_div).slideUp("slow");
+
+        }, 4000);
+      } catch (e) {
         $("#itemform")[0].reset();
         console.log(data);
         $(new_div).html(data).fadeIn("slow");
+        }
+
       }
   });
 

@@ -5,6 +5,8 @@
   $search_by = $_GET["search_by"];
 
 
+
+
 try {
   $m = new MongoClient("mongodb://admin:EIIGMGVVORZLANRD@sl-eu-lon-2-portal.5.dblayer.com:20539,sl-eu-lon-2-portal.0.dblayer.com:20539/admin?ssl=true");
   $db = $m->Pizza;
@@ -12,8 +14,8 @@ try {
 
   $result = $collection->find(array($search_by => new MongoRegex("/$q/i")));
 } catch (Exception $e) {
-  header('Status: 404 Not found');
-  exit;
+  header("HTTP/1.0 404 Not Found");
+  exit();
 }
 ?>
 

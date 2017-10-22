@@ -12,7 +12,9 @@
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
         //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
       } else {
-        die("Failed to Upload file");
+        $var = array('error' => True, 'msg' => "Failed to Upload File");
+        echo json_encode($var);
+        exit();
       }
 
       }
@@ -22,7 +24,9 @@
         $db = $m->Pizza;
         $collection = $db->menu;
     } catch (Exception $e) {
-        die("Caught Exception failed to Connect".$e->getMessage()."\n");
+      $var = array('error' => True, 'msg' => "Couldn't Connect to Database");
+      echo json_encode($var);
+      exit();
 
 
     }
@@ -73,7 +77,9 @@
           </div>
 <?php
         } else {
-          echo "Pizza Name Already exists";
+          $var = array('error' => True, 'msg' => "Item Name Already Exists");
+          echo json_encode($var);
+          exit();
         }
 
 

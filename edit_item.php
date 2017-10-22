@@ -3,10 +3,10 @@
 
 
 
-    $id = $_POST["item_id"];
-    $name = $_POST["name"];
-    $ing = $_POST["ingredients"];
-    $price = $_POST["price"];
+    $id = strtolower($_POST["item_id"]);
+    $name = strtolower($_POST["name"]);
+    $ing = strtolower($_POST["ingredients"]);
+    $price = strtolower($_POST["price"]);
 
     if (!empty($_FILES["image"]["name"])) {
     $target_dir = "menu/";
@@ -14,7 +14,9 @@
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
         //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
       } else {
-        die("Failed to Upload file");
+        $var = array('error' => True, 'msg' => "Failed to upload file");
+        echo json_encode($var);
+        exit();
       }
 
       }
@@ -27,8 +29,9 @@
         $db = $m->Pizza;
         $collection = $db->menu;
     } catch (Exception $e) {
-        die("Caught Exception failed to Connect".$e->getMessage()."\n");
-
+      $var = array('error' => True, 'msg' => "Couldn't Connect to Database");
+      echo json_encode($var);
+      exit();
 
     }
 
@@ -75,7 +78,8 @@
 
 <?php
         } else {
-          echo "Pizza Name Already exists";
+          $var = array('error' => True, 'msg' => 'Item Name Already exists');
+          echo json_encode($var);
         }
 
 
