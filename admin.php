@@ -32,7 +32,7 @@
 
         try {
             $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
-            $db = $m->Pizza;
+            $db = $m->pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
             #die("Caught Exception failed to Connect".$e->getMessage()."\n");
@@ -96,7 +96,7 @@
 
     try {
         $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
-        $db = $m->Pizza;
+        $db = $m->pizza;
         $collection = $db->outlets;
     } catch (Exception $e) {
         //die("Caught Exception failed to Connect".$e->getMessage()."\n");
