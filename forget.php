@@ -5,7 +5,7 @@
 
     $error_msg;
     try {
-        $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $db = $m->pizza;
         $collection = $db->users;
     } catch (Exception $e) {
@@ -15,9 +15,9 @@
     }
 
     if (empty($error_msg)) {
-        $result = $collection->findOne(array('email' => $email));
+        $result = $collection->findOne(['email' => $email]);
         if (!empty($result)) {
-            require 'vendor/autoload.php';
+            //require 'vendor/autoload.php';
 
 
             $from = new SendGrid\Email("PizzaVilla", "help@pizzavila.com");

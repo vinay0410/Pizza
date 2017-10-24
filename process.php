@@ -1,8 +1,10 @@
 <?php
 
+require "vendor/autoload.php";
+
 session_start();
 
-echo "to be printed";
+
 
 if (isset($_POST["username"])) {
     $username = $_POST["username"];
@@ -15,7 +17,7 @@ if (isset($_POST["username"])) {
 
     $error_msg;
     try {
-        $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $db = $m->pizza;
         $collection = $db->users;
         var_dump($collection);
@@ -38,8 +40,8 @@ if (isset($_POST["username"])) {
 
     if (empty($_SESSION["signup-error"])) {
         echo "to be printed 1";
-        $result_username = $collection->findOne(array('username' => $username));
-        $result_email = $collection->findOne(array('email' => $email));
+        $result_username = $collection->findOne(['username' => $username]);
+        $result_email = $collection->findOne(['email' => $email]);
         if (empty($result_username) and empty($result_email)) {
             $document = array(
         "username" => $username,
@@ -49,7 +51,7 @@ if (isset($_POST["username"])) {
         "phoneno" => $phoneno,
      );
 
-            $collection->insert($document);
+            $collection->insertOne($document);
             echo "Document Inserted Successfully";
             $_SESSION["reg-success"] = true;
             header("Location: .");

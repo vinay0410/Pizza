@@ -8,7 +8,7 @@ require "vendor/autoload.php";
 
 session_start();
 
-
+var_dump($_SESSION["logged"]["username"]);
 
 
 if (isset($_SESSION["feedback_msg"])) {
@@ -57,7 +57,7 @@ if (isset($_POST["username"])) {
     $error = false;
     $error_msg;
     try {
-        $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $db = $m->pizza;
         $collection = $db->users;
     } catch (Exception $e) {
@@ -68,7 +68,7 @@ if (isset($_POST["username"])) {
         $error = true;
     }
     if (!$error) {
-        $result = $collection->findOne(array('username' => $username));
+        $result = $collection->findOne(['username' => $username]);
 
         if (!empty($result)) {
             if ($result["password"] == $pass) {

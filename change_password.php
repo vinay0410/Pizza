@@ -26,7 +26,7 @@ include("header.php")
 
    try {
 
-    $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+    $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
     $db = $m->pizza;
     $collection = $db->users;
 
@@ -38,12 +38,12 @@ include("header.php")
      $error = True;
    }
    if (empty($error)) {
-     $result = $collection->findOne(array('username' => $username));
+     $result = $collection->findOne(['username' => $username]);
      #var_dump($result);
 
        if ($result["password"] == $oldpass) {
          //change password
-         $collection->update(array("username"=>$username), array('$set'=>array("password"=>$newpass)));
+         $collection->updateOne(["username"=>$username], ['$set'=> ["password"=>$newpass]]);
          $_SESSION["pop_profile"] = "Password Updated Successfully";
          header("Location: .");
        } else {

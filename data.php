@@ -1,5 +1,6 @@
 <?php
 
+require "vendor/autoload.php";
 
   $q = $_GET["suggest"];
   $search_by = $_GET["search_by"];
@@ -8,11 +9,12 @@
 
 
 try {
-  $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+  $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
   $db = $m->pizza;
   $collection = $db->users;
 
-  $result = $collection->find(array($search_by => new MongoRegex("/$q/i")));
+  $cursor = $collection->find([strtolower($search_by) => new MongoDB\BSON\Regex(".*$q.*", 'i')])->toArray();
+
 } catch (Exception $e) {
   header("HTTP/1.0 404 Not Found");
   exit();
@@ -23,8 +25,12 @@ try {
 <div class="panel list-group">
 
 <?php
-      if ($result->count() != 0 AND !empty($q)) {
-      foreach ($result as $row) { ?>
+      echo "Found ".count($cursor);
+      if (count($cursor) != 0 AND !empty($q)) {
+
+      foreach ($cursor as $row) {
+
+        ?>
 
     <a class="list-group-item" data-toggle="collapse" data-target="<?php echo "#".$row['_id']; ?>" data-parent="#accordion_users">
       <h4 class="list-group-item-heading accordion-toggle">

@@ -4,9 +4,10 @@
 <?php
 
     if (isset($_POST["deleteOutlet"])) {
-        $outlet = $_POST["deleteOutlet"];
+        $outlet_id = $_POST["deleteOutlet"];
+        echo $outlet_id;
         try {
-            $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+            $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
             $db = $m->pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
@@ -17,8 +18,8 @@
         }
 
         if (empty($error_msg)) {
-            $result = $collection->remove(array('outlet' => $outlet));
-            $success = "Database Deleted Successfully";
+            $result = $collection->deleteOne(array('_id' => new MongoDB\BSON\ObjectID($outlet_id)));
+            $success = "Outlet Deleted Successfully";
         }
     }
 
@@ -31,7 +32,7 @@
         $supervisor_phone = $_POST["sup-phone"];
 
         try {
-            $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+            $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
             $db = $m->pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
@@ -54,7 +55,7 @@
                                          "supervisor_phone" => $supervisor_phone
                               );
 
-                $collection->insert($document);
+                $collection->insertOne($document);
                 $success = "Outlet added successfully!";
             } else {
                 $error_msg = "Outlet Already Exists";
@@ -69,7 +70,7 @@
         $supervisor_phone = $_POST["sup-phone"];
 
         try {
-            $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+            $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
             $db = $m->pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
@@ -80,13 +81,16 @@
         }
 
         if (empty($error_edit_msg)) {
-            $result = $collection->findOne(array('_id' => new MongoId($id)));
+            echo "hi";
+            echo $id;
+            $result = $collection->findOne( ['_id' => new MongoDB\BSON\ObjectID($id)] );
 
-            if (($result["outlet"] == $outlet) || (!$collection->findOne(array('outlet' => $outlet)))) {
+            if (($result["outlet"] == $outlet) || (!$collection->findOne(['outlet' => $outlet]))) {
 
                          //change password
-                $collection->update(array('_id' => new MongoId($id)), array('$set'=>array("outlet" => $outlet, "outlet_addr" => $outlet_addr, "supervisor_name" => $supervisor_name, "supervisor_email" => $supervisor_email, "supervisor_phone" => $supervisor_phone)));
+                $collection->updateOne(['_id' => new MongoDB\BSON\ObjectID($id)], ['$set'=> ["outlet" => $outlet, "outlet_addr" => $outlet_addr, "supervisor_name" => $supervisor_name, "supervisor_email" => $supervisor_email, "supervisor_phone" => $supervisor_phone]]);
                 $success = "Outlet Details Updated Successfully";
+                $open_edited = $id;
             } else {
                 $error_edit_msg = "Outlet Name already Exists";
             }
@@ -95,9 +99,10 @@
 
 
     try {
-        $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $db = $m->pizza;
         $collection = $db->outlets;
+
     } catch (Exception $e) {
         //die("Caught Exception failed to Connect".$e->getMessage()."\n");
 
@@ -384,6 +389,7 @@ function update(el) {
       var item_id = $(el).parent().find("#item_id").val();
       console.log(item_id);
       var div = $(el).parent().parent().parent().parent();
+      var copy_div = div.clone();
       var loader = $(document).find(".menu-loader");
       console.log(loader);
       $(div).html(loader.clone().css("display", "block"));
@@ -392,12 +398,19 @@ function update(el) {
           type: "POST",             // Type of request to be send, called as method
           data: {id :item_id},
           success: function(data) {
+            try {
+            var value = JSON.parse(data);
+            $(copy_div).prepend("<div class='alert alert-danger alert-dismissable fade in'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>" + value.msg + "</div>");
+            console.log(copy_div);
+            $(div).html(copy_div.children());
+          } catch (e) {
+
             $(div).html(data);
             setTimeout(function(){
               $(div).slideUp("slow");
 
              }, 3000);
-
+           }
           }
       });
     }
@@ -405,7 +418,7 @@ function update(el) {
 $(document).ready(function() {
   $("#itemform").on("submit", function(e) {
     e.preventDefault();
-    console.log("aftet default");
+    console.log("after default");
     var formData = new FormData(this);
     $("#itemModal").modal('toggle');
     //e.stopPropagation();
@@ -445,12 +458,16 @@ $(document).ready(function() {
 
 
 
+<?php if (isset($open_edited)) { ?>
 
+  $("#<?php echo $open_edited; ?>").prev().click();
+<?php } else { ?>
   $("#accordion .list-group .list-group-item:first-child").click();
 
+<?php } ?>
   var complex = <?php echo json_encode($outlet_array); ?>;
 
-  console.log(complex);
+
 
 
 </script>
@@ -589,7 +606,7 @@ $(document).ready(function() {
 				    <div class="col-sm-5">
 				      <input type="email" class="form-control" id="supervisor-email" name="sup-email" placeholder="Supervisor's email" value="<?php if (isset($error_msg)) {
                         echo $supervisor_email;
-                    } ?>">
+                    } ?>" required>
 				    </div>
 				  </div>
 				  <div class="form-group">
@@ -693,10 +710,12 @@ $(document).ready(function() {
 			function deleteOutlet(param) {
 
 				var num = parseInt(param.id);
-				var outlet = complex[num]["outlet"];
-				var person = prompt("Are you sure, you want to delete '" + outlet + "'!\nEnter yes to confirm");
+				var outlet_id = complex[num]["_id"]["$oid"];
+        var outlet_name = complex[num]["outlet"];
+        console.log(outlet_id);
+				var person = prompt("Are you sure, you want to delete '" + outlet_name + "'!\nEnter yes to confirm");
 				if (person.toLowerCase() == "yes") {
-					$("#deleteOutlet input[name=deleteOutlet]").val(outlet);
+					$("#deleteOutlet input[name=deleteOutlet]").val(outlet_id);
 					$("#deleteOutlet").submit();
 				}
 			}
@@ -705,8 +724,8 @@ $(document).ready(function() {
 			function putContents(param) {
 				var num = parseInt(param.id);
 				var out = complex[num];
-				$("#outletEditModal input[name=doc-id]").val(out["_id"]['$id']);
-				console.log(out["_id"]['$id']);
+				$("#outletEditModal input[name=doc-id]").val(out["_id"]['$oid']);
+				console.log(out["_id"]['$oid']);
 				$("#outletEditModal input[name=outlet-edit]").val(out["outlet"]);
 				$("#outletEditModal input[name=outlet-addr]").val(out["outlet_addr"]);
 				$("#outletEditModal input[name=sup-name]").val(out["supervisor_name"]);

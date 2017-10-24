@@ -8,7 +8,7 @@
       $subject = $_POST["subject"];
       $message = $_POST["message"];
       try {
-          $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+          $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
           $db = $m->pizza;
           $collection = $db->feedback;
       } catch (Exception $e) {
@@ -26,7 +26,7 @@
            );
 
 
-          $collection->insert($document);
+          $collection->insertOne($document);
           $_SESSION["feedback_msg"] = "Feedback Submitted Successfully, Thanks for your time!";
           header("Location: .");
       }

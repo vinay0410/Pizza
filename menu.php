@@ -6,7 +6,7 @@ if (isset($_GET["admin"])) {
 $admin = $_GET["admin"];
 }
     try {
-        $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $db = $m->pizza;
         $collection = $db->menu;
     } catch (Exception $e) {
@@ -15,8 +15,8 @@ $admin = $_GET["admin"];
     }
 
     if (empty($error_menu_msg)) {
-        $menu_cursor = $collection->find();
-        $menu_cursor->sort(array('_id' => -1));
+        $menu_cursor = $collection->find([], ['_id' => -1]);
+        
         $menu_count = $collection->count();
     }
 

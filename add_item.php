@@ -1,6 +1,6 @@
 <?php
 
-
+require "vendor/autoload.php";
 
     $name = strtolower($_POST["item_name"]);
     $ing = strtolower($_POST["toppings"]);
@@ -20,7 +20,7 @@
       }
 
     try {
-        $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $db = $m->pizza;
         $collection = $db->menu;
     } catch (Exception $e) {
@@ -39,7 +39,7 @@
             $document["path"] = $target_file;
           }
         //change password
-            $collection->insert($document);
+            $collection->insertOne($document);
             $result = $collection->findOne(array('name' => $name ));
 
 

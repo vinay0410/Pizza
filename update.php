@@ -1,5 +1,7 @@
 <?php
 
+require "vendor/autoload.php";
+
 session_start();
 
 
@@ -15,7 +17,7 @@ if (isset($_POST["edit_username"])) {
 
     $error_msg;
     try {
-        $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $db = $m->pizza;
         $collection = $db->users;
     } catch (Exception $e) {
@@ -26,14 +28,14 @@ if (isset($_POST["edit_username"])) {
         header("Location: .");
     }
     if (empty($error_msg)) {
-        $result = $collection->findOne(array('_id' => new MongoId($id)));
+        $result = $collection->findOne(['_id' => new MongoDB\BSON\ObjectID($id)]);
         if ((($result["username"] == $username) || (!$collection->findOne(array('username' => $username)))) and  (($result["email"] == $email) || (!$collection->findOne(array('email' => $email))))) {
 
 
 
         //change password
-            $collection->update(array('_id' => new MongoId($id)), array('$set'=>array("username" => $username, "email" => $email, "address" => $addr, "phoneno" => $phoneno)));
-            $result = $collection->findOne(array('_id' => new MongoId($id)));
+            $collection->updateOne(['_id' => new MongoDB\BSON\ObjectID($id)], ['$set'=> ["username" => $username, "email" => $email, "address" => $addr, "phoneno" => $phoneno]]);
+            $result = $collection->findOne(['_id' => new MongoDB\BSON\ObjectID($id)]);
             $_SESSION["pop_profile"] = array("type" => "success", "msg" => "Details Updated Successfully!");
 
             $_SESSION["logged"] = $result;

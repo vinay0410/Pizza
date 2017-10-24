@@ -1,6 +1,6 @@
 <?php
 
-
+require "vendor/autoload.php";
 
 
     $id = strtolower($_POST["item_id"]);
@@ -25,7 +25,7 @@
 
 
     try {
-        $m = new MongoClient("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $db = $m->pizza;
         $collection = $db->menu;
     } catch (Exception $e) {
@@ -35,7 +35,8 @@
 
     }
 
-        $result = $collection->findOne(array('_id' => new MongoId($id)));
+        $result = $collection->findOne(['_id' => new MongoDB\BSON\ObjectID( $id )]);
+
         if ( ($result["name"] == $name) || (!$collection->findOne(array('name' => $name))) )  {
           $document = array("name" => $name, "ingredients" => $ing, "price" => $price);
           if (!empty($_FILES["image"]["name"])) {
@@ -46,8 +47,10 @@
         }
 
         //change password
-            $collection->update(array('_id' => new MongoId($id)), array('$set'=>$document));
-            $result = $collection->findOne(array('_id' => new MongoId($id))); ?>
+            $collection->updateOne(array('_id' => new MongoDB\BSON\ObjectID($id)), array('$set'=>$document));
+            $result = $collection->findOne(array('_id' => new MongoDB\BSON\ObjectID($id)));
+            
+            ?>
 
             <div class="flipper agile-products">
               <div class="front">
