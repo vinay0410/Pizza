@@ -1,7 +1,7 @@
 
 <?php
 
-  session_start();
+  include("header.php");
 
   if (!isset($_SESSION["logged"])) {
     $_SESSION["pleaselogin"] = True;
@@ -9,7 +9,7 @@
   }
 
 
-include("header.php")
+
 
 
  ?>
@@ -44,7 +44,7 @@ include("header.php")
        if ($result["password"] == $oldpass) {
          //change password
          $collection->updateOne(["username"=>$username], ['$set'=> ["password"=>$newpass]]);
-         $_SESSION["pop_profile"] = "Password Updated Successfully";
+         $_SESSION["pop_profile"] = array("type" => "success", "msg" => "Password Updated Successfully");
          header("Location: .");
        } else {
 
