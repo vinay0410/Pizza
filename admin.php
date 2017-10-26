@@ -130,7 +130,7 @@ $outlet_array = array();
 
 <div class="panel panel-default">
       <div class="panel-heading"><h3>Outlets
-				<button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#outletModal" name="add_modal"><span class="glyphicon glyphicon-plus"></span>Add Outlet</button>
+				<button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#outletModal" name="add_modal" onclick="construct_search(this)"><span class="glyphicon glyphicon-plus"></span>Add Outlet</button>
 			</h3>
 			<?php if (isset($error_del_msg)) {
     ?>
@@ -193,7 +193,7 @@ $outlet_array = array();
 </div>
 
 
-<div class="panel panel-default">
+<div class="panel panel-default" id="user_div">
   <div class="panel-heading"><h3>Users</h3></div>
   <div class="panel-body">
   <div class="form-group user-group">
@@ -237,10 +237,27 @@ $outlet_array = array();
       <button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#itemModal" name="add_modal"><span class="glyphicon glyphicon-plus"></span>Add Item</button>
     </h3></div>
     <div class="panel-body">
-      <div class="menu"></div>
+      <ul class="nav nav-tabs menu-tabs">
+        <li class="active"><a data-toggle="tab" href="#pizzas" div-toggle="pizzas" onclick="load_menu(this)">Pizzas</a></li>
+        <li><a data-toggle="tab" href="#sides" div-toggle="sides" onclick="load_menu(this)">Sides</a></li>
+        <li><a data-toggle="tab" href="#beverages" div-toggle="beverages" onclick="load_menu(this)">Beverages</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div id="pizzas" class="tab-pane fade in active">
+
+        </div>
+        <div id="sides" class="tab-pane fade">
+
+        </div>
+        <div id="beverages" class="tab-pane fade">
+
+        </div>
+      </div>
 
 
-      <div class="menu-loader loader col-xs-6 col-xs-offset-5"></div>
+
+      <div class="menu-loader loader col-xs-6 col-xs-offset-5" style="display: none;"></div>
 
     </div>
 
@@ -311,21 +328,26 @@ $(document).ready(function(){
 
 var currentRequestMenu = null;
 
-function load_menu() {
-  currentRequestMenu = $.ajax({
-  data: {admin: "True"},
+function load_menu(category) {
+  var tab = $(category).attr("div-toggle");
+  console.log(tab);
+
+  if (!$("#" + tab).hasClass("loaded")) {
+    var loader_clone = $(".menu-loader").clone().css("display", "block").removeClass("menu-loader");
+  $.ajax({
+  data: {admin: "True", category: tab},
   url: 'menu.php',
   beforeSend : function()    {
-      if(currentRequestMenu != null) {
-          currentRequestMenu.abort();
-      }
-      $(".menu").slideUp("slow");
-      $(".menu-loader").show();
+
+      $("#" + tab).html(loader_clone);
+
   },
   success: function(result) {
-      $(".menu").html(result);
-      $(".menu-loader").hide();
-      $(".menu").slideDown("slow");
+      $("#" + tab).slideUp("slow");
+      $("#" + tab).html(result);
+
+      $("#" + tab).slideDown("slow", function() {$(this).css('display', '');});
+      $("#" + tab).addClass("loaded");
   },
   error:function(e){
     if (currentRequestMenu == null) {
@@ -335,8 +357,9 @@ function load_menu() {
   }
   });
 }
+}
 
-$(window).on("load", load_menu);
+$(document).ready(function() {$(".menu-tabs .active a").click();});
 
 
 function editable(el) {
@@ -418,8 +441,10 @@ function update(el) {
 $(document).ready(function() {
   $("#itemform").on("submit", function(e) {
     e.preventDefault();
-    console.log("after default");
+
+    var category = $(this).find("input[name=type]:checked").val();
     var formData = new FormData(this);
+    console.log(formData);
     $("#itemModal").modal('toggle');
     //e.stopPropagation();
     var new_div = $("<div class='col-md-4 col-sm-4 product-grids'><div class='menu-loader loader col-xs-6 col-xs-offset-5'></div></div>");
@@ -432,7 +457,10 @@ $(document).ready(function() {
       processData:false,
       beforeSend : function()    {
         console.log($('.menu').children().eq(1));
-          $('.menu').children().eq(1).prepend(new_div);
+
+
+          $(".menu-tabs li a[href='#" + category + "']").tab("show");
+          $('#' + category).children().eq(1).prepend(new_div);
 
 
       },
@@ -541,6 +569,7 @@ $(document).ready(function() {
 				      <button type="submit" class="btn btn-warning" id="modal_submit">Update Outlet</button>
 				    </div>
 				  </div>
+
 				</form>
 
       </div>
@@ -617,11 +646,14 @@ $(document).ready(function() {
                     } ?>">
 				    </div>
 				  </div>
+          <input type="hidden" id="supervisor_object">
+          <div id="supervisor_search"></div>
 				  <div class="form-group">
 				    <div class="col-sm-offset-2 col-sm-10">
 				      <button type="submit" class="btn btn-warning" id="modal_submit">Add Outlet</button>
 				    </div>
 				  </div>
+
 				</form>
 
       </div>
@@ -666,7 +698,18 @@ $(document).ready(function() {
 				      <input type="number" class="form-control" id="item_price" name="item_price" placeholder="Price" required>
 				    </div>
 				  </div>
-
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="supervisor-name">Type: </label>
+          <label class="radio-inline">
+            <input type="radio" name="type" value="pizzas" checked="checked">Pizza
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="type" value="sides">Side
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="type" value="beverages">Beverage
+          </label>
+        </div>
 				  <div class="form-group">
 				    <label class="control-label col-sm-2" for="supervisor-phone">Image: </label>
 				    <div class="col-sm-5">
@@ -720,6 +763,12 @@ $(document).ready(function() {
 				}
 			}
 
+      function construct_search(param) {
+        var content = $("#user_div").clone().find(".panel_body #accordion_users .list-group a");
+        console.log(content);
+        $("#supervisor_search").html(content);
+
+      }
 
 			function putContents(param) {
 				var num = parseInt(param.id);
@@ -728,9 +777,12 @@ $(document).ready(function() {
 				console.log(out["_id"]['$oid']);
 				$("#outletEditModal input[name=outlet-edit]").val(out["outlet"]);
 				$("#outletEditModal input[name=outlet-addr]").val(out["outlet_addr"]);
+
 				$("#outletEditModal input[name=sup-name]").val(out["supervisor_name"]);
 				$("#outletEditModal input[name=sup-email]").val(out["supervisor_email"]);
 				$("#outletEditModal input[name=sup-phone]").val(out["supervisor_phone"]);
+
+        //$("#supervisor_object").val();
 			}
 
       function initMap() {

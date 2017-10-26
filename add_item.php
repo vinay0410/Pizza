@@ -5,6 +5,7 @@ require "vendor/autoload.php";
     $name = strtolower($_POST["item_name"]);
     $ing = strtolower($_POST["toppings"]);
     $price = strtolower($_POST["item_price"]);
+    $type = strtolower($_POST["type"]);
 
     if (!empty($_FILES["image"]["name"])) {
       $target_dir = "menu/";
@@ -34,7 +35,7 @@ require "vendor/autoload.php";
         $result = $collection->findOne(array('name' => $name));
         if ( empty($result) )  {
 
-          $document = array("name" => $name, "ingredients" => $ing, "price" => $price);
+          $document = array("name" => $name, "ingredients" => $ing, "price" => $price, "type" => $type);
           if (!empty($_FILES["image"]["name"])) {
             $document["path"] = $target_file;
           }

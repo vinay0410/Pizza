@@ -1,8 +1,6 @@
 <?php
 include("header.php");
 
-
-
 ?>
 
 	<!-- end navigation -->
@@ -63,9 +61,25 @@ include("header.php");
 				<div class="col-md-12 menu">
 					<h2 class="text-center text-uppercase">Menu</h2>
            <hr>
+					 <ul class="nav nav-tabs menu-tabs">
+		         <li class="active"><a data-toggle="tab" data-target="#pizzas" div-toggle="pizzas" onclick="load_menu(this)">Pizzas</a></li>
+		         <li><a data-toggle="tab" data-target="#sides" div-toggle="sides" onclick="load_menu(this)">Sides</a></li>
+		         <li><a data-toggle="tab" data-target="#beverages" div-toggle="beverages" onclick="load_menu(this)">Beverages</a></li>
+		       </ul>
+
+		       <div class="tab-content">
+		         <div id="pizzas" class="tab-pane fade in active">
+
+		         </div>
+		         <div id="sides" class="tab-pane fade">
+
+		         </div>
+		         <div id="beverages" class="tab-pane fade">
+
+		         </div>
 				</div>
 
-				<div class="menu-loader loader col-xs-6 col-xs-offset-5"></div>
+				<div class="menu-loader loader col-xs-6 col-xs-offset-5" style="display: none;"></div>
 
 			</div>
 
@@ -140,29 +154,40 @@ include("header.php");
 
 			<script>
 
-			$(document).ready(function() {
-				console.log("here");
-				$.ajax({
-				url: 'menu.php',
-				beforeSend : function()    {
-						console.log("before");
-						$(".menu-loader").show();
-				},
-				success: function(result) {
-					$(".menu").slideUp("slow");
-						$(".menu").html(result);
-						$(".menu-loader").hide();
-						$(".menu").slideDown("slow");
-						console.log("success");
-				},
-				error:function(e){
-					console.log("error");
-					$(".menu-loader").hide();
-					alert("Error Loading data");
 
-				}
-				});
-			});
+			function load_menu(category) {
+			  var tab = $(category).attr("div-toggle");
+			  console.log(tab);
+
+			  if (!$("#" + tab).hasClass("loaded")) {
+			    var loader_clone = $(".menu-loader").clone().css("display", "block").removeClass("menu-loader");
+			  $.ajax({
+			  data: {admin: "True", category: tab},
+			  url: 'menu.php',
+			  beforeSend : function()    {
+
+			      $("#" + tab).html(loader_clone);
+
+			  },
+			  success: function(result) {
+			      $("#" + tab).slideUp("slow");
+			      $("#" + tab).html(result);
+
+			      $("#" + tab).slideDown("slow", function() {$(this).css('display', '');});
+			      $("#" + tab).addClass("loaded");
+			  },
+			  error:function(e){
+			    if (currentRequestMenu == null) {
+			    $(".menu-loader").hide();
+			    alert("Error Loading data");
+			  }
+			  }
+			  });
+			}
+			}
+
+
+			$(document).ready(function() {$(".menu-tabs .active a").click();});
 			</script>
 
 

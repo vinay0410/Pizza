@@ -2,23 +2,25 @@
 
 require "vendor/autoload.php";
 
+$category = $_GET["category"];
+
 if (isset($_GET["admin"])) {
 $admin = $_GET["admin"];
 }
     try {
         $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
-        $db = $m->pizza;
-        $collection = $db->menu;
-    } catch (Exception $e) {
-        #die("Caught Exception failed to Connect".$e->getMessage()."\n");
-    $error_menu_msg = "Couldn't Connect to Database, Please try again";
-    }
+        $collection = $m->selectCollection("pizza", "menu");
+        $menu_cursor = $collection->find(["type" => $category], ['_id' => -1])->toArray();
 
-    if (empty($error_menu_msg)) {
-        $menu_cursor = $collection->find([], ['_id' => -1]);
-        
-        $menu_count = $collection->count();
-    }
+        $menu_count = count($menu_cursor);
+
+    } catch (MongoDB\Driver\Exception\ConnectionTimeoutException $e) {
+        //die("Caught Exception failed to Connect".$e->getMessage()."\n");
+    $error_menu_msg = "Couldn't Connect to Database, Please try again";
+  } catch (Exception $e) {
+    $error_menu_msg  = $e->getMessage();
+  }
+
 
 
 
@@ -29,8 +31,7 @@ $admin = $_GET["admin"];
 
 
        <div class="col-md-12">
-         <h2 class="text-center text-uppercase">Menu</h2>
-          <hr>
+
           <?php if (isset($error_menu_msg)) { ?>
 					<div id="error" class="alert alert-danger" role="alert"><?php echo $error_menu_msg ?></div>
 
@@ -41,7 +42,7 @@ $admin = $_GET["admin"];
         <?php
                   if (isset($menu_count) or isset($menu_cursor)) {
                       if ($menu_count == 0 && empty($error_menu_msg)) {
-                          echo '<p>Oh, Your menu has no items yet!</p>';
+                          echo "<div class='products-row menu-row'><p class='empty-message'>Oh, Your menu has no ".$category." yet!</p></div>";
                       } else {
                           $index = 0;
                           foreach ($menu_cursor as $document) {
