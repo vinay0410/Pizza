@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Checkout</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="card/card.css" rel="stylesheet" type="text/css">
     <style type="text/css">
         body {
@@ -50,8 +50,10 @@
     border-radius: 50%;
 }
     </style>
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+<script src="js/jquery-2.2.3.min.js"></script>
+
+<script src="js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -268,6 +270,7 @@
   </form>
   
 </div>
+<script src="js/bootstrap.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
   var navListItems = $('div.setup-panel div a'),
@@ -312,8 +315,7 @@ $(document).ready(function () {
   $('div.setup-panel div a.btn-warning').trigger('click');
 });
 </script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="card/jquery.card.js"></script>
+<script src="card/jquery.card.js"></script>
 
 
     <script>
@@ -322,7 +324,6 @@ $(document).ready(function () {
     // where you want the card to appear
     container: '.card-wrapper', // *required*
 
-    // all of the other options from above
 });
     </script>
 </body>
