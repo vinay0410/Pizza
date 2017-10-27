@@ -1,63 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Checkout</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="card/card.css" rel="stylesheet" type="text/css">
-    <style type="text/css">
-        body {
-    margin-top:40px;
+<?php include("header.php"); ?>
+
+
+<link rel="stylesheet" href="css/card.css">
+
+<style type="text/css">
+    body {
+margin-top:40px;
 }
 .stepwizard-step p {
-    margin-top: 10px;
+margin-top: 10px;
 }
 .stepwizard-row {
-    display: table-row;
+display: table-row;
 }
 .stepwizard {
-    display: table;
-    width: 50%;
-    position: relative;
+display: table;
+width: 50%;
+position: relative;
 }
 .stepwizard-step button[disabled] {
-    opacity: 1 !important;
-    filter: alpha(opacity=100) !important;
+opacity: 1 !important;
+filter: alpha(opacity=100) !important;
 }
 .stepwizard-row:before {
-    top: 24px;
-    bottom: 0;
-    position: absolute;
-    content: " ";
-    width: 100%;
-    height: 1px;
-    background-color: #ccc;
-    z-order: 0;
+top: 24px;
+bottom: 0;
+position: absolute;
+content: " ";
+width: 100%;
+height: 1px;
+background-color: #ccc;
+z-order: 0;
 }
 .stepwizard-step {
-    display: table-cell;
-    text-align: center;
-    position: relative;
+display: table-cell;
+text-align: center;
+position: relative;
 }
 .btn-circle {
-    width: 45px;
-    height: 45px;
-    text-align: center;
-    padding: 6px 0;
-    font-size: 12px;
-    line-height: 2.428571;
-    border-radius: 50%;
+width: 45px;
+height: 45px;
+text-align: center;
+padding: 6px 0;
+font-size: 12px;
+line-height: 2.428571;
+border-radius: 50%;
 }
-    </style>
+</style>
 
-<script src="js/jquery-2.2.3.min.js"></script>
-
-<script src="js/bootstrap.min.js"></script>
-</head>
 <body>
 <div class="container">
-  
+
 <div class="stepwizard col-md-offset-3">
     <div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
@@ -72,10 +65,10 @@
         <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
         <p><strong>Payment</strong></p>
       </div>
-      
+
     </div>
   </div>
-   
+
           <form role="form" action="" method="post">
 
               <div class="row setup-content" id="step-1">
@@ -84,12 +77,12 @@
 <div class="panel panel-default">
 
 <div class="panel-body">
-                    <div class="form-group"> 
+                    <div class="form-group">
                       <label for="outlet_id" class="control-label">Closest Outlet</label>
                       <select class="form-control" id="outlet_id">
                         <option value="OL1">Outlet 1</option>
                         <option value="OL2">Outlet 2</option>
-                      </select>         
+                      </select>
                     </div>
                     <div class="form-group">
                       <label class="control-label">Address</label>
@@ -160,7 +153,7 @@
                             <td class="col-md-1 text-center">$16</td>
                             <td class="col-md-1 text-center">$48</td>
                         </tr>
-                        
+
                         <tr>
                             <td> &nbsp; </td>
                             <td> &nbsp; </td>
@@ -189,15 +182,15 @@
             <div class="panel-heading display-table" >
               <div class="row display-tr" >
                 <h1 class="panel-title display-td" >Payment Details</h1>
-                <div class="display-td" >                            
+                <div class="display-td" >
                   <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
                 </div>
-              </div>                    
+              </div>
             </div>
             <div class="panel-body">
 <!-- -->
   <div class="demo-container">
-   
+
         <div class="card-wrapper"></div>
 
         <div class="form-container active">
@@ -211,7 +204,7 @@
                     <input type="tel" class="form-control" name="number" placeholder="Valid Card Number" autocomplete="cc-number" required autofocus />
                     <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
                   </div>
-                </div>                            
+                </div>
               </div>
             </div>
 
@@ -222,9 +215,9 @@
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Enter your full name" name="name"  required="required" autofocus />
                     <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                    
+
                   </div>
-                </div>                            
+                </div>
               </div>
             </div>
 
@@ -249,26 +242,26 @@
               <label for="couponCode">COUPON CODE</label>
               <input type="text" class="form-control" name="couponCode" />
             </div>
-          </div>                        
+          </div>
     </div>
     <div class="row">
         <div class="col-xs-12">
             <button class="btn btn-warning btn-lg btn-block" type="submit">Submit<span class="glyphicon glyphicon-chevron-right"></span></button>
         </div>
     </div>
-    
+
 </form>
 </div></div>
 </div>
-</div>            
+</div>
 <!-- CREDIT CARD FORM ENDS HERE -->
           <!-- -->
-          
+
         </div>
       </div>
     </div>
   </form>
-  
+
 </div>
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript">

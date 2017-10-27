@@ -162,7 +162,7 @@ include("header.php");
 			  if (!$("#" + tab).hasClass("loaded")) {
 			    var loader_clone = $(".menu-loader").clone().css("display", "block").removeClass("menu-loader");
 			  $.ajax({
-			  data: {admin: "True", category: tab},
+			  data: {category: tab},
 			  url: 'menu.php',
 			  beforeSend : function()    {
 
