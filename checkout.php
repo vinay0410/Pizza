@@ -1,7 +1,7 @@
-<?php include("header.php"); ?>
-
-<?php $data = $_GET["data"];
-      var_dump($data); ?>
+<?php include("header.php");
+$data = json_decode($_GET["data"], true);
+var_dump($data);
+?>
 
 <link href="card/card.css" rel="stylesheet" type="text/css">
 
@@ -50,8 +50,11 @@ border-radius: 50%;
 }
 </style>
 
-<body>
-<div class="container">
+<script src="js/jquery-2.2.3.min.js"></script>
+
+<script src="js/bootstrap.min.js"></script>
+
+<div class="container pb-modalreglog-container">
 
 <div class="stepwizard col-md-offset-3">
     <div class="stepwizard-row setup-panel">
@@ -265,9 +268,10 @@ border-radius: 50%;
   </form>
 
 </div>
-<script src="js/bootstrap.min.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function () {
+
   var navListItems = $('div.setup-panel div a'),
           allWells = $('.setup-content'),
           allNextBtn = $('.nextBtn');
@@ -320,6 +324,12 @@ $(document).ready(function () {
     container: '.card-wrapper', // *required*
 
 });
+
+
+$(document).ready(function(){
+  $(this).scrollTop(0);
+});
     </script>
-</body>
-</html>
+
+
+<?php include("footer.php"); ?>
