@@ -3,7 +3,7 @@
 <?php $data = $_GET["data"];
       var_dump($data); ?>
 
-<link rel="stylesheet" href="css/card.css">
+<link href="card/card.css" rel="stylesheet" type="text/css">
 
 <style type="text/css">
     body {
