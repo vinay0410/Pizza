@@ -1,5 +1,7 @@
 <?php include("header.php"); ?>
 
+<?php $data = $_GET["data"];
+      var_dump($data); ?>
 
 <link rel="stylesheet" href="css/card.css">
 

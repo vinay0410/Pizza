@@ -41,12 +41,14 @@ $(function () {
     },
     checkoutCart: function(products, totalPrice, totalQuantity) {
       var checkoutString = "Total Price: " + totalPrice + "\nTotal Quantity: " + totalQuantity;
-      checkoutString += "\n\n id \t name \t\t\t\t  price \t\t\t quantity \t\t\t image path";
+      checkoutString += "\n\n id \t name \t\t\t\t  price \t\t\t quantity";
       $.each(products, function(){
-        checkoutString += ("\n " + this.id + " \t " + this.name + " \t \t\t  " + this.price + " \t\t\t\t " + this.quantity + " \t\t\t\t " + this.image);
+        checkoutString += ("\n " + this.id + " \t " + this.name + " \t \t\t  " + this.price + " \t\t\t\t " + this.quantity);
       });
       alert(checkoutString)
       console.log("checking out", products, totalPrice, totalQuantity);
+      var data = {products: products, totalPrice: totalPrice, totalQuantity: totalQuantity};
+      window.location.href = "checkout.php?data=" + JSON.stringify(data);
     },
     getDiscountPrice: function(products, totalPrice, totalQuantity) {
       console.log("calculating discount", products, totalPrice, totalQuantity);

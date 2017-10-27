@@ -260,7 +260,7 @@
       var discountPrice = options.getDiscountPrice(products, ProductManager.getTotalPrice(), ProductManager.getTotalQuantity());
       if(products.length && discountPrice !== null) {
         $cartTable.append(
-          
+
         );
       }
 
