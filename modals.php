@@ -13,7 +13,7 @@
                                  <h4 class="modal-title" id="myModalLabel">Login form</h4>
                                  <?php if (isset($pop_login)) {
         ?>
-                                 <div id="error" class="alert alert-success" role="alert"><?php echo $pop_login ?></div>
+                                 <div id="error" class="alert alert-<?php echo $pop_login["type"] ?>" role="alert"><?php echo $pop_login["msg"] ?></div>
                                <?php
     } ?>
                                  <?php if (isset($error) and $error) {

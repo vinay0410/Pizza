@@ -141,12 +141,13 @@ include("header.php");
 	<!-- end contact -->
 	<!-- modals start -->
 
-	<script src="js/jquery-2.2.3.min.js"></script>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/jquery_migrate.js"></script>
 	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/jquery.mycart.js"></script>
 	<script src="js/scroll.js"></script>
-		<script>
+		<script type="text/javascript">
 			 $(function() {
 				$('html').smoothScroll(500);
 			 });
@@ -188,7 +189,14 @@ include("header.php");
 
 
 			$(document).ready(function() {$(".menu-tabs .active a").click();});
+			var cart = 0;
+			<?php if(isset($cart)) { ?>
+			cart = JSON.parse('<?php echo $cart; ?>');
+
+			<?php } ?>
+
 			</script>
+
 
 
 <script type="text/javascript" src="js/menu.js"></script>
