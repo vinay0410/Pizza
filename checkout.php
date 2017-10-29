@@ -5,6 +5,10 @@ var_dump($data);
 
 <link href="card/card.css" rel="stylesheet" type="text/css">
 
+<script src="js/jquery-3.2.1.min.js"></script>
+
+<script src="js/bootstrap.min.js"></script>
+
 <style type="text/css">
     body {
 margin-top:40px;
@@ -50,9 +54,25 @@ border-radius: 50%;
 }
 </style>
 
-<script src="js/jquery-2.2.3.min.js"></script>
+<?php
 
-<script src="js/bootstrap.min.js"></script>
+try {
+    $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+    $collection = $m->selectCollection("pizza", "outlets");
+    $outlet_cursor = $collection->find()->toArray();
+
+    $outlet_count = count($menu_cursor);
+
+} catch (MongoDB\Driver\Exception\ConnectionTimeoutException $e) {
+    //die("Caught Exception failed to Connect".$e->getMessage()."\n");
+$error_menu_msg = "Couldn't Connect to Database, Please try again";
+} catch (Exception $e) {
+$error_menu_msg  = $e->getMessage();
+}
+
+
+?>
+
 
 <div class="container pb-modalreglog-container">
 
@@ -82,16 +102,29 @@ border-radius: 50%;
 <div class="panel panel-default">
 
 <div class="panel-body">
-                    <div class="form-group">
+                    <div class="form-group dropdown">
                       <label for="outlet_id" class="control-label">Closest Outlet</label>
                       <select class="form-control" id="outlet_id">
-                        <option value="OL1">Outlet 1</option>
-                        <option value="OL2">Outlet 2</option>
+                        <?php foreach($outlet_cursor as $row) { ?>
+                        <option value="<?php echo $row["_id"]; ?>"><?php echo $row['outlet'];?></option>
+
+                      <?php } ?>
                       </select>
                     </div>
+
                     <div class="form-group">
                       <label class="control-label">Address</label>
+                      <div class="list-group">
+                      <?php if(isset($row['address'])) {
+                        foreach ($row['address'] as $addr) { ?>
+                          <a href="#" class="list-group-item active"><?php echo $addr; ?></a>
+                      <?php  }
+
+                       } else { echo "no address provided"; ?>
                       <textarea required="required" class="form-control" placeholder="Enter your shipping address" ></textarea>
+                    <?php } ?>
+                  </div>
+
                     </div>
 
                     <button class="btn btn-warning nextBtn btn-lg pull-right" type="button" >Confirmation &nbsp;<span class="glyphicon glyphicon-chevron-right"></span></button>
@@ -268,6 +301,8 @@ border-radius: 50%;
   </form>
 
 </div>
+
+
 
 <script type="text/javascript">
 $(document).ready(function () {

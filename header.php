@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +9,12 @@ require "vendor/autoload.php";
 
 session_start();
 
+if (isset($_SESSION["cart"])) {
 
+    $cart = $_SESSION["cart"];
 
+    unset($_SESSION["cart"]);
+}
 
 if (isset($_SESSION["feedback_msg"])) {
     $feedback_msg = $_SESSION["feedback_msg"];

@@ -29,12 +29,17 @@ $(function () {
     affixCartIcon: true,
     showCheckoutModal: true,
     numberOfDecimals: 2,
-    cartItems: [],
+    cartItems: cart["products"],
     clickOnAddToCart: function($addTocart){
       goToCartIcon($addTocart);
     },
     afterAddOnCart: function(products, totalPrice, totalQuantity) {
       console.log("afterAddOnCart", products, totalPrice, totalQuantity);
+      var contents = JSON.stringify({products: products, totalPrice: totalPrice, totalQuantity: totalQuantity});
+      $.ajax({
+        data: {cart_contents: cart_contents},
+        url: 'store_cart.php'
+      });
     },
     clickOnCartIcon: function($cartIcon, products, totalPrice, totalQuantity) {
       console.log("cart icon clicked", $cartIcon, products, totalPrice, totalQuantity);
@@ -48,7 +53,7 @@ $(function () {
       alert(checkoutString)
       console.log("checking out", products, totalPrice, totalQuantity);
       var data = {products: products, totalPrice: totalPrice, totalQuantity: totalQuantity};
-      window.location.href = "checkout.php?data=" + JSON.stringify(data);
+      window.location.href = "transfer.php?data=" + JSON.stringify(data);
     },
     getDiscountPrice: function(products, totalPrice, totalQuantity) {
       console.log("calculating discount", products, totalPrice, totalQuantity);

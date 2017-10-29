@@ -33,7 +33,7 @@
             //echo $response->body();
 
             if ($response->statusCode() == 202) {
-                $_SESSION["pop_login"] = "Your password has been Successfully sent to the registered emailID.";
+                $_SESSION["pop_login"] = array("type" => "success", "msg" => "Your password has been Successfully sent to the registered emailID.";
                 header("Location: .");
             } else {
                 $error_msg = "Failed to send email. Please try again!";
