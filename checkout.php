@@ -252,7 +252,7 @@ $error_menu_msg  = $e->getMessage();
                   <label for="cardName">NAME</label>
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Enter your full name" name="name"  required="required" autofocus />
-                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
 
                   </div>
                 </div>
