@@ -314,8 +314,8 @@ background: #fff;
 
 </body>
   <!--   Core JS Files   -->
-  <script src="assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
-  <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="js/jquery-2.2.4.min.js" type="text/javascript"></script>
+  <script src="js/bootstrap.min.js" type="text/javascript"></script>
   <script src="assets/js/jquery.bootstrap.js" type="text/javascript"></script>
 
   <!--  Plugin for the Wizard -->
@@ -406,7 +406,7 @@ $(document).ready(function() {
   	$('#rootwizard').bootstrapWizard({onTabShow: function(tab, navigation, index) {
 
       if (index == 1) {
-		     
+
           initMap();
         }
 	}});
