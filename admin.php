@@ -29,6 +29,7 @@
         $outlet_addr = $_POST["outlet-addr"];
         $supervisor_name = $_POST["sup-name"];
         $supervisor_email = $_POST["sup-email"];
+        $coord = [(float)$_POST['long'], (float)$_POST['lat']];
         $supervisor_phone = $_POST["sup-phone"];
 
         try {
@@ -50,6 +51,7 @@
                 $document = array(
                                  "outlet" => $outlet,
                                  "outlet_addr" => $outlet_addr,
+                                 "coord" => $coord,
                                  "supervisor_name" => $supervisor_name,
                                  "supervisor_email" => $supervisor_email,
                                          "supervisor_phone" => $supervisor_phone
@@ -62,9 +64,11 @@
             }
         }
     } elseif (isset($_POST["outlet-edit"])) {
+
         $id = $_POST["doc-id"];
         $outlet = $_POST["outlet-edit"];
         $outlet_addr = $_POST["outlet-addr"];
+        $coord = [(float)$_POST['long'], (float)$_POST['lat']];
         $supervisor_name = $_POST["sup-name"];
         $supervisor_email = $_POST["sup-email"];
         $supervisor_phone = $_POST["sup-phone"];
@@ -88,7 +92,7 @@
             if (($result["outlet"] == $outlet) || (!$collection->findOne(['outlet' => $outlet]))) {
 
                          //change password
-                $collection->updateOne(['_id' => new MongoDB\BSON\ObjectID($id)], ['$set'=> ["outlet" => $outlet, "outlet_addr" => $outlet_addr, "supervisor_name" => $supervisor_name, "supervisor_email" => $supervisor_email, "supervisor_phone" => $supervisor_phone]]);
+                $collection->updateOne(['_id' => new MongoDB\BSON\ObjectID($id)], ['$set'=> ["outlet" => $outlet, "outlet_addr" => $outlet_addr, "coord" => $coord, "supervisor_name" => $supervisor_name, "supervisor_email" => $supervisor_email, "supervisor_phone" => $supervisor_phone]]);
                 $success = "Outlet Details Updated Successfully";
                 $open_edited = $id;
             } else {
@@ -520,7 +524,7 @@ $(document).ready(function() {
                     } ?>
       </div>
       <div class="modal-body">
-				<form class="form-horizontal" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+				<form class="form-horizontal" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>" onsubmit="return verify_outlet(this);">
 					<input type="hidden" id="doc-id" name="doc-id">
 				  <div class="form-group">
 				    <label class="control-label col-sm-2" for="outlet">Unique Outlet Name: </label>
@@ -536,7 +540,13 @@ $(document).ready(function() {
 				      <input type="text" class="form-control" id="outlet-edit-addr" name="outlet-addr" placeholder="Enter Outlet Address" value="<?php if (isset($error_edit_msg)) {
                         echo $outlet_addr;
                     } ?>">
-				      <input id="map-submit-edit" type="button" class="btn btn-default" value="See on Map">
+                    <div>
+                      <label for="lat" class="control-label col-sm-2"> Lat: </label>
+                      <input name="lat" type="text" id="lat-edit" class="col-sm-4" readonly="readonly">
+                      <label for="long" class="control-label col-sm-2"> Long: </label>
+                      <input name="long" type="text" id="long-edit" class="col-sm-4" readonly="readonly">
+                    </div>
+				      <input id="map-submit-edit" type="button" class="btn btn-default" value="See on Map & Drag">
 				      <div id="map-edit" style="width: 400px; height: 400px;"></div>
 				    </div>
 				  </div>
@@ -602,7 +612,7 @@ $(document).ready(function() {
                     } ?>
       </div>
       <div class="modal-body">
-				<form class="form-horizontal" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+				<form class="form-horizontal" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>" onsubmit="return verify_outlet(this)">
 					<input type="hidden" id="dummy">
 				  <div class="form-group">
 				    <label class="control-label col-sm-2" for="outlet">Unique Outlet Name: </label>
@@ -618,7 +628,13 @@ $(document).ready(function() {
 				      <input type="text" class="form-control" id="outlet-addr" name="outlet-addr" placeholder="Enter Outlet Address" value="<?php if (isset($error_msg)) {
                         echo $outlet_addr;
                     } ?>">
-				      <input id="map-submit-add" type="button" class="btn btn-default" value="See on Map">
+              <div>
+                <label for="lat" class="control-label col-sm-2"> Lat: </label>
+                <input name="lat" type="text" id="lat-add" class="col-sm-4" readonly="readonly">
+                <label for="long" class="control-label col-sm-2"> Long: </label>
+                <input name="long" type="text" id="long-add" class="col-sm-4" readonly="readonly">
+              </div>
+				      <input id="map-submit-add" type="button" class="btn btn-default" value="See on Map & Drag">
 				      <div id="map-add" style="width: 400px; height: 400px;"></div>
 				    </div>
 				  </div>
@@ -748,7 +764,16 @@ $(document).ready(function() {
 
 
 	<script>
-
+      function verify_outlet(param) {
+        console.log("here");
+        var coord = $(param).find("input[name=lat]").val();
+        console.log(coord);
+        if (!coord) {
+          alert("Please verify your location on Map first");
+          return false;
+        }
+        return true;
+      }
 
 			function deleteOutlet(param) {
 
@@ -797,40 +822,83 @@ $(document).ready(function() {
         var geocoder = new google.maps.Geocoder();
 
        document.getElementById('map-submit-add').addEventListener('click', function() {
-          geocodeAddress(geocoder, map1);
+          geocodeAddress(geocoder, map1, "add");
         });
 
 				document.getElementById('map-submit-edit').addEventListener('click', function() {
-          geocodeAddress(geocoder, map2);
+          geocodeAddress(geocoder, map2, "edit");
         });
 
 
       }
 
-      function geocodeAddress(geocoder, resultsMap) {
+      var modal;
+      function geocodeAddress(geocoder, resultsMap, modal_type) {
+        var marker;
+        var addr;
         var add_address = document.getElementById('outlet-addr').value;
 				var edit_address = document.getElementById('outlet-edit-addr').value;
-				if (add_address) {
-					address = add_address;
+				if (modal_type == "add") {
+					addr = add_address;
+          modal = "add_modal";
 				} else {
-					address = edit_address;
+					addr = edit_address;
+          modal = "edit_modal";
 				}
-        geocoder.geocode({'address': address}, function(results, status) {
+        geocoder.geocode({'address': addr}, function(results, status) {
           if (status === 'OK') {
             resultsMap.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
+              marker = new google.maps.Marker({
               map: resultsMap,
-              position: results[0].geometry.location
+              draggable: true,
+              animation: google.maps.Animation.DROP,
+              position: results[0].geometry.location,
+              title: "Drag Me!"
             });
+
+            marker.addListener('click', toggleBounce);
+            google.maps.event.addListener(marker, 'dragend', fill_coord);
+            var mouseEvent1 = {
+              stop: null,
+              latLng: results[0].geometry.location
+            }
+            google.maps.event.trigger(marker, 'dragend', mouseEvent1);
 						if (results[0].geometry.viewport)
         				resultsMap.fitBounds(results[0].geometry.viewport);
+
+
+
           } else {
             alert('Geocode was not successful for the following reason: ' + status);
           }
-        });
 
+        });
+        function toggleBounce() {
+          if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+          } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+          }
+        }
 
       }
+
+      function fill_coord(event) {
+            console.log(event);
+
+            if (modal == "add_modal") {
+            document.getElementById("lat-add").value = event.latLng.lat();
+           document.getElementById("long-add").value = event.latLng.lng();
+         } else {
+           console.log("here");
+           document.getElementById("lat-edit").value = event.latLng.lat();
+          document.getElementById("long-edit").value = event.latLng.lng();
+         }
+
+       }
+
+
+
 
 
 			$('#outletModal').on('shown.bs.modal', function(){
