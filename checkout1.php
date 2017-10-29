@@ -3,14 +3,14 @@
 <head>
   <head>
   <meta charset="utf-8" />
-  
+
   <title>Checkout</title>
 
-  
+
     <link href="card/card.css" rel="stylesheet" type="text/css">
   <link rel="icon" type="image/png" href="assets/img/favicon.png" />
   <!--     Fonts and icons     -->
-  
+
   <link rel="stylesheet" href="css/font-awesome.min.css" />
 
   <!-- CSS Files -->
@@ -39,13 +39,14 @@ background: #fff;
     <div class="row">
       <div class="col-sm-6 col-sm-offset-3">
                 <!--      Wizard container        -->
-        <div class="wizard-container">
+        <div class="wizard-container" id="rootwizard">
           <div class="card wizard-card" data-color="orange" id="wizard">
               <form action="" method="">
-                  <div class="wizard-header"></div> 
+                  <div class="wizard-header"></div>
                   <div class="wizard-navigation">
                         <ul>
                         <li><a href="#delivery" data-toggle="tab">Delivery</a></li>
+                        <li><a id="outlet_link" href="#outlet" data-toggle="tab">Outlet</a></li>
                         <li><a href="#confirmation" data-toggle="tab">Confirmation</a></li>
                         <li><a href="#payment" data-toggle="tab">Payment</a></li>
                         </ul>
@@ -59,16 +60,9 @@ background: #fff;
                           </div>
 
                           <div class="col-sm-3"></div>
-                          
-                          <div class="col-sm-6"> 
-                            <div class="form-group label-floating">
-                              <label class="control-label">Closest Outlet</label>
-                              <select class="form-control" id="outlet_id">
-                                <option disabled="" selected=""></option>
-                                <option value="OL1">Outlet 2 </option>
-                                <option value="OL2"> Outlet 1 </option>
-                              </select>
-                            </div>
+
+                          <div class="col-sm-6">
+
 
                             <div class="form-group label-floating">
                                 <label class="control-label">Address</label>
@@ -76,7 +70,7 @@ background: #fff;
                                   <textarea class="form-control" id="address" placeholder="" rows="2"   style="min-width:100%;font-size:14pt;">
                                   </textarea>
                                 </div>
-                            </div> 
+                            </div>
                           </div><!--ending col-sm-6 -->
                         </div><!--ending row-->
                         <div class="wizard-footer">
@@ -84,16 +78,54 @@ background: #fff;
                                       <input type='button' class='btn btn-next btn-fill btn-warning btn-wd' name='next' value='Next' />
                                       <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd' name='finish' value='Finish' />
                                   </div>
-                                  
+
                                   <div class="clearfix"></div>
                             </div>
                         <div class="col-sm-3"></div>
                     </div><!--tab-pane id: delivery-->
+
+                    <div class="tab-pane" id="outlet">
+                        <div class="row">
+                          <div class="col-sm-12">
+                          <h4 class="info-text">Some text here</h4>
+                          </div>
+
+                          <div class="col-sm-3"></div>
+
+                          <div class="col-sm-6">
+                            <div id="outlet_map" style="width: 400px; height: 400px;"></div>
+                            <!--<div class="form-group label-floating">
+
+
+                              <label class="control-label">Closest Outlet</label>
+
+                              <select class="form-control" id="outlet_id">
+                                <option disabled="" selected=""></option>
+                                <option value="OL1">Outlet 2 </option>
+                                <option value="OL2"> Outlet 1 </option>
+                              </select>
+                            </div>-->
+
+
+                          </div><!--ending col-sm-6 -->
+                        </div><!--ending row-->
+                        <div class="wizard-footer">
+                                <div class="pull-right">
+                                      <input type='button' class='btn btn-next btn-fill btn-warning btn-wd' name='next' value='Next' />
+                                      <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd' name='finish' value='Finish' />
+                                  </div>
+
+                                  <div class="clearfix"></div>
+                            </div>
+                        <div class="col-sm-3"></div>
+                    </div><!--tab-pane id: delivery-->
+
+
                     <div class="tab-pane" id="confirmation">
                       <div class="row">
                         <div class="col-sm-10 col-sm-offset-1">
                         <!--starting receipt -->
- 
+
                           <div class="row">
 
                             <div class="col-xs-6 col-sm-6 col-md-6">
@@ -141,7 +173,7 @@ background: #fff;
                             <td class="col-md-1 text-center">$16</td>
                             <td class="col-md-1 text-center">$48</td>
                         </tr>
-                        
+
                         <tr>
                             <td> &nbsp; </td>
                             <td> &nbsp; </td>
@@ -154,7 +186,7 @@ background: #fff;
                     Pay Now&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right"></span>
                 </button> --></td>
             </div>
-         
+
 <!-- ending receipt -->
 
                                         </div>
@@ -175,7 +207,7 @@ background: #fff;
                                 </div>
                                 <div class="tab-pane" id="payment">
                                     <div class="row">
-                                       
+
                                        <!-- -->
           <!-- CREDIT CARD FORM STARTS HERE -->
 <div class="col-xs-10 col-md-offset-1">
@@ -194,7 +226,7 @@ background: #fff;
                   <label for="cardNumber">CARD NUMBER</label>
                     <div class="input-group">
                        <input type="tel" class="form-control" name="number" placeholder=" Valid Card Number" autocomplete="cc-number" required autofocus />
-                       
+
                     </div>
                   </div>
                 </div>
@@ -208,10 +240,10 @@ background: #fff;
                   </div>
                 </div>
               </div>
-                <!-- --> 
+                <!-- -->
             </div>
 
-            
+
 
     <div class="row">
           <div class="col-xs-6 col-md-6">
@@ -252,7 +284,7 @@ background: #fff;
 
 <!-- CREDIT CARD FORM ENDS HERE -->
  <!-- -->
-                          
+
                             <!-- -->
           <!-- -->
                                     </div>
@@ -277,7 +309,7 @@ background: #fff;
         </div> <!-- row -->
     </div> <!--  big container -->
 
-      
+
   </div>
 
 </body>
@@ -348,6 +380,102 @@ $(document).ready(function () {
 $(document).ready(function(){
   $(this).scrollTop(0);
 });
-    </script> 
-</body> 
+    </script>
+
+<script>
+
+function initMap() {
+
+  var map = new google.maps.Map(document.getElementById('outlet_map'), {
+    zoom: 3,
+    center: {lat: 36.6139, lng: 60.2090}
+  });
+
+  google.maps.event.trigger(map, "resize");
+
+  var geocoder = new google.maps.Geocoder();
+
+
+    //geocodeAddress(geocoder, map);
+
+
+
+}
+
+$(document).ready(function() {
+  	$('#rootwizard').bootstrapWizard({onTabShow: function(tab, navigation, index) {
+
+      if (index == 1) {
+		     
+          initMap();
+        }
+	}});
+});
+
+function geocodeAddress(geocoder, resultsMap) {
+  var marker;
+  var addr;
+
+
+
+  geocoder.geocode({'address': addr}, function(results, status) {
+    if (status === 'OK') {
+      resultsMap.setCenter(results[0].geometry.location);
+        marker = new google.maps.Marker({
+        map: resultsMap,
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+        position: results[0].geometry.location,
+        title: "Drag Me!"
+      });
+
+      marker.addListener('click', toggleBounce);
+      google.maps.event.addListener(marker, 'dragend', fill_coord);
+      var mouseEvent1 = {
+        stop: null,
+        latLng: results[0].geometry.location
+      }
+      google.maps.event.trigger(marker, 'dragend', mouseEvent1);
+      if (results[0].geometry.viewport)
+          resultsMap.fitBounds(results[0].geometry.viewport);
+
+
+
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+
+  });
+  function toggleBounce() {
+    if (marker.getAnimation() !== null) {
+      marker.setAnimation(null);
+    } else {
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+  }
+
+}
+
+function fill_coord(event) {
+      console.log(event);
+
+      if (modal == "add_modal") {
+      document.getElementById("lat-add").value = event.latLng.lat();
+     document.getElementById("long-add").value = event.latLng.lng();
+   } else {
+     console.log("here");
+     document.getElementById("lat-edit").value = event.latLng.lat();
+    document.getElementById("long-edit").value = event.latLng.lng();
+   }
+
+ }
+
+
+
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2nLH2Yr5OH-QJ8WxG5f-AZFmTLqtkC0I&callback=initMap">
+</script>
+
+</body>
 </html>
