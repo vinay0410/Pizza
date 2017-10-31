@@ -802,7 +802,8 @@ $(document).ready(function() {
 				console.log(out["_id"]['$oid']);
 				$("#outletEditModal input[name=outlet-edit]").val(out["outlet"]);
 				$("#outletEditModal input[name=outlet-addr]").val(out["outlet_addr"]);
-
+        $("#outletEditModal input[name=lat]").val("");
+        $("#outletEditModal input[name=long]").val("");
 				$("#outletEditModal input[name=sup-name]").val(out["supervisor_name"]);
 				$("#outletEditModal input[name=sup-email]").val(out["supervisor_email"]);
 				$("#outletEditModal input[name=sup-phone]").val(out["supervisor_phone"]);
@@ -846,6 +847,7 @@ $(document).ready(function() {
           modal = "edit_modal";
 				}
         geocoder.geocode({'address': addr}, function(results, status) {
+          console.log(results);
           if (status === 'OK') {
             resultsMap.setCenter(results[0].geometry.location);
               marker = new google.maps.Marker({

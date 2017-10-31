@@ -9,11 +9,11 @@ require "vendor/autoload.php";
 
 session_start();
 
-if (isset($_SESSION["cart"])) {
+if (isset($_SESSION["storecart"])) {
 
-    $cart = $_SESSION["cart"];
+    $cart = $_SESSION["storecart"];
 
-    unset($_SESSION["cart"]);
+    //unset($_SESSION["cart"]);
 }
 
 if (isset($_SESSION["feedback_msg"])) {
@@ -73,11 +73,12 @@ if (isset($_POST["username"])) {
         $error = true;
     }
     if (!$error) {
-        $result = $collection->findOne(['username' => $username]);
-
+        $result = $collection->findOne(['username' => $username], ['typeMap' => ['document' => 'array', 'root' => 'array']]);
+      
         if (!empty($result)) {
             if ($result["password"] == $pass) {
                 echo "<script type='text/javascript'>alert('Logged in Successfully');</script>";
+
                 $_SESSION["logged"] = $result;
                 if ($username == "admin") {
                     header("Location: ./admin.php");

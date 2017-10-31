@@ -9,7 +9,7 @@ session_start();
 if (isset($_POST["username"])) {
     $username = $_POST["username"];
     $email = $_POST["email"];
-    $addr = $_POST["address"];
+
     $password = $_POST["password"];
     $phoneno = $_POST["phoneno"];
 
@@ -46,7 +46,7 @@ if (isset($_POST["username"])) {
             $document = array(
         "username" => $username,
         "email" => $email,
-        "address" => $addr,
+        "address" => array(),
         "password" => $password,
         "phoneno" => $phoneno,
      );
@@ -60,7 +60,7 @@ if (isset($_POST["username"])) {
             $_SESSION["signup-error"] = array(
         "username" => $username,
         "email" => $email,
-        "address" => $addr,
+        "address" => array(),
         "password" => $password,
         "phoneno" => $phoneno,
         "error_msg" => $error_msg
@@ -72,7 +72,7 @@ if (isset($_POST["username"])) {
             $_SESSION["signup-error"] = array(
         "username" => $username,
         "email" => $email,
-        "address" => $addr,
+        "address" => array(),
         "password" => $password,
         "phoneno" => $phoneno,
         "error_msg" => $error_msg

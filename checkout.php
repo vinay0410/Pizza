@@ -26,13 +26,20 @@
   .image-container:before {
 background: #fff;
   }
-  body{
-    color: #fff;
-  }
+
+
 </style>
 </head>
 
 <body>
+
+<?php
+  session_start();
+  $cart = json_decode($_SESSION["storecart"], true);
+  var_dump($_SESSION["logged"]);
+
+ ?>
+
 <div class="image-container set-full-height" >
       <!--   Big container   -->
   <div class="container">
@@ -56,22 +63,57 @@ background: #fff;
                     <div class="tab-pane" id="delivery">
                         <div class="row">
                           <div class="col-sm-12">
-                          <h4 class="info-text">Some text here</h4>
+                            <div class="panel panel-default">
+                              <div class="panel-heading"><h3>Addresses
+                                <button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#addAddressModal" name="add_modal"><span class="glyphicon glyphicon-plus"></span>Add Address</button>
+                              </h3></div>
+                              <div class="panel-body">
+                                <div class="list-group" id="user_addrs">
+
+                                  <?php
+
+
+                                      if (empty($_SESSION["logged"]["address"]) OR !isset($_SESSION["logged"]["address"])) {
+                                        echo "<p class='empty_msg'>No addresses present, add address to continue!</p>";
+                                      } else {
+                                        $addrs = $_SESSION["logged"]["address"];
+                                        $index = 1;
+                                      foreach (array_reverse($addrs) as $entry) {  ?>
+
+                                        <a class="list-group-item">
+                            			    		<h4 class="list-group-item-heading accordion-toggle"><?php echo $entry["initial"]; ?>
+                                            <input type="radio" class="pull-right" val="<?php $entry["place_id"]; ?>" name="addr" <?php if($index == 1) {echo 'checked="checked"'; } ?>>
+                                          </h4>
+                                          <p class="list-group-item-text"><?php echo $entry['place_name']; ?></p>
+                            			    		<p class="list-group-item-text"><?php echo $entry['formatted_addr']; ?></p>
+                            		  			</a>
+
+
+                                  <?php
+                                    $index++;
+                                    }
+                                  }
+                                   ?>
+
+
+
+                               </div>
+                                </div>
+
+
+
+
+
+                              </div>
+
+
+
+
                           </div>
 
-                          <div class="col-sm-3"></div>
-
-                          <div class="col-sm-6">
 
 
-                            <div class="form-group label-floating">
-                                <label class="control-label">Address</label>
-                                <div class="input-group">
-                                  <textarea class="form-control" id="address" placeholder="" rows="2"   style="min-width:100%;font-size:14pt;">
-                                  </textarea>
-                                </div>
-                            </div>
-                          </div><!--ending col-sm-6 -->
+
                         </div><!--ending row-->
                         <div class="wizard-footer">
                                 <div class="pull-right">
@@ -87,13 +129,13 @@ background: #fff;
                     <div class="tab-pane" id="outlet">
                         <div class="row">
                           <div class="col-sm-12">
-                          <h4 class="info-text">Some text here</h4>
+                          <h4 class="info-text">Nearest Outlet</h4>
                           </div>
 
                           <div class="col-sm-3"></div>
 
-                          <div class="col-sm-6">
-                            <div id="outlet_map" style="width: 400px; height: 400px;"></div>
+                          <div class="col-sm-10 col-sm-offset-1">
+                            <div id="outlet_map" style="width: 100%; height: 300px;"></div>
                             <!--<div class="form-group label-floating">
 
 
@@ -129,7 +171,7 @@ background: #fff;
                           <div class="row">
 
                             <div class="col-xs-6 col-sm-6 col-md-6">
-                              <strong>Name</strong>
+                              <strong>Name</strong><p><?php echo $_SESSION["logged"]["username"]; ?></p>
                               <br>
                               <strong>Address</strong>
                               <br>
@@ -155,30 +197,20 @@ background: #fff;
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="col-md-9"><em>Product 1</em></h4></td>
-                            <td class="col-md-1" style="text-align: center"> 2 </td>
-                            <td class="col-md-1 text-center">$13</td>
-                            <td class="col-md-1 text-center">$26</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-9"><em>Product 2</em></h4></td>
-                            <td class="col-md-1" style="text-align: center"> 1 </td>
-                            <td class="col-md-1 text-center">$8</td>
-                            <td class="col-md-1 text-center">$8</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-9"><em>Product 3</em></h4></td>
-                            <td class="col-md-1" style="text-align: center"> 3 </td>
-                            <td class="col-md-1 text-center">$16</td>
-                            <td class="col-md-1 text-center">$48</td>
-                        </tr>
 
+                      <?php foreach($cart["products"] as $product) { ?>
+                        <tr>
+                            <td class="col-md-9"><em><?php echo $product["name"]; ?></em></h4></td>
+                            <td class="col-md-1" style="text-align: center"><?php echo $product["quantity"]; ?></td>
+                            <td class="col-md-1 text-center">$<?php echo $product["price"]; ?></td>
+                            <td class="col-md-1 text-center">$<?php echo (int)$product["price"]*(int)$product["quantity"]; ?></td>
+                        </tr>
+                      <?php } ?>
                         <tr>
                             <td> &nbsp; </td>
                             <td> &nbsp; </td>
                             <td class="text-right"><h4><strong>Total:&nbsp;</strong></h4></td>
-                            <td class="text-center text-warning"><h4><strong>$31.53</strong></h4></td>
+                            <td class="text-center text-warning"><h4><strong>$<?php echo $cart["totalPrice"]; ?></strong></h4></td>
                         </tr>
                     </tbody>
                 </table>
@@ -312,6 +344,68 @@ background: #fff;
 
   </div>
 
+  <div id="addAddressModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" id="modal_heading">Add Address</h4>
+
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" method="post" id="addAddress">
+  					<input type="hidden" id="dummy">
+  				  <div class="form-group">
+  				    <label class="control-label col-sm-2" for="outlet">Address Nickname: </label>
+  				    <div class="col-sm-5">
+  				      <input type="text" class="form-control" name="addr_name" id="addr_name" placeholder="Address Nickname" required>
+  				    </div>
+  				  </div>
+  				  <div class="form-group">
+  				    <label class="control-label col-sm-2" for="outlet-addr">Address: </label>
+  				    <div class="col-sm-5">
+                <textarea class="form-control" name="full_address" id="full_address" placeholder="Full Address" rows="2" required></textarea>
+  				    </div>
+  				  </div>
+  				  <div class="form-group">
+  				    <label class="control-label col-sm-2" for="supervisor-name">Map: </label>
+  				    <div class="col-sm-5">
+                <input id="add_addr" type="button" class="btn btn-default" value="See on Map & Drag">
+                <div>
+                  <label for="lat" class="control-label col-sm-2"> Lat: </label>
+                  <input name="lat" type="text" id="lat-add" class="col-sm-4" readonly="readonly">
+                  <label for="long" class="control-label col-sm-2"> Long: </label>
+                  <input name="long" type="text" id="long-add" class="col-sm-4" readonly="readonly">
+                </div>
+                <input name="place_id" type="text" id="place_id"  readonly="readonly">
+                <input name="place_name" type="text" id="place_name"  readonly="readonly">
+                <input name="formatted_addr" type="text" id="formatted_addr"  readonly="readonly">
+                <div id="addr_map" style="width: 100%; height: 300px;"></div>
+  				    </div>
+  				  </div>
+
+
+  				  <div class="form-group">
+  				    <div class="col-sm-offset-2 col-sm-10">
+  				      <button type="submit" class="btn btn-warning" id="modal_submit">Add</button>
+                <input type="reset" class="btn btn-default" value="Reset">
+  				    </div>
+  				  </div>
+  				</form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
 </body>
   <!--   Core JS Files   -->
   <script src="js/jquery-2.2.3.min.js" type="text/javascript"></script>
@@ -384,40 +478,74 @@ $(document).ready(function(){
 
 <script>
 
-function initMap() {
+function initMap_outlet() {
 
   var map = new google.maps.Map(document.getElementById('outlet_map'), {
     zoom: 3,
     center: {lat: 36.6139, lng: 60.2090}
   });
 
-  google.maps.event.trigger(map, "resize");
-
-  var geocoder = new google.maps.Geocoder();
-
-
-    //geocodeAddress(geocoder, map);
-
 
 
 }
+
+function initMap_delivery() {
+
+  var map = new google.maps.Map(document.getElementById('addr_map'), {
+    zoom: 3,
+    center: {lat: 36.6139, lng: 60.2090}
+  });
+
+
+  var geocoder = new google.maps.Geocoder();
+
+  document.getElementById('add_addr').addEventListener('click', function() {
+     geocodeAddress(geocoder, map, "add");
+   });
+
+  /* document.getElementById('map-submit-edit').addEventListener('click', function() {
+     geocodeAddress(geocoder, map2, "edit");
+   });*/
+
+}
+
+
+$('#addAddress').on('shown.bs.modal', function(){
+initMap_delivery();
+});
+
+
+
 
 $(document).ready(function() {
   	$('#rootwizard').bootstrapWizard({onTabShow: function(tab, navigation, index) {
 
       if (index == 1) {
 
-          initMap();
+          initMap_outlet();
         }
 	}});
 });
 
-function geocodeAddress(geocoder, resultsMap) {
+var modal
+
+
+
+
+function geocodeAddress(geocoder, resultsMap, modal_type) {
   var marker;
   var addr;
 
 
-
+  var add_address = document.getElementById('full_address').value;
+  //var edit_address = document.getElementById('outlet-edit-addr').value;
+  if (modal_type == "add") {
+    addr = add_address;
+    modal = "add_modal";
+  } else {
+    addr = edit_address;
+    modal = "edit_modal";
+  }
   geocoder.geocode({'address': addr}, function(results, status) {
     if (status === 'OK') {
       resultsMap.setCenter(results[0].geometry.location);
@@ -440,6 +568,18 @@ function geocodeAddress(geocoder, resultsMap) {
           resultsMap.fitBounds(results[0].geometry.viewport);
 
 
+          var service = new google.maps.places.PlacesService(resultsMap);
+
+                  service.getDetails({
+                    placeId: results[0].place_id
+                  }, function(place, status) {
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+                      document.getElementById("place_name").value = place.name;
+                     document.getElementById("formatted_addr").value = place.formatted_address;
+                     document.getElementById("place_id").value = place.id;
+                     console.log(place);
+                    }
+                  });
 
     } else {
       alert('Geocode was not successful for the following reason: ' + status);
@@ -459,22 +599,74 @@ function geocodeAddress(geocoder, resultsMap) {
 function fill_coord(event) {
       console.log(event);
 
-      if (modal == "add_modal") {
+      //if (modal == "add_modal") {
       document.getElementById("lat-add").value = event.latLng.lat();
      document.getElementById("long-add").value = event.latLng.lng();
-   } else {
+   /*} else {
      console.log("here");
      document.getElementById("lat-edit").value = event.latLng.lat();
     document.getElementById("long-edit").value = event.latLng.lng();
-   }
+  }*/
 
  }
 
 
+ $(document).ready(function() {
+   $("#addAddress").on("submit", function(e) {
+     e.preventDefault();
+     console.log($(this).find("#place_name").val());
+     if (!$(this).find("#place_name").val()) {
+       alert("Please Verify your location on Map first");
+     } else {
+
+     var formData = new FormData(this);
+     console.log(formData);
+     $("#addAddressModal").modal('toggle');
+     //e.stopPropagation();
+     var new_div = $("<a class='list-group-item new'><div class='progress'><div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width:100%'></div></div></a>");
+     $.ajax({
+       url: "add_addr.php", // Url to which the request is send
+       type: "POST",             // Type of request to be send, called as method
+       data: formData, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+       contentType: false,       // The content type used when sending data to the server.
+       cache: false,             // To unable request pages to be cached
+       processData:false,
+       beforeSend : function()    {
+         console.log($('.menu').children().eq(1));
+
+
+          $("#user_addrs").find(".empty_msg").remove();
+           $('#user_addrs').prepend(new_div);
+
+
+       },
+       success: function(data) {
+         try {
+         var value = JSON.parse(data);
+         $(new_div).html("<div class='alert alert-danger fade in'>" + value.msg + "</div>");
+         setTimeout(function(){
+           $(new_div).slideUp("slow");
+
+         }, 4000);
+         //$(new_div).remove();
+       } catch (e) {
+         $("#addAddress")[0].reset();
+         console.log(data);
+
+         $(new_div).html(data).fadeIn("slow");
+         $(new_div).removeClass("new");
+         }
+
+       }
+   });
+}
+ });
+ });
+
 
 </script>
 <script async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2nLH2Yr5OH-QJ8WxG5f-AZFmTLqtkC0I&callback=initMap">
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2nLH2Yr5OH-QJ8WxG5f-AZFmTLqtkC0I&libraries=places&callback=initMap_delivery">
 </script>
 
 </body>

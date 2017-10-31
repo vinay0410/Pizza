@@ -5,6 +5,7 @@ session_start();
 $data = $_GET["data"];
 
 if (isset($_SESSION["logged"])) {
+  var_dump($_SESSION["logged"]);
   $_SESSION["storecart"] = $data;
   header("Location: checkout.php");
 

@@ -25,7 +25,7 @@
 
 <script src="js/plugins.js"></script>
 
-<script src="js/custom.js"></script>
+
 
 <script>
 function editme() {

@@ -187,7 +187,7 @@ include("header.php");
 			}
 			}
 
-
+			
 			$(document).ready(function() {$(".menu-tabs .active a").click();});
 			var cart = 0;
 			<?php if(isset($cart)) { ?>
