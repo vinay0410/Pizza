@@ -103,15 +103,7 @@
     } ?>" required>
                                   </div>
                               </div>
-                              <div class="form-group">
-                                  <label for="address">Address</label>
-                                  <div class="input-group pb-modalreglog-input-group">
-                                      <span class="input-group-addon"><span class="glyphicon glyphicon-home"></span></span>
-                                      <textarea type="text" class="form-control" id="address" name="address" placeholder="Enter your Address" required><?php if (isset($signup_error)) {
-        echo $signup_error['address'];
-    } ?></textarea>
-                                  </div>
-                              </div>
+                              
                               <div class="form-group">
                                   <label for="password">Password</label>
                                   <div class="input-group pb-modalreglog-input-group">

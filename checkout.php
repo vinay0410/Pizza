@@ -517,7 +517,7 @@ function initMap_outlet(user_coord, outlet_coord) {
 }
 
 function initMap_delivery() {
-
+  console.log("delivery");
   var map = new google.maps.Map(document.getElementById('addr_map'), {
     zoom: 3,
     center: {lat: 36.6139, lng: 60.2090}
@@ -537,7 +537,8 @@ function initMap_delivery() {
 }
 
 
-$('#addAddress').on('shown.bs.modal', function(){
+$('#addAddressModal').on('shown.bs.modal', function(){
+  console.log("deliver");
 initMap_delivery();
 });
 
