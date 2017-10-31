@@ -494,7 +494,7 @@ function initMap_outlet(user_coord, outlet_coord) {
   //console.log(myLatLng);
   if (!(user_coord == "none")) {
 
-    var user_marker = new google.maps.Marker({
+    /*var user_marker = new google.maps.Marker({
           position: user_LatLng,
           map: map,
           animation: google.maps.Animation.DROP,
@@ -505,11 +505,31 @@ function initMap_outlet(user_coord, outlet_coord) {
           map: map,
           animation: google.maps.Animation.DROP,
           title: 'Hello World!'
+        });*/
+
+
+    //map.setZoom(10);
+    //map.panTo(user_marker.position);
+
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    directionsDisplay.setMap(map);
+
+    calculateAndDisplayRoute(directionsService, directionsDisplay);
+
+    function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        directionsService.route({
+          origin: user_LatLng,
+          destination: outlet_LatLng,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
         });
-
-
-    map.setZoom(12);
-    map.panTo(user_marker.position);
+      }
 
   }
 
