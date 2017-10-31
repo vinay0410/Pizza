@@ -35,7 +35,7 @@ require "vendor/autoload.php";
       }
             ?>
             <h4 class="list-group-item-heading "><?php echo $document["initial"]; ?>
-              <input type="radio" class="pull-right" name="addr" checked="checked" val="<?php echo $document["coord"]; ?>">
+              <input type="radio" class="pull-right" name="addr" checked="checked" val="<?php echo json_encode($document["coord"]); ?>">
             </h4>
             <p class="list-group-item-text"><?php echo $document['place_name']; ?></p>
             <p class="list-group-item-text"><?php echo $document['formatted_addr']; ?></p>
