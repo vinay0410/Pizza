@@ -55,13 +55,55 @@ $(document).ready(function(){
         'previousSelector': '.btn-previous',
 
         onNext: function(tab, navigation, index) {
-        	if (index == 1) {
+          if (index == 1) {
 
-          if( $("#delivery").find(".list-group-item").length == 0 ) {
-            alert("Please add an Address to continue");
-            return false;
-          }
-          }
+            if( $("#delivery").find(".list-group-item").length == 0 ) {
+              alert("Please add an Address to continue");
+              return false;
+            }
+
+              console.log(JSON.parse($("#delivery").find('input[name=addr]:checked').val()));
+              var coord = JSON.parse($("#delivery").find('input[name=addr]:checked').val());
+              initMap_outlet("none", "none");
+              //e.stopPropagation();
+              var new_div = $("<div class='outlet_search_result'><div class='progress'><div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width:100%'>Finding Closest Outlet</div></div></div>");
+              $.ajax({
+                url: "get_closest.php", // Url to which the request is send
+                type: "POST",             // Type of request to be send, called as method
+                data: {coordinates: coord}, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+
+                beforeSend : function()    {
+                  var num = $.find(".outlet_search_result").length;
+                  if (num != 0) {
+                    $("#outlet_map_parent").find(".outlet_search_result").remove();
+                  }
+                  $("#outlet_map_parent").prepend(new_div);
+
+
+                },
+                success: function(data) {
+                  try {
+                  var value = JSON.parse(data);
+                  $(new_div).html("<div class='alert alert-danger fade in'>" + value.msg + "</div>");
+
+                  //$(new_div).remove();
+                } catch (e) {
+
+
+                  $(new_div).html(data).fadeIn("slow");
+                  console.log("hi");
+                  var outlet_coord = JSON.parse($(data).find("input[name=outlet_coordinates]").val());
+
+                  console.log(outlet_coord);
+                  initMap_outlet(coord, outlet_coord);
+                  }
+
+                }
+            });
+
+
+
+            }
         },
 
         onInit : function(tab, navigation, index){
@@ -79,13 +121,7 @@ $(document).ready(function(){
        },
 
         onTabClick : function(tab, navigation, index){
-            var $valid = $('.wizard-card form').valid();
-
-            if(!$valid){
-                return false;
-            } else{
-                return true;
-            }
+            return false;
         },
 
         onTabShow: function(tab, navigation, index) {

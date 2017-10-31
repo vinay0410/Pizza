@@ -82,11 +82,12 @@ background: #fff;
 
                                         <a class="list-group-item">
                             			    		<h4 class="list-group-item-heading accordion-toggle"><?php echo $entry["initial"]; ?>
-                                            <input type="radio" class="pull-right" val="<?php $entry["place_id"]; ?>" name="addr" <?php if($index == 1) {echo 'checked="checked"'; } ?>>
+                                            <input type="radio" class="pull-right" value="<?php echo json_encode($entry['coord']); ?>" name="addr" <?php if($index == 1) {echo 'checked="checked"'; } ?>>
                                           </h4>
                                           <p class="list-group-item-text"><?php echo $entry['place_name']; ?></p>
                             			    		<p class="list-group-item-text"><?php echo $entry['formatted_addr']; ?></p>
-                            		  			</a>
+
+                                        </a>
 
 
                                   <?php
@@ -121,6 +122,7 @@ background: #fff;
                                       <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd' name='finish' value='Finish' />
                                   </div>
 
+
                                   <div class="clearfix"></div>
                             </div>
                         <div class="col-sm-3"></div>
@@ -134,7 +136,7 @@ background: #fff;
 
                           <div class="col-sm-3"></div>
 
-                          <div class="col-sm-10 col-sm-offset-1">
+                          <div class="col-sm-10 col-sm-offset-1" id="outlet_map_parent">
                             <div id="outlet_map" style="width: 100%; height: 300px;"></div>
                             <!--<div class="form-group label-floating">
 
@@ -156,7 +158,10 @@ background: #fff;
                                       <input type='button' class='btn btn-next btn-fill btn-warning btn-wd' name='next' value='Next' />
                                       <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd' name='finish' value='Finish' />
                                   </div>
+                                  <div class="pull-left">
+                                      <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' />
 
+                                  </div>
                                   <div class="clearfix"></div>
                             </div>
                         <div class="col-sm-3"></div>
@@ -478,13 +483,35 @@ $(document).ready(function(){
 
 <script>
 
-function initMap_outlet() {
-
+function initMap_outlet(user_coord, outlet_coord) {
+  console.log(outlet_coord);
   var map = new google.maps.Map(document.getElementById('outlet_map'), {
     zoom: 3,
     center: {lat: 36.6139, lng: 60.2090}
   });
+  var user_LatLng = {lat: user_coord[1], lng: user_coord[0]};
+  var outlet_LatLng = {lat: outlet_coord[1], lng: outlet_coord[0]};
+  //console.log(myLatLng);
+  if (!(user_coord == "none")) {
 
+    var user_marker = new google.maps.Marker({
+          position: user_LatLng,
+          map: map,
+          animation: google.maps.Animation.DROP,
+          title: 'Hello World!'
+        });
+    var outlet_marker = new google.maps.Marker({
+          position: outlet_LatLng,
+          map: map,
+          animation: google.maps.Animation.DROP,
+          title: 'Hello World!'
+        });
+
+
+    map.setZoom(12);
+    map.panTo(user_marker.position);
+
+  }
 
 
 }
@@ -517,23 +544,9 @@ initMap_delivery();
 
 
 
-$(document).ready(function() {
-  	$('#rootwizard').bootstrapWizard({onTabShow: function(tab, navigation, index) {
 
-      if (index == 1) {
 
-          initMap_outlet();
-        }
-	}});
-
-  $('#rootwizard').bootstrapWizard({onNext: function(tab, navigation, index) {
-  
-
-}});
-
-});
-
-var modal
+var modal;
 
 
 
