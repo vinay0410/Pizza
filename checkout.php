@@ -525,6 +525,12 @@ $(document).ready(function() {
           initMap_outlet();
         }
 	}});
+
+  $('#rootwizard').bootstrapWizard({onNext: function(tab, navigation, index) {
+  
+
+}});
+
 });
 
 var modal

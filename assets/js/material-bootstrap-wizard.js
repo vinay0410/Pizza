@@ -55,11 +55,13 @@ $(document).ready(function(){
         'previousSelector': '.btn-previous',
 
         onNext: function(tab, navigation, index) {
-        	var $valid = $('.wizard-card form').valid();
-        	if(!$valid) {
-        		$validator.focusInvalid();
-        		return false;
-        	}
+        	if (index == 1) {
+
+          if( $("#delivery").find(".list-group-item").length == 0 ) {
+            alert("Please add an Address to continue");
+            return false;
+          }
+          }
         },
 
         onInit : function(tab, navigation, index){
@@ -87,7 +89,7 @@ $(document).ready(function(){
         },
 
         onTabShow: function(tab, navigation, index) {
-          
+
             var $total = navigation.find('li').length;
             var $current = index+1;
 
