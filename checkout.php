@@ -14,8 +14,8 @@
   <link rel="stylesheet" href="css/font-awesome.min.css" />
 
   <!-- CSS Files -->
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="assets/css/material-bootstrap-wizard.css" rel="stylesheet" />
+  <link type="text/css" href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/material-bootstrap-wizard.css" rel="stylesheet">
   <style type="text/css">
   .form-group label{
     color: black;
@@ -26,6 +26,16 @@
   .image-container:before {
 background: #fff;
   }
+
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+  margin: 15px 0px 0px 15px;
+}
 
 
 </style>
@@ -41,6 +51,7 @@ background: #fff;
  ?>
 
 <div class="image-container set-full-height" >
+  <button type="button" onclick="window.location.href='.'" class="btn btn-warning btn-circle btn-xl"><i class="glyphicon glyphicon-home"></i></button>
       <!--   Big container   -->
   <div class="container">
     <div class="row">
