@@ -59,7 +59,7 @@ background: #fff;
                 <!--      Wizard container        -->
         <div class="wizard-container" id="rootwizard">
           <div class="card wizard-card" data-color="orange" id="wizard">
-              <form action="" method="">
+
                   <div class="wizard-header"></div>
                   <div class="wizard-navigation">
                         <ul>
@@ -93,7 +93,7 @@ background: #fff;
 
                                         <a class="list-group-item">
                             			    		<h4 class="list-group-item-heading accordion-toggle"><?php echo $entry["initial"]; ?>
-                                            <input type="radio" class="pull-right" value="<?php echo json_encode($entry['coord']); ?>" name="addr" <?php if($index == 1) {echo 'checked="checked"'; } ?>>
+                                            <input type="radio" class="pull-right" data-addr='<?php echo json_encode($entry) ?>' value="<?php echo json_encode($entry['coord']); ?>" name="addr" <?php if($index == 1) {echo 'checked="checked"'; } ?>>
                                           </h4>
                                           <p class="list-group-item-text"><?php echo $entry['place_name']; ?></p>
                             			    		<p class="list-group-item-text"><?php echo $entry['formatted_addr']; ?></p>
@@ -149,17 +149,7 @@ background: #fff;
 
                           <div class="col-sm-10 col-sm-offset-1" id="outlet_map_parent">
                             <div id="outlet_map" style="width: 100%; height: 300px;"></div>
-                            <!--<div class="form-group label-floating">
 
-
-                              <label class="control-label">Closest Outlet</label>
-
-                              <select class="form-control" id="outlet_id">
-                                <option disabled="" selected=""></option>
-                                <option value="OL1">Outlet 2 </option>
-                                <option value="OL2"> Outlet 1 </option>
-                              </select>
-                            </div>-->
 
 
                           </div><!--ending col-sm-6 -->
@@ -266,14 +256,19 @@ background: #fff;
         <div class="card-wrapper"></div>
 
         <div class="form-container active">
-<!-- -->
-           <form role="form" id="payment-form">
+
+           <form method="post" action="orders.php" onsubmit="return payment_order(this);">
+             <input type="hidden" id="user_id" name="user_id" value="<?php echo $_SESSION["logged"]["_id"]; ?>" >
+             <input type="hidden" id="user_address" name="user_address">
+              <input type="hidden" id="outlet_id" name="outlet_id">
+              <input type="hidden" id="cart_contents" name="cart_contents" value='<?php echo json_encode($cart); ?>' >
+             <input type="hidden" >
               <div class="row">
                 <div class="col-xs-6">
                   <div class="form-group">
                   <label for="cardNumber">CARD NUMBER</label>
                     <div class="input-group">
-                       <input type="tel" class="form-control" name="number" placeholder=" Valid Card Number" autocomplete="cc-number" required autofocus />
+                       <input type="tel" class="form-control" name="number" placeholder=" Valid Card Number" autocomplete="cc-number" pattern='[0-9]{16}' title="Please enter a Valid Card Number" required>
 
                     </div>
                   </div>
@@ -316,14 +311,10 @@ background: #fff;
             </div>
           </div>
     </div>
-    <!-- <div class="row">
-        <div class="col-xs-12">
-            <button class="btn btn-warning btn-lg btn-block" type="submit">Submit<span class="glyphicon glyphicon-chevron-right"></span></button>
-        </div>
-    </div> -->
 
 
-</form>
+
+
 
 </div></div>
 
@@ -340,7 +331,7 @@ background: #fff;
                                 <div class="wizard-footer">
                                 <div class="pull-right">
                                       <input type='button' class='btn btn-next btn-fill btn-warning btn-wd' name='next' value='Next' />
-                                      <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd' name='finish' value='Payment' />
+                                      <input type='submit' class='btn btn-finish btn-fill btn-warning btn-wd' name='finish' value='Payment' />
                                   </div>
                                   <div class="pull-left">
                                       <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' />
@@ -350,7 +341,7 @@ background: #fff;
                             </div>
                             </div>
 
-                        </form>
+</form>
                     </div>
                 </div> <!-- wizard container -->
             </div>
@@ -432,6 +423,17 @@ background: #fff;
   <script src="assets/js/material-bootstrap-wizard.js"></script>
   <script src="assets/js/jquery.validate.min.js"></script>
 <script type="text/javascript">
+
+function payment_order(param) {
+  $("#user_address").val($("input[name='addr']:checked").attr('data-addr'));
+  $("#outlet_id").val($(".outlet_search_result").find("input[name='outlet_coordinates']").attr('data-addr'));
+  console.log("payment");
+  return true;
+}
+
+
+
+
 $(document).ready(function () {
   var navListItems = $('div.setup-panel div a'),
           allWells = $('.setup-content'),

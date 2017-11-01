@@ -34,7 +34,7 @@ try {
 
   <a class="list-group-item">
     <h4 class="list-group-item-heading accordion-toggle"><?php echo $result["outlet"]; ?>
-      <input type="hidden" class="pull-right" value="<?php echo json_encode($result['coord']); ?>" name="outlet_coordinates">
+      <input type="hidden" class="pull-right" data-addr='<?php echo $result["_id"]; ?>' value="<?php echo json_encode($result['coord']); ?>" name="outlet_coordinates">
     </h4>
     <p class="list-group-item-text"><?php echo $result['outlet_addr']; ?></p>
     <p class="list-group-item-text"><?php echo $result['supervisor_name']; ?></p>
