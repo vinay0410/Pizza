@@ -10,7 +10,7 @@ $admin = $_GET["admin"];
     try {
         $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $collection = $m->selectCollection("pizza", "menu");
-        $menu_cursor = $collection->find(["type" => $category], ['_id' => -1])->toArray();
+        $menu_cursor = $collection->find(["type" => $category])->toArray();
 
         $menu_count = count($menu_cursor);
 
@@ -45,7 +45,7 @@ $admin = $_GET["admin"];
                           echo "<div class='products-row menu-row'><p class='empty-message'>Oh, Your menu has no ".$category." yet!</p></div>";
                       } else {
                           $index = 0;
-                          foreach ($menu_cursor as $document) {
+                          foreach (array_reverse($menu_cursor) as $document) {
                               //array_push($outlet_array, $document);
                               if ($index%3 == 0) { ?>
 

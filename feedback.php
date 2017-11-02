@@ -1,5 +1,7 @@
 <?php
 
+  require "vendor/autoload.php";
+
   session_start();
 
   if (isset($_POST["name"])) {
@@ -12,7 +14,7 @@
           $db = $m->pizza;
           $collection = $db->feedback;
       } catch (Exception $e) {
-          #die("Caught Exception failed to Connect".$e->getMessage()."\n");
+
 
           $error_msg = "Couldn't Connect to Database";
       }

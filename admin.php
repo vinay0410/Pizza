@@ -11,7 +11,7 @@
             $db = $m->pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
-            #die("Caught Exception failed to Connect".$e->getMessage()."\n");
+            
 
 
             $error_del_msg = "Couldn't Connect to Database, Please try again";
