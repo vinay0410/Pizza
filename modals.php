@@ -103,7 +103,7 @@
     } ?>" required>
                                   </div>
                               </div>
-                              
+
                               <div class="form-group">
                                   <label for="password">Password</label>
                                   <div class="input-group pb-modalreglog-input-group">
@@ -176,14 +176,7 @@
                             <td>Email ID: </td>
                             <td><input class="readonly" name="edit_email" id="edit_email" value="<?php echo $_SESSION["logged"]["email"]; ?>" readonly required></td>
                           </tr>
-                          <tr>
-                            <td>Address: </td>
-                            <td><input class="readonly" name="edit_address" id="edit_address" value="<?php if (isset($_SESSION['logged']['address'])) {
-            echo $_SESSION['logged']['address'];
-        } else {
-            echo "";
-        } ?>" placeholder="Please Enter an Address" readonly required></td>
-                          </tr>
+                          
                           <tr>
                             <td>Phone No.:</td>
                             <td><input class="readonly" name="edit_phoneno" id="edit_phoneno" value="<?php echo $_SESSION["logged"]["phoneno"]; ?>" readonly required></td>
