@@ -46,7 +46,7 @@ background: #fff;
 <?php
   session_start();
   $cart = json_decode($_SESSION["storecart"], true);
-  var_dump($_SESSION["logged"]);
+  
 
  ?>
 

@@ -74,7 +74,7 @@ if (isset($_POST["username"])) {
     }
     if (!$error) {
         $result = $collection->findOne(['username' => $username], ['typeMap' => ['document' => 'array', 'root' => 'array']]);
-      
+
         if (!empty($result)) {
             if ($result["password"] == $pass) {
                 echo "<script type='text/javascript'>alert('Logged in Successfully');</script>";
@@ -124,7 +124,7 @@ if (isset($_POST["username"])) {
 	<link href='//fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
 
-
+  
 
 
 
