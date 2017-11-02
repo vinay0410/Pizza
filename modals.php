@@ -176,7 +176,7 @@
                             <td>Email ID: </td>
                             <td><input class="readonly" name="edit_email" id="edit_email" value="<?php echo $_SESSION["logged"]["email"]; ?>" readonly required></td>
                           </tr>
-                          
+
                           <tr>
                             <td>Phone No.:</td>
                             <td><input class="readonly" name="edit_phoneno" id="edit_phoneno" value="<?php echo $_SESSION["logged"]["phoneno"]; ?>" readonly required></td>
@@ -185,7 +185,7 @@
                         </tbody>
                       </table>
                       <div class="modal-footer">
-                          <button type="button" onclick=" window.location.href='change_password.php'; " class="btn btn-warning hidden"><span class="glyphicon glyphicon-lock"></span>Change Password</button>
+                          <button type="button" onclick="window.location.href='change_password.php'; " class="btn btn-warning hidden"><span class="glyphicon glyphicon-lock"></span>Change Password</button>
                           <button type="submit" class="btn btn-warning hidden"><span class="glyphicon glyphicon-edit"></span>Update Details</button>
                       </div>
                     </form>
