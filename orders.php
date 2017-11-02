@@ -1,5 +1,14 @@
 <?php include("header.php"); ?>
 
+
+<script>
+$("#signup").on('shown.bs.modal', function() {
+  console.log('toggle');
+  $("#login").modal('toggle');
+})
+</script>
+
+
 <?php
     var_dump($_POST);
     if (isset($_POST["user_address"])) {
@@ -68,7 +77,7 @@
                           <div class="list-group" id="orders">
                             <?php
                             foreach ($orders_cursor as $document) {
-                              
+
                               $collection = $m->selectCollection("pizza", "outlets");
 
                               $outlet = $collection->findOne(["_id" => $document["outlet_id"]], ['typeMap' => ['document' => 'array', 'root' => 'array']]);

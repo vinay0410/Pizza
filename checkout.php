@@ -177,16 +177,16 @@ background: #fff;
                           <div class="row">
 
                             <div class="col-xs-6 col-sm-6 col-md-6">
-                              <strong>Name</strong><p><?php echo $_SESSION["logged"]["username"]; ?></p>
+                              <p><strong>Name: </strong><?php echo $_SESSION["logged"]["username"]; ?></p>
                               <br>
-                              <strong>Address</strong>
+                              <p id="display_address"><strong>Address: </strong></p>
                               <br>
-                              <strong>Phone</strong>
-                              <br>
+
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6 text-right">
-                              <p><em>Date: 25 October, 2017</em></p>
-                              <p><em>Receipt #: 34522677W</em></p>
+                              <p id="date"><em>Date: </em></p>
+                              <p id="time"><em>Time: </em></p>
+
                             </div>
                           </div>
                           <div class="row">
@@ -257,7 +257,7 @@ background: #fff;
 
         <div class="form-container active">
 
-           <form method="post" action="orders.php" onsubmit="return payment_order(this);">
+           <form method="post" action="orderstatus.php" onsubmit="return payment_order(this);">
              <input type="hidden" id="user_id" name="user_id" value="<?php echo $_SESSION["logged"]["_id"]; ?>" >
              <input type="hidden" id="user_address" name="user_address">
               <input type="hidden" id="outlet_id" name="outlet_id">
@@ -422,6 +422,32 @@ background: #fff;
   <!--  Plugin for the Wizard -->
   <script src="assets/js/material-bootstrap-wizard.js"></script>
   <script src="assets/js/jquery.validate.min.js"></script>
+
+  <script>
+  var currentTime = new Date();
+
+  var currentOffset = currentTime.getTimezoneOffset();
+  var monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+  ];
+  var ISTOffset = 330;   // IST offset UTC +5:30
+
+  var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
+
+
+  var date_string = ISTTime.getDate() + ", " + monthNames[ISTTime.getMonth()] + " " + ISTTime.getFullYear();
+  var hours = ISTTime.getHours() > 12 ? ISTTime.getHours() - 12 : ISTTime.getHours();
+  var am_pm = ISTTime.getHours() >= 12 ? "PM" : "AM";
+  var minutes = ISTTime.getMinutes() < 10 ? "0" + ISTTime.getMinutes() : ISTTime.getMinutes();
+  hours = hours < 10 ? "0" + hours : hours;
+
+  var time_string = hours + ":" + minutes + " " + am_pm;
+
+  $("#date").find("em").append(date_string);
+  $("#time").find("em").append(time_string);
+
+  </script>
+
 <script type="text/javascript">
 
 function payment_order(param) {
