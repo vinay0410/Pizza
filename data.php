@@ -42,7 +42,7 @@ try {
           <div class="panel-body">
             <div class="list-group">
               Address:
-              <?php if (isset($row["address"])) { ?>
+              <?php if (isset($row["address"]) OR empty($row["address"])) { ?>
               <?php foreach($row["address"] as $entry) { ?>
               <a class="list-group-item"><?php if (isset( $entry["formatted_addr"] )) {echo $entry["formatted_addr"]; } else {echo $entry; } ?></a>
             <?php }
