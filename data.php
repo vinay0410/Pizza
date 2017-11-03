@@ -15,14 +15,11 @@ try {
 
   $cursor = $collection->find([strtolower($search_by) => new MongoDB\BSON\Regex(".*$q.*", 'i')])->toArray();
 
-} catch (Exception $e) {
-  header("HTTP/1.0 404 Not Found");
-  exit();
-}
+
 ?>
 
 
-<div class="panel list-group">
+<div class="panel-group" id="accordion_users">
 
 <?php
       echo "Found ".count($cursor);
@@ -32,18 +29,33 @@ try {
 
         ?>
 
-    <a class="list-group-item" data-toggle="collapse" data-target="<?php echo "#".$row['_id']; ?>" data-parent="#accordion_users">
-      <h4 class="list-group-item-heading accordion-toggle">
-        <?php echo $row["username"]; ?>
-        <!--<button type="button" class="btn btn-danger btn-space pull-right" onclick="deleteOutlet(this);"><span class="glyphicon glyphicon-remove"></span> </button>
-        -->
-      </h4>
-        <?php echo '<p>'.$row['email'].'</p>'; ?>
-    </a>
-    <div id="<?php echo $row['_id']; ?>" class="sublinks collapse">
-      <a class="list-group-item">Address: <?php if (isset($row["address"])) { echo " ".$row["address"]; } else { echo " None"; }?></a>
-      <a class="list-group-item"><?php echo "Contact: ".$row["phoneno"]; ?></a>
-    </div>
+        <div class="panel panel-default">
+        <div class="panel-heading" style="cursor: pointer" data-toggle="collapse" data-parent="#accordion_users" data-target="<?php echo "#".$row['_id']; ?>">
+
+          <h4 class="panel-title">
+            <?php echo $row["username"]; ?>
+          </h4>
+
+          <?php echo '<p>'.$row['email'].'</p>'; ?>
+        </div>
+        <div id="<?php echo $row['_id']; ?>" class="panel-collapse collapse">
+          <div class="panel-body">
+            <div class="list-group">
+              Address:
+              <?php if (isset($row["address"])) { ?>
+              <?php foreach($row["address"] as $entry) { ?>
+              <a class="list-group-item"><?php if (isset( $entry["formatted_addr"] )) {echo $entry["formatted_addr"]; } else {echo $entry; } ?></a>
+            <?php }
+          } else { ?>
+              <p>No Addresses Present!</p>
+          <?php } ?>
+            </div>
+
+          <a class="list-group-item"><?php echo "Contact: ".$row["phoneno"]; ?></a>
+        </div>
+        </div>
+      </div>
+
 
 <?php
   }
@@ -52,3 +64,10 @@ try {
 }
  ?>
  </div>
+
+
+<?php
+} catch (Exception $e) {
+  echo "Caught Exception ".$e->getMessage();
+}
+ ?>
