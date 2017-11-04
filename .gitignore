@@ -2,4 +2,5 @@
 manifest.yml
 composer.phar
 vendor
+menu
 sendgrid.env
