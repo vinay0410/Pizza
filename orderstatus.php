@@ -23,7 +23,7 @@ if (isset($_POST["user_address"])) {
 try {
     $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
     $collection = $m->selectCollection("pizza", "orders");
-    $orders_cursor = $collection->find([], ['_id' => -1])->toArray();
+    $orders_cursor = $collection->find(["user_id" => new MongoDB\BSON\ObjectID($_POST["user_id"])], ['_id' => -1])->toArray();
 
     $order_count = count($orders_cursor);
 

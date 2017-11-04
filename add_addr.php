@@ -36,6 +36,8 @@ require "vendor/autoload.php";
             ?>
             <h4 class="list-group-item-heading "><?php echo $document["initial"]; ?>
               <input type="radio" class="pull-right" name="addr" checked="checked" data-addr='<?php echo json_encode($document); ?>' value="<?php echo json_encode($document["coord"]); ?>">
+              <button type="button" class="btn btn-danger btn-space pull-right" id="<?php echo $document['place_id'] ?>" onclick="delete_addr(this);"><span class="glyphicon glyphicon-remove"></span> </button>
+              <button type="button" name="edit_modal" class="btn btn-default btn-space pull-right" data-toggle="modal" data-target="#editAddressModal" onclick="putContents(this);" ><span class="glyphicon glyphicon-pencil"></span></button>
             </h4>
             <p class="list-group-item-text"><?php echo $document['place_name']; ?></p>
             <p class="list-group-item-text"><?php echo $document['formatted_addr']; ?></p>

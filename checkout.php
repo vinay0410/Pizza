@@ -46,7 +46,7 @@ background: #fff;
 <?php
   session_start();
   $cart = json_decode($_SESSION["storecart"], true);
-  
+
 
  ?>
 
@@ -94,6 +94,8 @@ background: #fff;
                                         <a class="list-group-item">
                             			    		<h4 class="list-group-item-heading accordion-toggle"><?php echo $entry["initial"]; ?>
                                             <input type="radio" class="pull-right" data-addr='<?php echo json_encode($entry) ?>' value="<?php echo json_encode($entry['coord']); ?>" name="addr" <?php if($index == 1) {echo 'checked="checked"'; } ?>>
+                                            <button type="button" class="btn btn-danger btn-space pull-right" id="<?php echo $entry['place_id'] ?>" onclick="delete_addr(this);"><span class="glyphicon glyphicon-remove"></span> </button>
+                            								<button type="button" name="edit_modal" class="btn btn-default btn-space pull-right" data-toggle="modal" data-target="#editAddressModal" onclick="putContents(this);" ><span class="glyphicon glyphicon-pencil"></span></button>
                                           </h4>
                                           <p class="list-group-item-text"><?php echo $entry['place_name']; ?></p>
                             			    		<p class="list-group-item-text"><?php echo $entry['formatted_addr']; ?></p>
@@ -135,7 +137,7 @@ background: #fff;
 
 
                                   <div class="clearfix"></div>
-                            </div>
+                        </div>
                         <div class="col-sm-3"></div>
                     </div><!--tab-pane id: delivery-->
 
@@ -413,6 +415,68 @@ background: #fff;
 
 
 
+  <div id="editAddressModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" id="modal_heading">Edit Address</h4>
+
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" method="post" id="editAddress">
+            <input type="hidden" id="dummy" name="dummy">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="outlet">Address Nickname: </label>
+              <div class="col-sm-5">
+                <input type="text" class="form-control" name="addr_name" id="addr_name" placeholder="Address Nickname" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="outlet-addr">Address: </label>
+              <div class="col-sm-5">
+                <textarea class="form-control" name="edit_full_address" id="edit_full_address" placeholder="Full Address" rows="2" required></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="supervisor-name">Map: </label>
+              <div class="col-sm-5">
+                <input id="edit_addr" type="button" class="btn btn-default" value="See on Map & Drag">
+                <div>
+                  <label for="lat" class="control-label col-sm-2"> Lat: </label>
+                  <input name="lat" type="text" id="lat-edit" class="col-sm-4" readonly="readonly">
+                  <label for="long" class="control-label col-sm-2"> Long: </label>
+                  <input name="long" type="text" id="long-edit" class="col-sm-4" readonly="readonly">
+                </div>
+                <input name="place_id" type="text" id="place_id_edit"  readonly="readonly">
+                <input name="place_name" type="text" id="place_name_edit"  readonly="readonly">
+                <input name="formatted_addr" type="text" id="formatted_addr_edit"  readonly="readonly">
+                <div id="edit_addr_map" style="width: 100%; height: 300px;"></div>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-warning" id="modal_submit">Update</button>
+                <input type="reset" class="btn btn-default" value="Reset">
+              </div>
+            </div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
 </body>
   <!--   Core JS Files   -->
   <script src="js/jquery-2.2.3.min.js" type="text/javascript"></script>
@@ -456,6 +520,7 @@ function payment_order(param) {
   console.log("payment");
   return true;
 }
+
 
 
 
@@ -577,21 +642,25 @@ function initMap_outlet(user_coord, outlet_coord) {
 
 function initMap_delivery() {
   console.log("delivery");
-  var map = new google.maps.Map(document.getElementById('addr_map'), {
+  var map1 = new google.maps.Map(document.getElementById('addr_map'), {
     zoom: 3,
     center: {lat: 36.6139, lng: 60.2090}
   });
 
+  var map2 = new google.maps.Map(document.getElementById('edit_addr_map'), {
+    zoom: 3,
+    center: {lat: 36.6139, lng: 60.2090}
+  });
 
   var geocoder = new google.maps.Geocoder();
 
   document.getElementById('add_addr').addEventListener('click', function() {
-     geocodeAddress(geocoder, map, "add");
+     geocodeAddress(geocoder, map1, "add");
    });
 
-  /* document.getElementById('map-submit-edit').addEventListener('click', function() {
+   document.getElementById('edit_addr').addEventListener('click', function() {
      geocodeAddress(geocoder, map2, "edit");
-   });*/
+   });
 
 }
 
@@ -601,6 +670,10 @@ $('#addAddressModal').on('shown.bs.modal', function(){
 initMap_delivery();
 });
 
+$('#editAddressModal').on('shown.bs.modal', function(){
+  console.log("deliveredit");
+initMap_delivery();
+});
 
 
 
@@ -617,7 +690,7 @@ function geocodeAddress(geocoder, resultsMap, modal_type) {
 
 
   var add_address = document.getElementById('full_address').value;
-  //var edit_address = document.getElementById('outlet-edit-addr').value;
+  var edit_address = document.getElementById('edit_full_address').value;
   if (modal_type == "add") {
     addr = add_address;
     modal = "add_modal";
@@ -653,10 +726,17 @@ function geocodeAddress(geocoder, resultsMap, modal_type) {
                     placeId: results[0].place_id
                   }, function(place, status) {
                     if (status === google.maps.places.PlacesServiceStatus.OK) {
+                      if (modal_type == 'add') {
                       document.getElementById("place_name").value = place.name;
                      document.getElementById("formatted_addr").value = place.formatted_address;
                      document.getElementById("place_id").value = place.id;
                      console.log(place);
+                   } else {
+                     document.getElementById("place_name_edit").value = place.name;
+                    document.getElementById("formatted_addr_edit").value = place.formatted_address;
+                    document.getElementById("place_id_edit").value = place.id;
+                    console.log(place);
+                   }
                     }
                   });
 
@@ -678,16 +758,130 @@ function geocodeAddress(geocoder, resultsMap, modal_type) {
 function fill_coord(event) {
       console.log(event);
 
-      //if (modal == "add_modal") {
+      if (modal == "add_modal") {
       document.getElementById("lat-add").value = event.latLng.lat();
      document.getElementById("long-add").value = event.latLng.lng();
-   /*} else {
+   } else {
      console.log("here");
      document.getElementById("lat-edit").value = event.latLng.lat();
     document.getElementById("long-edit").value = event.latLng.lng();
-  }*/
+  }
 
  }
+
+var edit_address_div;
+
+ function putContents(param) {
+
+   var addr = JSON.parse($(param).parent().find("input[name=addr]").attr('data-addr'));
+   console.log(addr);
+   $("#editAddressModal input[name=addr_name]").val(addr["initial"]);
+   $("#editAddressModal #edit_full_address").html(addr["full_address"]);
+   edit_address_div = $(param).parent().parent();
+ }
+
+
+ function delete_addr(el) {
+
+
+     var place_id = el.id;
+     console.log(place_id);
+     var div = $(el).parent().parent();
+     var copy_div = div.clone();
+
+     var progress_bar = $("<div class='progress'><div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width:100%'></div></div>");
+
+       $.ajax({
+         url: "delete_addr.php", // Url to which the request is send
+         type: "POST",             // Type of request to be send, called as method
+         data: {place_id :place_id},
+         beforeSend: function() {
+           $(div).html(progress_bar);
+         },
+         success: function(data) {
+           try {
+           var value = JSON.parse(data);
+           $(copy_div).prepend("<div class='alert alert-danger alert-dismissable fade in'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>" + value.msg + "</div>");
+           console.log(copy_div);
+           $(div).html(copy_div.children());
+         } catch (e) {
+
+           $(div).html(data).fadeIn("slow");
+           if($("#user_addrs").find(".list-group-item").length == 2) {
+             $("#user_addrs").find(".list-group-item").eq(1).find('input[name=addr]').click();
+           }
+           setTimeout(function(){
+             $(div).slideUp("slow");
+             setTimeout(function() {
+               $(div).remove();
+
+               if ($("#user_addrs").find(".list-group-item").length == 0) {
+
+                 $("#user_addrs").prepend("<p class='empty_msg'>No addresses present, add address to continue!</p>").slideDown('slow');
+               }
+
+             }, 1000);
+           }, 4000);
+
+
+          }
+         }
+     });
+   }
+
+
+   $(document).ready(function() {
+     $("#editAddress").on("submit", function(e) {
+       e.preventDefault();
+       console.log($(this).find("#place_name_edit").val());
+       if (!$(this).find("#place_name_edit").val()) {
+         alert("Please Verify your location on Map first");
+       } else {
+       var dummy = edit_address_div;
+       var orig_place_id = JSON.parse($(dummy).find("input[name=addr]").attr("data-addr"))["place_id"];
+       var copy_dummy = dummy.clone();
+       console.log(dummy);
+       var formData = new FormData(this);
+       formData.append("orig_place_id", orig_place_id);
+       console.log(formData);
+       $("#editAddressModal").modal('toggle');
+       //e.stopPropagation();
+       var progress_bar = $("<div class='progress'><div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width:100%'></div></div>");
+       $.ajax({
+         url: "edit_addr.php", // Url to which the request is send
+         type: "POST",             // Type of request to be send, called as method
+         data: formData, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+         contentType: false,       // The content type used when sending data to the server.
+         cache: false,             // To unable request pages to be cached
+         processData:false,
+         beforeSend : function()    {
+            $(dummy).html(progress_bar);
+
+
+
+         },
+         success: function(data) {
+           try {
+           var value = JSON.parse(data);
+           $(copy_dummy).prepend("<div class='alert alert-danger alert-dismissable fade in'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>" + value.msg + "</div>");
+
+           $(dummy).html(copy_dummy.children());
+           //$(new_div).remove();
+         } catch (e) {
+           $("#editAddress")[0].reset();
+           console.log(data);
+
+           $(dummy).html(data).fadeIn("slow");
+
+           }
+
+         }
+     });
+  }
+   });
+   });
+
+
 
 
  $(document).ready(function() {
