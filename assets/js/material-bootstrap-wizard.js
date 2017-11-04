@@ -64,7 +64,7 @@ $(document).ready(function(){
 
               console.log(JSON.parse($("#delivery").find('input[name=addr]:checked').val()));
               var coord = JSON.parse($("#delivery").find('input[name=addr]:checked').val());
-              var display_address = JSON.parse($("#delivery").find('input[name=addr]:checked').attr('data-addr'))
+              var display_address = JSON.parse($("#delivery").find('input[name=addr]:checked').attr('data-addr'));
               console.log(display_address);
               $("#display_address").append(display_address.formatted_addr);
               initMap_outlet("none", "none");
