@@ -4,26 +4,12 @@ include("header.php");
 
 <?php
 
-if (isset($_POST["user_address"])) {
-    try {
-        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
-        $collection = $m->selectCollection("pizza", "orders");
-        $document = ["user_id" => new MongoDB\BSON\ObjectID($_POST["user_id"]), "outlet_id" => new MongoDB\BSON\ObjectID($_POST["outlet_id"]), "user_address" => json_decode($_POST["user_address"]), "cart_contents" => json_decode($_POST["cart_contents"]) ];
-        $collection->insertOne($document);
 
-    } catch (MongoDB\Driver\Exception\ConnectionTimeoutException $e) {
-        //die("Caught Exception failed to Connect".$e->getMessage()."\n");
-        $error_order_msg = "Couldn't Connect to Database, Please try again";
-    } catch (Exception $e) {
-        $error_order_msg  = $e->getMessage();
-    }
-
-}
 
 try {
     $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
     $collection = $m->selectCollection("pizza", "orders");
-    $orders_cursor = $collection->find(["user_id" => new MongoDB\BSON\ObjectID($_POST["user_id"])], ['_id' => -1])->toArray();
+    $orders_cursor = $collection->find(["user_id" => new MongoDB\BSON\ObjectID($_SESSION["logged"]["_id"])])->toArray();
 
     $order_count = count($orders_cursor);
 
@@ -77,7 +63,7 @@ $error_order_msg  = $e->getMessage();
                       ?>
                       <div class="list-group" id="orders">
                         <?php
-                        foreach ($orders_cursor as $document) {
+                        foreach (array_reverse($orders_cursor) as $document) {
 
                           $collection = $m->selectCollection("pizza", "outlets");
 

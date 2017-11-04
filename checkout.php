@@ -259,7 +259,7 @@ background: #fff;
 
         <div class="form-container active">
 
-           <form method="post" action="orderstatus.php" onsubmit="return payment_order(this);">
+           <form method="post" action="order_redirect.php" onsubmit="return payment_order(this);">
              <input type="hidden" id="user_id" name="user_id" value="<?php echo $_SESSION["logged"]["_id"]; ?>" >
              <input type="hidden" id="user_address" name="user_address">
               <input type="hidden" id="outlet_id" name="outlet_id">
@@ -807,9 +807,11 @@ var edit_address_div;
          } catch (e) {
 
            $(div).html(data).fadeIn("slow");
-           if($("#user_addrs").find(".list-group-item").length == 2) {
-             $("#user_addrs").find(".list-group-item").eq(1).find('input[name=addr]').click();
-           }
+           $("#user_addrs").find(".list-group-item").each(function() {
+             if($(this).children().length == 3) {
+               $(this).find("input[name=addr]").click();
+             }
+           });
            setTimeout(function(){
              $(div).slideUp("slow");
              setTimeout(function() {
