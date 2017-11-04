@@ -1,7 +1,7 @@
 <?php
 
 require "vendor/autoload.php";
-    var_dump($_FILES);
+    
 
     $id = strtolower($_POST["item_id"]);
     $name = strtolower($_POST["name"]);
