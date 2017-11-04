@@ -1,7 +1,7 @@
 <?php
 
 require "vendor/autoload.php";
-
+    var_dump($_FILES);
 
     $id = strtolower($_POST["item_id"]);
     $name = strtolower($_POST["name"]);
@@ -46,15 +46,15 @@ require "vendor/autoload.php";
           }
         }
 
-        //change password
+
             $collection->updateOne(array('_id' => new MongoDB\BSON\ObjectID($id)), array('$set'=>$document));
             $result = $collection->findOne(array('_id' => new MongoDB\BSON\ObjectID($id)));
-            
+
             ?>
 
             <div class="flipper agile-products">
               <div class="front">
-                <img src="<?php echo $result["path"]; ?>" class="img-responsive" alt="img">
+                <img src="<?php echo $result['path']; ?>" class="img-responsive" alt="img">
 
                 <div class="gallery-des">
                   <h3><?php echo $result["name"]; ?></h3>
