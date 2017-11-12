@@ -19,7 +19,7 @@
    if (isset($_POST["oldpass"])) {
 
    #echo phpinfo();
-   $username = $_SESSION["logged"]["username"];
+   $email = $_SESSION["logged"]["email"];
    $oldpass = $_POST["oldpass"];
    $newpass = $_POST["newpass"];
 
@@ -38,12 +38,12 @@
      $error = True;
    }
    if (empty($error)) {
-     $result = $collection->findOne(['username' => $username]);
+     $result = $collection->findOne(['email' => $email]);
      #var_dump($result);
 
        if ($result["password"] == $oldpass) {
          //change password
-         $collection->updateOne(["username"=>$username], ['$set'=> ["password"=>$newpass]]);
+         $collection->updateOne(["email"=>$email], ['$set'=> ["password"=>$newpass]]);
          $_SESSION["pop_profile"] = array("type" => "success", "msg" => "Password Updated Successfully");
          header("Location: .");
        } else {

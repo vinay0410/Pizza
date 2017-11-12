@@ -179,7 +179,7 @@ background: #fff;
                           <div class="row">
 
                             <div class="col-xs-6 col-sm-6 col-md-6">
-                              <p><strong>Name: </strong><?php echo $_SESSION["logged"]["username"]; ?></p>
+                              <p><strong>Name: </strong><?php echo $_SESSION["logged"]["fname"]; ?></p>
                               <br>
                               <p id="display_address"><strong>Address: </strong></p>
                               <br>

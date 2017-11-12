@@ -7,9 +7,10 @@
         $outlet_id = $_POST["deleteOutlet"];
         echo $outlet_id;
         try {
-            $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+            $m = new MongoDB\Client;
             $db = $m->pizza;
-            $collection = $db->outlets;
+            $collection_outlet = $db->outlets;
+            $collection_user = $db->users;
         } catch (Exception $e) {
 
 
@@ -18,7 +19,10 @@
         }
 
         if (empty($error_msg)) {
-            $result = $collection->deleteOne(array('_id' => new MongoDB\BSON\ObjectID($outlet_id)));
+            $result_outlet = $collection_outlet->findOne(array('_id' => new MongoDB\BSON\ObjectID($outlet_id)));
+
+            $result = $collection_outlet->deleteOne(array('_id' => new MongoDB\BSON\ObjectID($outlet_id)));
+            $result = $collection_user->deleteOne(array('_id' => new MongoDB\BSON\ObjectID($result_outlet["supervisor_id"])));
             $success = "Outlet Deleted Successfully";
         }
     }
@@ -27,13 +31,15 @@
     if (isset($_POST["outlet"])) {
         $outlet = $_POST["outlet"];
         $outlet_addr = $_POST["outlet-addr"];
-        $supervisor_name = $_POST["sup-name"];
+        $supervisor_fname = $_POST["sup-fname"];
+        $supervisor_lname = $_POST["sup-lname"];
         $supervisor_email = $_POST["sup-email"];
+        $supervisor_pass = $_POST["password"];
         $coord = [(float)$_POST['long'], (float)$_POST['lat']];
         $supervisor_phone = $_POST["sup-phone"];
 
         try {
-            $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+            $m = new MongoDB\Client;
             $db = $m->pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
@@ -48,17 +54,46 @@
             #var_dump($result);
 
             if (empty($result)) {
-                $document = array(
-                                 "outlet" => $outlet,
-                                 "outlet_addr" => $outlet_addr,
-                                 "coord" => $coord,
-                                 "supervisor_name" => $supervisor_name,
-                                 "supervisor_email" => $supervisor_email,
-                                         "supervisor_phone" => $supervisor_phone
-                              );
+              $collection = $db->users;
+              $result_email = $collection->findOne(['email' => $supervisor_email]);
 
-                $collection->insertOne($document);
-                $success = "Outlet added successfully!";
+              if (empty($result_email)) {
+
+                  $document = array(
+              "fname" => $supervisor_fname,
+              "lname" => $supervisor_lname,
+              "email" => $supervisor_email,
+              "address" => array(),
+              "password" => $supervisor_pass,
+              "phoneno" => $supervisor_phone,
+              "role" => "supervisor"
+
+           );
+
+                  $supervisor_id = $collection->insertOne($document)->getInsertedId();
+                  echo "Document Inserted Successfully";
+                  var_dump($supervisor_id);
+
+
+                  $document = array(
+                                   "outlet" => $outlet,
+                                   "outlet_addr" => $outlet_addr,
+                                   "coord" => $coord,
+                                   "supervisor_id" => new MongoDB\BSON\ObjectID($supervisor_id)
+                                );
+
+                  $collection = $db->outlets;
+                  $outlet_id = $collection->insertOne($document)->getInsertedId();
+                  $collection = $db->users;
+                  $collection->updateOne(["_id" => new MongoDB\BSON\ObjectID($supervisor_id)], [ '$set' => ['ofOutlet' => new MongoDB\BSON\ObjectID($outlet_id)] ]);
+                  $success = "Outlet added successfully!";
+
+              }  else {
+                  $error_msg = "Email Address Already Exists";
+
+              }
+
+
             } else {
                 $error_msg = "Outlet Already Exists";
             }
@@ -69,12 +104,18 @@
         $outlet = $_POST["outlet-edit"];
         $outlet_addr = $_POST["outlet-addr"];
         $coord = [(float)$_POST['long'], (float)$_POST['lat']];
-        $supervisor_name = $_POST["sup-name"];
+
+        $supervisor_fname = $_POST["sup-fname"];
+        $supervisor_lname = $_POST["sup-lname"];
         $supervisor_email = $_POST["sup-email"];
+        $supervisor_pass = $_POST["password"];
+        $coord = [(float)$_POST['long'], (float)$_POST['lat']];
         $supervisor_phone = $_POST["sup-phone"];
 
+
+
         try {
-            $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+            $m = new MongoDB\Client;
             $db = $m->pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
@@ -85,16 +126,50 @@
         }
 
         if (empty($error_edit_msg)) {
-            echo "hi";
-            echo $id;
+
             $result = $collection->findOne( ['_id' => new MongoDB\BSON\ObjectID($id)] );
 
-            if (($result["outlet"] == $outlet) || (!$collection->findOne(['outlet' => $outlet]))) {
+            if (($result["outlet"] == $outlet) OR (!$collection->findOne(['outlet' => $outlet]))) {
+              $collection_user = $db->users;
+              $user = $collection_user->findOne( ['_id' => new MongoDB\BSON\ObjectID($result["supervisor_id"])] );
 
-                         //change password
-                $collection->updateOne(['_id' => new MongoDB\BSON\ObjectID($id)], ['$set'=> ["outlet" => $outlet, "outlet_addr" => $outlet_addr, "coord" => $coord, "supervisor_name" => $supervisor_name, "supervisor_email" => $supervisor_email, "supervisor_phone" => $supervisor_phone]]);
-                $success = "Outlet Details Updated Successfully";
-                $open_edited = $id;
+              if (($user["email"] == $supervisor_email) OR (!$collection_user->findOne(['email' => $supervisor_email]))) {
+
+                  $document = array(
+              "fname" => $supervisor_fname,
+              "lname" => $supervisor_lname,
+              "email" => $supervisor_email,
+              "address" => array(),
+              "password" => $supervisor_pass,
+              "phoneno" => $supervisor_phone,
+              "role" => "supervisor"
+
+           );
+
+                  $collection_user->updateOne(['_id' => new MongoDB\BSON\ObjectID($user["_id"])], ['$set' => $document]);
+                  echo "Document Inserted Successfully";
+
+
+
+                  $document = array(
+                                   "outlet" => $outlet,
+                                   "outlet_addr" => $outlet_addr,
+                                   "coord" => $coord,
+                                   "supervisor_id" => new MongoDB\BSON\ObjectID($user["_id"])
+                                );
+
+
+                  $collection->updateOne([ "_id" => new MongoDB\BSON\ObjectID($id) ], ['$set' => $document]);
+
+                  $collection_user->updateOne(["_id" => new MongoDB\BSON\ObjectID($user["_id"])], [ '$set' => ['ofOutlet' => new MongoDB\BSON\ObjectID($id)] ]);
+                  $success = "Outlet Updated successfully!";
+
+              }  else {
+                  $error_msg = "Email Address Already Exists";
+
+              }
+
+
             } else {
                 $error_edit_msg = "Outlet Name already Exists";
             }
@@ -103,7 +178,7 @@
 
 
     try {
-        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoDB\Client;
         $db = $m->pizza;
         $collection = $db->outlets;
 
@@ -115,7 +190,7 @@
     }
 
     if (empty($error_outlet_msg)) {
-        $outlet_cursor = $collection->find();
+        $outlet_cursor = $collection->aggregate([ ['$lookup' => ['from' => "users", "localField" => "supervisor_id", "foreignField" => "_id", "as" => "supervisor"]]]);
         $outlet_count = $collection->count();
     }
 
@@ -134,7 +209,7 @@ $outlet_array = array();
 
 <div class="panel panel-default">
       <div class="panel-heading"><h3>Outlets
-				<button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#outletModal" name="add_modal" onclick="construct_search(this)"><span class="glyphicon glyphicon-plus"></span>Add Outlet</button>
+				<button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#outletModal" name="add_modal"><span class="glyphicon glyphicon-plus"></span>Add Outlet</button>
 			</h3>
 			<?php if (isset($error_del_msg)) {
     ?>
@@ -168,6 +243,7 @@ $outlet_array = array();
                         } else {
                             $index = 0;
                             foreach ($outlet_cursor as $document) {
+                                //var_dump($document["supervisor"][0]);
                                 array_push($outlet_array, $document); ?>
 
 						<a class="list-group-item" data-toggle="collapse" data-target="<?php echo "#".$document['_id']; ?>" data-parent="#accordion">
@@ -178,9 +254,9 @@ $outlet_array = array();
 			    		<p class="list-group-item-text"><?php echo $document['outlet_addr']?></p>
 		  			</a>
 						<div id="<?php echo $document['_id']; ?>" class="sublinks collapse">
-					   <a class="list-group-item"><?php echo "Supervisor's Name: ".$document["supervisor_name"] ?></a>
-					   <a class="list-group-item"><?php echo "Supervisor's EmailID: ".$document["supervisor_email"] ?></a>
-						 <a class="list-group-item"><?php echo "Supervisor's PhoneNo: ".$document["supervisor_phone"] ?></a>
+					   <a class="list-group-item"><?php echo "Supervisor's Name: " . $document["supervisor"][0]["fname"] . " " . $document["supervisor"][0]["lname"] ?></a>
+					   <a class="list-group-item"><?php echo "Supervisor's EmailID: ".$document["supervisor"][0]["email"] ?></a>
+						 <a class="list-group-item"><?php echo "Supervisor's PhoneNo: ".$document["supervisor"][0]["phoneno"] ?></a>
 					  </div>
 
 					<?php
@@ -214,7 +290,8 @@ $outlet_array = array();
    <div class="input-group pb-modalreglog-input-group col-sm-5">
     <label for="sel1">Search By:</label>
       <select class="form-control" id="sel1">
-        <option>Username</option>
+        <option>First Name</option>
+        <option>Last Name</option>
         <option>Email</option>
         <option>Address</option>
       </select>
@@ -550,20 +627,42 @@ $(document).ready(function() {
 				      <div id="map-edit" style="width: 400px; height: 400px;"></div>
 				    </div>
 				  </div>
-				  <div class="form-group">
-				    <label class="control-label col-sm-2" for="supervisor-name">Supervisor Name: </label>
-				    <div class="col-sm-5">
-				      <input type="text" class="form-control" id="supervisor-name" name="sup-name" placeholder="Supervisor's name" value="<?php if (isset($error_edit_msg)) {
-                        echo $supervisor_name;
+          <div class="row">
+				  <div class="form-group col-xs-6">
+				    <label class="control-label col-sm-5" for="supervisor-fname">Supervisor's First Name: </label>
+				    <div class="col-sm-7">
+				      <input type="text" class="form-control" id="supervisor-fname" name="sup-fname" placeholder="First name" value="<?php if (isset($error_msg)) {
+                        echo $supervisor_fname;
                     } ?>">
 				    </div>
+          </div>
+            <div class="form-group col-xs-6">
+  				    <label class="control-label col-sm-5" for="supervisor-lname">Supervisor's Last Name: </label>
+  				    <div class="col-sm-7">
+  				      <input type="text" class="form-control" id="supervisor-lname" name="sup-lname" placeholder="Last name" value="<?php if (isset($error_msg)) {
+                          echo $supervisor_lname;
+                      } ?>">
+  				    </div>
 				  </div>
+        </div>
 				  <div class="form-group">
 				    <label class="control-label col-sm-2" for="supervisor-email">Supervisor Email: </label>
 				    <div class="col-sm-5">
 				      <input type="email" class="form-control" id="supervisor-email" name="sup-email" placeholder="Supervisor's email" value="<?php if (isset($error_edit_msg)) {
                         echo $supervisor_email;
                     } ?>">
+				    </div>
+				  </div>
+          <div class="form-group">
+				    <label class="control-label col-sm-2" for="password">Password: </label>
+				    <div class="col-sm-5">
+				      <input type="password" class="form-control" id="pass" placeholder="Password" name="password" required>
+				    </div>
+				  </div>
+          <div class="form-group">
+				    <label class="control-label col-sm-2" for="confirmpass">Confirm Password: </label>
+				    <div class="col-sm-5">
+				      <input type="password" class="form-control" id="confirmpass" placeholder="Confirm Password" required>
 				    </div>
 				  </div>
 				  <div class="form-group">
@@ -638,20 +737,42 @@ $(document).ready(function() {
 				      <div id="map-add" style="width: 400px; height: 400px;"></div>
 				    </div>
 				  </div>
-				  <div class="form-group">
-				    <label class="control-label col-sm-2" for="supervisor-name">Supervisor Name: </label>
-				    <div class="col-sm-5">
-				      <input type="text" class="form-control" id="supervisor-name" name="sup-name" placeholder="Supervisor's name" value="<?php if (isset($error_msg)) {
-                        echo $supervisor_name;
+          <div class="row">
+				  <div class="form-group col-xs-6">
+				    <label class="control-label col-sm-5" for="supervisor-fname">Supervisor's First Name: </label>
+				    <div class="col-sm-7">
+				      <input type="text" class="form-control" id="supervisor-fname" name="sup-fname" placeholder="First name" value="<?php if (isset($error_msg)) {
+                        echo $supervisor_fname;
                     } ?>">
 				    </div>
+          </div>
+            <div class="form-group col-xs-6">
+  				    <label class="control-label col-sm-5" for="supervisor-lname">Supervisor's Last Name: </label>
+  				    <div class="col-sm-7">
+  				      <input type="text" class="form-control" id="supervisor-lname" name="sup-lname" placeholder="Last name" value="<?php if (isset($error_msg)) {
+                          echo $supervisor_lname;
+                      } ?>">
+  				    </div>
 				  </div>
+        </div>
 				  <div class="form-group">
 				    <label class="control-label col-sm-2" for="supervisor-email">Supervisor Email: </label>
 				    <div class="col-sm-5">
 				      <input type="email" class="form-control" id="supervisor-email" name="sup-email" placeholder="Supervisor's email" value="<?php if (isset($error_msg)) {
                         echo $supervisor_email;
                     } ?>" required>
+				    </div>
+				  </div>
+          <div class="form-group">
+				    <label class="control-label col-sm-2" for="password">Password: </label>
+				    <div class="col-sm-5">
+				      <input type="password" class="form-control" id="pass" placeholder="Password" name="password" required>
+				    </div>
+				  </div>
+          <div class="form-group">
+				    <label class="control-label col-sm-2" for="confirmpass">Confirm Password: </label>
+				    <div class="col-sm-5">
+				      <input type="password" class="form-control" id="confirmpass" placeholder="Confirm Password" required>
 				    </div>
 				  </div>
 				  <div class="form-group">
@@ -663,7 +784,7 @@ $(document).ready(function() {
 				    </div>
 				  </div>
           <input type="hidden" id="supervisor_object">
-          <div id="supervisor_search"></div>
+
 				  <div class="form-group">
 				    <div class="col-sm-offset-2 col-sm-10">
 				      <button type="submit" class="btn btn-warning" id="modal_submit">Add Outlet</button>
@@ -788,25 +909,21 @@ $(document).ready(function() {
 				}
 			}
 
-      function construct_search(param) {
-        var content = $("#user_div").clone().find(".panel_body #accordion_users .list-group a");
-        console.log(content);
-        $("#supervisor_search").html(content);
-
-      }
 
 			function putContents(param) {
 				var num = parseInt(param.id);
 				var out = complex[num];
+        console.log(out);
 				$("#outletEditModal input[name=doc-id]").val(out["_id"]['$oid']);
 				console.log(out["_id"]['$oid']);
 				$("#outletEditModal input[name=outlet-edit]").val(out["outlet"]);
 				$("#outletEditModal input[name=outlet-addr]").val(out["outlet_addr"]);
         $("#outletEditModal input[name=lat]").val("");
         $("#outletEditModal input[name=long]").val("");
-				$("#outletEditModal input[name=sup-name]").val(out["supervisor_name"]);
-				$("#outletEditModal input[name=sup-email]").val(out["supervisor_email"]);
-				$("#outletEditModal input[name=sup-phone]").val(out["supervisor_phone"]);
+				$("#outletEditModal input[name=sup-fname]").val(out["supervisor"][0]["fname"]);
+        $("#outletEditModal input[name=sup-lname]").val(out["supervisor"][0]["lname"]);
+				$("#outletEditModal input[name=sup-email]").val(out["supervisor"][0]["email"]);
+				$("#outletEditModal input[name=sup-phone]").val(out["supervisor"][0]["phoneno"]);
 
         //$("#supervisor_object").val();
 			}

@@ -10,7 +10,7 @@
       $subject = $_POST["subject"];
       $message = $_POST["message"];
       try {
-          $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+          $m = new MongoDB\Client;
           $db = $m->pizza;
           $collection = $db->feedback;
       } catch (Exception $e) {

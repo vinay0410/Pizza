@@ -1,7 +1,7 @@
 <?php
 
 require "vendor/autoload.php";
-    
+
 
     $id = strtolower($_POST["item_id"]);
     $name = strtolower($_POST["name"]);
@@ -25,7 +25,7 @@ require "vendor/autoload.php";
 
 
     try {
-        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoDB\Client;
         $db = $m->pizza;
         $collection = $db->menu;
     } catch (Exception $e) {

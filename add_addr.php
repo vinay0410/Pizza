@@ -9,7 +9,7 @@ require "vendor/autoload.php";
 
 
     try {
-        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoDB\Client;
         $db = $m->pizza;
         $collection = $db->users;
         $document = [ "place_id" => $_POST["place_id"],  "initial" => $_POST["addr_name"], "full_address" => $_POST["full_address"], "place_name" => $_POST["place_name"], "formatted_addr" => $_POST["formatted_addr"], "coord" => [(float)$_POST['long'], (float)$_POST['lat'] ] ];

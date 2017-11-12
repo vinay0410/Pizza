@@ -4,9 +4,8 @@ session_start();
 
 require "vendor/autoload.php";
 
-$user_id = $_SESSION["logged"]["_id"];
-$place_id = $_POST["place_id"];
-
+$staff_id = $_POST["staff_id"];
+$role = $_POST["role"];
 
 
 
@@ -15,10 +14,7 @@ $place_id = $_POST["place_id"];
         $m = new MongoDB\Client;
         $db = $m->pizza;
         $collection = $db->users;
-        $collection->updateOne([ '_id' =>  new MongoDB\BSON\ObjectID($user_id)], [ '$pull' => [ 'address' => [ 'place_id' => $place_id ] ] ]);
-        $result = $collection->findOne(['_id' => new MongoDB\BSON\ObjectID($user_id)], ['typeMap' => ['document' => 'array', 'root' => 'array']]);
-
-        $_SESSION["logged"] = $result;
+        $collection->deleteOne(["_id" => new MongoDB\BSON\ObjectID($staff_id) ]);
 
     } catch (MongoDB\Driver\Exception\ConnectionTimeoutException $e) {
       echo json_encode(array('error' => True, 'msg' => "Couldn't Connect to Database"));
@@ -32,6 +28,9 @@ $place_id = $_POST["place_id"];
 
     }
 
-
+      if ($role == "chef") {
         ?>
-        <div id="success" class="alert alert-success" role="alert"><?php echo "Item Deleted Successfully"; ?></div>
+        <div id="success" class="alert alert-success" role="alert"><?php echo "Chef removed Successfully"; ?></div>
+      <?php } else { ?>
+        <div id="success" class="alert alert-success" role="alert"><?php echo "Delivery Staff removed Successfully"; ?></div>
+    <?php  } ?>

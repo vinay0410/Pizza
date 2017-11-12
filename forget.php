@@ -5,7 +5,7 @@
 
     $error_msg;
     try {
-        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoDB\Client;
         $db = $m->pizza;
         $collection = $db->users;
     } catch (Exception $e) {

@@ -6,9 +6,10 @@ session_start();
 
 
 
-if (isset($_POST["edit_username"])) {
+if (isset($_POST["edit_fname"])) {
     $id = $_POST["doc_id"];
-    $username = $_POST["edit_username"];
+    $fname = $_POST["edit_fname"];
+    $lname = $_POST["edit_lname"];
     $email = $_POST["edit_email"];
     $addr = $_POST["edit_address"];
     $phoneno = $_POST["edit_phoneno"];
@@ -17,7 +18,7 @@ if (isset($_POST["edit_username"])) {
 
     $error_msg;
     try {
-        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoDB\Client;
         $db = $m->pizza;
         $collection = $db->users;
     } catch (Exception $e) {
@@ -29,21 +30,17 @@ if (isset($_POST["edit_username"])) {
     }
     if (empty($error_msg)) {
         $result = $collection->findOne(['_id' => new MongoDB\BSON\ObjectID($id)]);
-        if ((($result["username"] == $username) || (!$collection->findOne(array('username' => $username)))) and  (($result["email"] == $email) || (!$collection->findOne(array('email' => $email))))) {
+        if (($result["email"] == $email) || (!$collection->findOne(array('email' => $email)))) {
 
 
 
-        //change password
-            $collection->updateOne(['_id' => new MongoDB\BSON\ObjectID($id)], ['$set'=> ["username" => $username, "email" => $email, "address" => $addr, "phoneno" => $phoneno]]);
+            $collection->updateOne(['_id' => new MongoDB\BSON\ObjectID($id)], ['$set'=> ["fname" => $fname, "lname" => $lname,  "email" => $email, "address" => $addr, "phoneno" => $phoneno]]);
             $result = $collection->findOne(['_id' => new MongoDB\BSON\ObjectID($id)]);
             $_SESSION["pop_profile"] = array("type" => "success", "msg" => "Details Updated Successfully!");
 
             $_SESSION["logged"] = $result;
             header("Location: .");
-        } elseif ($result["username"] != $username) {
-            $_SESSION["pop_profile"] = array("type" => "danger", "msg" => "Username already exists!");
-            header("Location: .");
-        } else {
+        }  else {
             $_SESSION["pop_profile"] = array("type" => "danger", "msg" => "Email Address already registered!");
             header("Location: .");
         }

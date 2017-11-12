@@ -4,12 +4,10 @@ require "vendor/autoload.php";
 
 session_start();
 
-
-
-if (isset($_POST["username"])) {
-    $username = $_POST["username"];
+if (isset($_POST["fname"])) {
+    $fname = $_POST["fname"];
+    $lname = $_POST["lname"];
     $email = $_POST["email"];
-
     $password = $_POST["password"];
     $phoneno = $_POST["phoneno"];
 
@@ -17,7 +15,7 @@ if (isset($_POST["username"])) {
 
     $error_msg;
     try {
-        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoDB\Client;
         $db = $m->pizza;
         $collection = $db->users;
         var_dump($collection);
@@ -26,9 +24,9 @@ if (isset($_POST["username"])) {
 
         $error_msg = "Couldn't Connect to Database";
         $_SESSION["signup-error"] = array(
-        "username" => $username,
+        "fname" => $fname,
+        "lname" => $lname,
         "email" => $email,
-        "address" => $addr,
         "password" => $password,
         "phoneno" => $phoneno,
         "error_msg" => $error_msg
@@ -39,12 +37,13 @@ if (isset($_POST["username"])) {
 
 
     if (empty($_SESSION["signup-error"])) {
-        echo "to be printed 1";
-        $result_username = $collection->findOne(['username' => $username]);
+
+
         $result_email = $collection->findOne(['email' => $email]);
-        if (empty($result_username) and empty($result_email)) {
+        if (empty($result_email)) {
             $document = array(
-        "username" => $username,
+        "fname" => $fname,
+        "lname" => $lname,
         "email" => $email,
         "address" => array(),
         "password" => $password,
@@ -55,22 +54,11 @@ if (isset($_POST["username"])) {
             echo "Document Inserted Successfully";
             $_SESSION["reg-success"] = true;
             header("Location: .");
-        } elseif (!empty($result_username)) {
-            $error_msg = "Username Already Exists";
-            $_SESSION["signup-error"] = array(
-        "username" => $username,
-        "email" => $email,
-        "address" => array(),
-        "password" => $password,
-        "phoneno" => $phoneno,
-        "error_msg" => $error_msg
-     );
-            echo "Already exists";
-            header("Location: .");
-        } else {
+        }  else {
             $error_msg = "Email Address Already Registered";
             $_SESSION["signup-error"] = array(
-        "username" => $username,
+        "fname" => $fname,
+        "lname" => $lname,
         "email" => $email,
         "address" => array(),
         "password" => $password,

@@ -2,16 +2,18 @@
 require "vendor/autoload.php";
 
 try {
-    $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+    $m = new MongoDB\Client;
     $db = $m->pizza;
-    $collection = $db->users;
+    $collection = $db->menu;
 } catch (Exception $e) {
     die("Caught Exception failed to Connect".$e->getMessage()."\n");
 
 }
 
-    $result = $collection->findOne(['username' => $username], ['typeMap' => ['document' => 'array', 'root' => 'array']]);
-    var_dump($result);
+    $result = $collection->find([], ['typeMap' => ['document' => 'array', 'root' => 'array']]);
+    foreach($result as $entry) {
+      var_dump($entry);
+    }
 
 
 ?>

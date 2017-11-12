@@ -47,6 +47,7 @@ if (isset($_SESSION["reg-success"])) {
 if (isset($_POST["logout"])) {
     echo "<script type='text/javascript'>alert('LogOut Successful')</script>";
     unset($_SESSION["logged"]);
+    header("Location: .");
 }
 
 if (isset($_SESSION["signup-error"])) {
@@ -54,15 +55,15 @@ if (isset($_SESSION["signup-error"])) {
     unset($_SESSION["signup-error"]);
 }
 
-if (isset($_POST["username"])) {
+if (isset($_POST["email"])) {
 
 #echo phpinfo();
-    $username = $_POST["username"];
+    $email = $_POST["email"];
     $pass = $_POST["pass"];
     $error = false;
     $error_msg;
     try {
-        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoDB\Client;
         $db = $m->pizza;
         $collection = $db->users;
     } catch (Exception $e) {
@@ -73,15 +74,17 @@ if (isset($_POST["username"])) {
         $error = true;
     }
     if (!$error) {
-        $result = $collection->findOne(['username' => $username], ['typeMap' => ['document' => 'array', 'root' => 'array']]);
+        $result = $collection->findOne(['email' => $email], ['typeMap' => ['document' => 'array', 'root' => 'array']]);
 
         if (!empty($result)) {
             if ($result["password"] == $pass) {
                 echo "<script type='text/javascript'>alert('Logged in Successfully');</script>";
 
                 $_SESSION["logged"] = $result;
-                if ($username == "admin") {
+                if ($email == "admin@pizzavilla.com") {
                     header("Location: ./admin.php");
+                } elseif($result["role"] == "supervisor") {
+                    header("Location: ./supervisor.php");
                 }
             } else {
                 $show_login = true;
@@ -90,7 +93,7 @@ if (isset($_POST["username"])) {
             }
         } else {
             $show_login = true;
-            $error_msg = "Username not Registered, Register First!\n";
+            $error_msg = "Email ID not Registered, Register First!\n";
             $error = true;
         }
     }
@@ -124,7 +127,7 @@ if (isset($_POST["username"])) {
 	<link href='//fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
 
-  
+
 
 
 
@@ -218,7 +221,7 @@ line-height:3;
 				<?php
 } else {
         ?>
-          <li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#userModal"><span class="glyphicon glyphicon-user"></span><?php echo ' Hi '.$_SESSION["logged"]["username"]; ?></button></a></li>
+          <li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#userModal"><span class="glyphicon glyphicon-user"></span><?php echo ' Hi '.$_SESSION["logged"]["fname"]; ?></button></a></li>
 				<?php
     } ?>
 

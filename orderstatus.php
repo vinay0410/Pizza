@@ -7,7 +7,7 @@ include("header.php");
 
 
 try {
-    $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+    $m = new MongoDB\Client;
     $collection = $m->selectCollection("pizza", "orders");
     $orders_cursor = $collection->find(["user_id" => new MongoDB\BSON\ObjectID($_SESSION["logged"]["_id"])])->toArray();
 
@@ -93,9 +93,12 @@ $error_order_msg  = $e->getMessage();
 
           <!--progress bar -->
          <div class="progress">
-            <div id="dynamic" class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+            <div id="<?php echo $document["_id"]->getTimeStamp(); ?>" class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
             <span id="current-progress"></span>
             </div>
+            <script>
+              setTimeout(function() {update_bar("<?php echo $document["_id"]->getTimeStamp(); ?>", "<?php echo $document["orderStatus"]; ?>") }, 1000);
+            </script>
           </div>
           <!-- -->
         </td>
@@ -116,53 +119,59 @@ $error_order_msg  = $e->getMessage();
 <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript">
-  $(function() {
+
+
+
+function update_bar(elm, updated_progress) {
+console.log(elm);
+console.log(updated_progress);
 var current_progress = 0;
+
 var interval = setInterval(function() {
   current_progress += 20;
-  $(".progress-bar")
+  $("#" + elm)
   .css("width", current_progress + "%")
   .attr("aria-valuenow", current_progress)
   .text(current_progress + "% Complete");
   if(current_progress == 20)
   {
-    $(".progress-bar")
+    $("#" + elm)
   .css("width", current_progress + "%")
   .attr("aria-valuenow", current_progress)
   .text("Order Placed");
   }
   else if(current_progress == 40)
   {
-    $(".progress-bar")
+    $("#" + elm)
   .css("width", current_progress + "%")
   .attr("aria-valuenow", current_progress)
   .text("Getting Ready");
   }
   else if(current_progress == 60)
   {
-    $(".progress-bar")
+    $("#" + elm)
   .css("width", current_progress + "%")
   .attr("aria-valuenow", current_progress)
   .text("Prepared");
   }
   else if(current_progress == 80)
   {
-    $(".progress-bar")
+    $("#" + elm)
   .css("width", current_progress + "%")
   .attr("aria-valuenow", current_progress)
   .text("On The Way");
   }
   else if(current_progress == 100)
   {
-    $(".progress-bar")
+    $("#" + elm)
   .css("width", current_progress + "%")
   .attr("aria-valuenow", current_progress)
   .text("Delivered");
   }
-  if (current_progress >= 100)
+  if (current_progress >= updated_progress)
       clearInterval(interval);
 }, 1000);
-});
+}
 </script>
 <?php include('modals.php'); ?>
 <?php include("footer.php"); ?>

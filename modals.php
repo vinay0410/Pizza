@@ -27,10 +27,10 @@
           <div class="modal-body">
                                   <form method="post" action="." id="loginform">
                                       <div class="form-group">
-                                          <label for="username">Username</label>
+                                          <label for="email">Email ID:</label>
                 <div class="input-group pb-modalreglog-input-group">
-                  <input id="username" class="form-control"  type="text" name="username" placeholder="Username" value="<?php if (isset($error) and $error) {
-        echo $username;
+                  <input id="email" class="form-control"  type="text" name="email" placeholder="Email ID" value="<?php if (isset($error) and $error) {
+        echo $email;
     } ?>" />
                                                 <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
                 </div>
@@ -86,14 +86,23 @@
       <!--form for registration -->
                           <form class="pb-modalreglog-form-reg" method="post" action="process.php" onsubmit="return Validation();">
       <div class="form-group">
-                                  <label for="username">Username</label>
+                                  <label for="fname">First Name:</label>
         <div class="input-group pb-modalreglog-input-group">
           <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-          <input id="username" class="form-control"  type="text" name="username" placeholder="Username" value="<?php if (isset($signup_error)) {
-        echo $signup_error['username'];
+          <input id="fname" class="form-control"  type="text" name="fname" placeholder="First Name" value="<?php if (isset($signup_error)) {
+        echo $signup_error['fname'];
     } ?>" required/>
                                       </div>
           </div>
+          <div class="form-group">
+                                      <label for="lname">Last Name:</label>
+            <div class="input-group pb-modalreglog-input-group">
+              <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+              <input id="lname" class="form-control"  type="text" name="lname" placeholder="Last Name" value="<?php if (isset($signup_error)) {
+            echo $signup_error['lname'];
+        } ?>" required/>
+                                          </div>
+              </div>
                               <div class="form-group">
                                   <label for="email">Email address</label>
                                   <div class="input-group pb-modalreglog-input-group">
@@ -152,7 +161,7 @@
               <div class="modal-dialog" role="document">
               <div class="modal-content">
                     <div class="modal-header">
-                      <h3><?php echo $_SESSION["logged"]["username"]."'s account"; ?>
+                      <h3><?php echo $_SESSION["logged"]["fname"]."'s account"; ?>
                         <button type="button" class="btn btn-default btn-sm pull-right" onclick="editme(); "><span class="glyphicon glyphicon-pencil"></span>Edit</button>
                       </h3>
                       <?php if (isset($pop_profile)) {
@@ -168,8 +177,13 @@
                       <table class="table">
                         <tbody>
                           <tr>
-                            <td>Username: </td>
-                            <td><input class="readonly" name="edit_username" id="edit_username" value="<?php echo $_SESSION["logged"]["username"]; ?>" readonly required></td>
+                            <td>First Name: </td>
+                            <td><input class="readonly" name="edit_fname" id="edit_fname" value="<?php echo $_SESSION["logged"]["fname"]; ?>" readonly required></td>
+
+                          </tr>
+                          <tr>
+                            <td>Last Name: </td>
+                            <td><input class="readonly" name="edit_lname" id="edit_lname" value="<?php echo $_SESSION["logged"]["lname"]; ?>" readonly required></td>
 
                           </tr>
                           <tr>

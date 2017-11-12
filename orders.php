@@ -95,7 +95,7 @@ $("#signup").on('shown.bs.modal', function() {
   </div>
 </div></h4>
                             <p class="list-group-item-text"><?php echo $outlet['outlet']; ?></p>
-                            <p class="list-group-item-text"><?php echo $user['username']; ?></p>
+                            <p class="list-group-item-text"><?php echo $user['fname'] . " " . $row['lname']; ?></p>
 
                           </a>
 

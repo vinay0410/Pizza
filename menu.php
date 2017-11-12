@@ -8,7 +8,7 @@ if (isset($_GET["admin"])) {
 $admin = $_GET["admin"];
 }
     try {
-        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+        $m = new MongoDB\Client;
         $collection = $m->selectCollection("pizza", "menu");
         $menu_cursor = $collection->find(["type" => $category])->toArray();
 
@@ -62,7 +62,7 @@ $admin = $_GET["admin"];
 
                               ?>
 
-                              <div class="col-md-4 col-sm-4 product-grids">
+                              <div class="col-xs-8 col-md-4 col-sm-6 product-grids">
                                 <div class="flip-container">
                                   <div class="flipper agile-products">
                                     <div class="front">
