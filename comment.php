@@ -1,5 +1,6 @@
 <?php
- $m =new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+ //$m =new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+$m =new MongoDB\Client("mongodb://test:test@ds227045.mlab.com:27045/pizza");
  $db = $m->pizza;
  $collection = $db->feedback;
  $cursor = $collection->find()->toArray();
@@ -17,7 +18,7 @@
 					<div class="comment-avatar"><img src="https://cdn.vectorstock.com/i/thumb-large/48/33/human-man-user-profile-avatar-glyph-icon-vector-10704833.jpg" alt=""></div>
 					<div class="comment-box">
 						<div class="comment-head">
-							<h6 class="comment-name by-author"><a href="#"><?php	echo ucwords($document["name"]); ?></a></h6>
+							<h6 class="comment-name by-author"><a href="#"><?php echo ucwords($document["name"]); ?></a></h6>
 							
 						</div>
 						<div class="comment-content">

@@ -4,21 +4,32 @@ include("header.php");
 
 <?php
 
-
+foreach($_POST as $key => $value)
+{
+   $ostatus=$value;
+   $orid=$key;
+}
 
 try {
-    $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+    $m = new MongoDB\Client("mongodb://test:test@ds227045.mlab.com:27045/pizza");
     $db = $m->pizza;
     $collection = $db->orders;
-//$otletid=from session
-//$cursor= $collection->find(["outlet_id" => $outletid ])->toArray();
+    if(isset($ostatus) && isset($orid)){
+          $collection->updateOne(['_id' => new MongoDB\BSON\ObjectID($orid)], ['$set'=> [ "orderStatus" => $ostatus]]);
+          unset($ostatus);
+          unset($orid);
+    }
+    else{
+          echo "Not Updated";
+    }
+
     $cursor = $collection->find()->toArray();
     $collection1 = $db->users;
     $order_count = count($cursor);
     $collection2=$db->menu; 
+    echo "i m here ! ";
     }
 catch (MongoDB\Driver\Exception\ConnectionTimeoutException $e) {
-    //die("Caught Exception failed to Connect".$e->getMessage()."\n");
     $error_order_msg = "Couldn't Connect to Database, Please try again";
   } 
 catch (Exception $e) {
@@ -39,15 +50,18 @@ $error_order_msg  = $e->getMessage();
     height: auto;
 }
  </style>
-
-<div class="container">
-<div class="container-fluid">
-
-  <?php if (isset($error_order_msg)) {
+ <link rel="stylesheet" type="text/css" href="css/checkbox.css">
+ <?php if (isset($error_order_msg)) {
       ?>
-  <div id="error" class="alert alert-danger" role="alert"><?php echo $error_order_msg; ?></div>
+      <script type="text/javascript">
+        alert("<?php echo $error_order_msg; ?>");
+      </script>
 <?php
   } ?>
+<div class="container">
+
+
+  
 <div class="row">
 <div class="col-md-12">
   <table class="table table-hover " style="margin-top: 150px;">
@@ -57,12 +71,12 @@ $error_order_msg  = $e->getMessage();
          ORDER ID
         </th>
         <th class="col-md-2">
-          USERNAME
+          EMAIL-ID
         </th>
-        <th class="col-md-4" style="text-align:center;">
+        <th class="col-md-3" style="text-align:center;">
           ORDER
         </th>
-        <th class="col-md-3">
+        <th class="col-md-4">
           ORDER STATUS
         </th>
       </tr>
@@ -76,6 +90,7 @@ $error_order_msg  = $e->getMessage();
         ?>
         <?php if($user_count != 0)
         {
+          
           ?>
       <tr>
         <td><?php echo $document["_id"] ?></td>
@@ -85,19 +100,20 @@ $error_order_msg  = $e->getMessage();
           
           foreach ($user_cursor as $documentT) 
             {
-              echo $documentT["username"] . "\n";
+              echo $documentT["email"];
             }
           
         ?>
 
           </td>
+          
         <td>
 <table>
         <?php
             foreach($document["cart_contents"]["products"] as $item) { ?>
               <tr>
                 
-              <td class="col-md-2"><?php echo $item["name"]; ?></td>
+              <td class="col-md-1"><?php echo $item["name"]; ?></td>
               <td class="col-md-1"> <?php echo $item["quantity"]; ?></td>
               <td style="text-align:center;" class="col-md-1">
                 
@@ -149,14 +165,25 @@ $error_order_msg  = $e->getMessage();
     </table>
 </td>
 
-                          <td></td>
+                          <td>
+                           
+                           <form action="#" id="<?php echo $document["_id"]."form";?>" method="post">
+                              <input class="checkbox" type="radio" name="<?php echo $document["_id"];?>" id="<?php echo $document["_id"]."o";?>" <?php if($document["orderStatus"]==20) echo 'checked="checked"';?>  value="20"/>
+                                  <label for="<?php echo $document["_id"] . "o";?>">Ordered</label>
+                              <input class="checkbox" type="radio" name="<?php echo $document["_id"];?>" id="<?php echo $document["_id"] ."g";?>"  <?php if($document["orderStatus"]==40) echo 'checked="checked"';?> value="40" />
+                                  <label for="<?php echo $document["_id"]."g";?>">Getting Ready</label>
+                             <input class="checkbox" type="radio" name="<?php echo $document["_id"];?>" id="<?php echo $document["_id"]."r";?>"  <?php if($document["orderStatus"]==60) echo 'checked="checked"';?> value="60"/>
+                                  <label for="<?php echo $document["_id"]."r";?>">Ready</label>
+                            </form>   
+                          </td>
+
       </tr>
       <?php } ?>
       <?php }  ?>
     </tbody>
   </table>
 </div>
-</div>
+
 </div>
 
 </div>
@@ -172,6 +199,19 @@ document.getElementById("pizzaimage").src = res[1];
 document.getElementById("summary").innerHTML = res[2];
 });
 </script>
+<script type="text/javascript">
+
+$( "input[type='radio']" ).change(function() {
+  var id = $(this).attr('id');
+  var oid=id.substr(0, id.length-1);
+  var formid=oid+"form";
+  
+  $('#'+formid).attr("action", "chef.php");
+     $( "#"+formid ).submit();
+  
+});
+</script>
+
 <?php include('comment.php'); ?>
 <?php include('modals.php'); ?>
 <?php include("footer.php"); ?>
