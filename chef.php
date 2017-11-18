@@ -1,9 +1,5 @@
 <?php
 include("header.php");
-?>
-
-<?php
-
 foreach($_POST as $key => $value)
 {
    $ostatus=$value;
@@ -22,8 +18,10 @@ try {
     else{
           echo "Not Updated";
     }
-
-    $cursor = $collection->find()->toArray();
+$cursor= $collection->find(array(
+    'orderStatus' => array('$in' => array('20', '40','60'))
+    ))->toArray();
+  //  $cursor = $collection->find($rangeQuery)->toArray();
     $collection1 = $db->users;
     $order_count = count($cursor);
     $collection2=$db->menu; 
@@ -144,6 +142,7 @@ $error_order_msg  = $e->getMessage();
                             <td style="width: 352px;"><img class="img-responsive img-circle" id="pizzaimage" src=""> 
                             </td>    
                             <td>
+                              <h5 style="color:orange;"> INGREDIENTS  </h5>
                             <h6 id="summary" style="font-size:20px;"></h6>
                             </td>
                           </tr>
@@ -178,8 +177,8 @@ $error_order_msg  = $e->getMessage();
                           </td>
 
       </tr>
-      <?php } ?>
-      <?php }  ?>
+     <?php } 
+      }  ?>
     </tbody>
   </table>
 </div>
