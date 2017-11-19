@@ -7,7 +7,7 @@ include("header.php");
 
 
 try {
-    $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
+    $m = new MongoDB\Client;
     $db = $m->pizza;
     $collection = $db->orders;
 //$otletid=from session
@@ -15,12 +15,12 @@ try {
     $cursor = $collection->find()->toArray();
     $collection1 = $db->users;
     $order_count = count($cursor);
-    $collection2=$db->menu; 
+    $collection2=$db->menu;
     }
 catch (MongoDB\Driver\Exception\ConnectionTimeoutException $e) {
     //die("Caught Exception failed to Connect".$e->getMessage()."\n");
     $error_order_msg = "Couldn't Connect to Database, Please try again";
-  } 
+  }
 catch (Exception $e) {
 $error_order_msg  = $e->getMessage();
 }
@@ -34,7 +34,7 @@ $error_order_msg  = $e->getMessage();
     border-top: none !important;
 }
 .carousel-inner > .item > a > img, .carousel-inner > .item > img, .img-responsive, .thumbnail a > img, .thumbnail > img {
-    
+
     max-width: 32%;
     height: auto;
 }
@@ -57,7 +57,7 @@ $error_order_msg  = $e->getMessage();
          ORDER ID
         </th>
         <th class="col-md-2">
-          USERNAME
+          NAME
         </th>
         <th class="col-md-4" style="text-align:center;">
           ORDER
@@ -68,7 +68,7 @@ $error_order_msg  = $e->getMessage();
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($cursor as $document) { 
+      <?php foreach ($cursor as $document) {
           $userid= $document["user_id"];
           $user_cursor = $collection1->find(["_id" => $userid ])->toArray();
           $user_count = count($user_cursor);
@@ -81,13 +81,13 @@ $error_order_msg  = $e->getMessage();
         <td><?php echo $document["_id"] ?></td>
 
         <td>
-        <?php  
-          
-          foreach ($user_cursor as $documentT) 
+        <?php
+
+          foreach ($user_cursor as $documentT)
             {
-              echo $documentT["username"] . "\n";
+              echo $documentT["fname"] . " " . $documentT["lname"] . "\n";
             }
-          
+
         ?>
 
           </td>
@@ -96,12 +96,12 @@ $error_order_msg  = $e->getMessage();
         <?php
             foreach($document["cart_contents"]["products"] as $item) { ?>
               <tr>
-                
+
               <td class="col-md-2"><?php echo $item["name"]; ?></td>
               <td class="col-md-1"> <?php echo $item["quantity"]; ?></td>
               <td style="text-align:center;" class="col-md-1">
-                
-  
+
+
                 <!-- Trigger the modal with a button -->
                 <?php
                 $product=$item["name"];
@@ -125,8 +125,8 @@ $error_order_msg  = $e->getMessage();
                         <div class="modal-body">
                           <table>
                           <tr>
-                            <td style="width: 352px;"><img class="img-responsive img-circle" id="pizzaimage" src=""> 
-                            </td>    
+                            <td style="width: 352px;"><img class="img-responsive img-circle" id="pizzaimage" src="">
+                            </td>
                             <td>
                             <h6 id="summary" style="font-size:20px;"></h6>
                             </td>
@@ -141,8 +141,8 @@ $error_order_msg  = $e->getMessage();
                   </div>
                </td>
               </tr>
-             
-      <?php      
+
+      <?php
            }
 
       ?>

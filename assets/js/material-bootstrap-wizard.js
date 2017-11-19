@@ -66,7 +66,7 @@ $(document).ready(function(){
               var coord = JSON.parse($("#delivery").find('input[name=addr]:checked').val());
               var display_address = JSON.parse($("#delivery").find('input[name=addr]:checked').attr('data-addr'));
               console.log(display_address);
-              $("#display_address").append(display_address.formatted_addr);
+              $("#display_address").html("<strong>Address: </strong>" + display_address.formatted_addr);
               initMap_outlet("none", "none");
               //e.stopPropagation();
               var new_div = $("<div class='outlet_search_result'><div class='progress'><div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width:100%'>Finding Closest Outlet</div></div></div>");
