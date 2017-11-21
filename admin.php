@@ -181,7 +181,7 @@
         $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $db = $m->pizza;
         $collection = $db->outlets;
-
+        $collection_orders = $db->orders;
     } catch (Exception $e) {
         //die("Caught Exception failed to Connect".$e->getMessage()."\n");
 
@@ -192,6 +192,7 @@
     if (empty($error_outlet_msg)) {
         $outlet_cursor = $collection->aggregate([ ['$lookup' => ['from' => "users", "localField" => "supervisor_id", "foreignField" => "_id", "as" => "supervisor"]]]);
         $outlet_count = $collection->count();
+        $orders_array = $collection_orders->find()->toArray();
     }
 
 
@@ -204,6 +205,19 @@ $outlet_array = array();
 
 
 <div class="container pb-modalreglog-container">
+
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3>Outlets/Order Heatmap
+      <button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#itemModal" name="add_modal"><span class="glyphicon glyphicon-plus"></span>Add Item</button>
+    </h3></div>
+    <div class="panel-body">
+      <div id="heatmap" style="width: 600px; height: 400px;"></div>
+
+    </div>
+  </div>
+
+
+
 
 
 
@@ -575,8 +589,9 @@ $(document).ready(function() {
 
 <?php } ?>
   var complex = <?php echo json_encode($outlet_array); ?>;
-
-
+  var order_heatmap = <?php echo json_encode($orders_array); ?>;
+  console.log(complex);
+  console.log(order_heatmap);
 
 
 </script>
@@ -1026,9 +1041,74 @@ $(document).ready(function() {
 		$('#outletEditModal').on('shown.bs.modal', function(){
 	initMap();
 	});
+
+
+    var heat_map;
+    function init_heatMap() {
+      heat_map = new google.maps.Map(document.getElementById('heatmap'), {
+
+      });
+
+      plot_outlets();
+
+      plot_heatmap();
+
+    }
+
+    function plot_outlets() {
+
+      var infowindow = new google.maps.InfoWindow();
+
+      var bounds = new google.maps.LatLngBounds();
+
+
+      for (var i = 0; i < complex.length; i++) {
+          var coords = complex[i]["coord"];
+          var latLng = new google.maps.LatLng(coords[1],coords[0]);
+          var marker = new google.maps.Marker({
+            position: latLng,
+            map: heat_map
+          });
+
+
+          bounds.extend(marker.position);
+          google.maps.event.addListener(marker, 'click', (function (marker, i) {
+           return function () {
+               infowindow.setContent(complex[i]["outlet"]);
+               infowindow.open(heat_map, marker);
+           }
+       })(marker, i));
+
+
+        }
+
+        heat_map.fitBounds(bounds);
+
+
+    }
+
+
+    function plot_heatmap() {
+      var heatmapData = [];
+      for (var i = 0; i < order_heatmap.length; i++) {
+        var coords = order_heatmap[i]["user_address"]["coord"];
+        var latLng = new google.maps.LatLng(coords[1], coords[0]);
+        heatmapData.push(latLng);
+      }
+      var heatmap = new google.maps.visualization.HeatmapLayer({
+        data: heatmapData,
+        dissipating: true,
+        map: heat_map
+      });
+
+    }
+
+
+
+
     </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2nLH2Yr5OH-QJ8WxG5f-AZFmTLqtkC0I&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2nLH2Yr5OH-QJ8WxG5f-AZFmTLqtkC0I&libraries=visualization&callback=init_heatMap">
     </script>
 
 

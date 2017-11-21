@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -218,11 +217,12 @@ line-height:3;
 					<?php if (!isset($_SESSION["logged"])) {
     ?>
 					<li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal">Login</button><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#myModal2">Register</button></a></li>
-				<?php
+        <?php
 } else {
         ?>
           <li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#userModal"><span class="glyphicon glyphicon-user"></span><?php echo ' Hi '.$_SESSION["logged"]["fname"]; ?></button></a></li>
-				<?php
+          <li><a href="orderstatus.php" class="btn">Orders</a></li>
+        <?php
     } ?>
 
         <li class="my-cart-parent">

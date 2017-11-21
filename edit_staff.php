@@ -21,17 +21,28 @@ require "vendor/autoload.php";
         $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $db = $m->pizza;
         $collection = $db->users;
-        $document = array(
-          "fname" => $fname,
-          "lname" => $lname,
-          "email" => $email,
-          "address" => array(),
-          "password" => $password,
-          "phoneno" => $phoneno
-        );
-        $collection->updateOne([ '_id' =>  new MongoDB\BSON\ObjectID($staff_id)], [ '$set' => $document ]);
-        $document["_id"] = $staff_id;
 
+        $result_email = $collection->findOne(['email' => $email]);
+
+        if (empty($result_email)) {
+
+          $document = array(
+            "fname" => $fname,
+            "lname" => $lname,
+            "email" => $email,
+            "address" => array(),
+            "password" => $password,
+            "phoneno" => $phoneno
+          );
+          $collection->updateOne([ '_id' =>  new MongoDB\BSON\ObjectID($staff_id)], [ '$set' => $document ]);
+          $document["_id"] = $staff_id;
+
+      }  else {
+
+          $var = array('error' => True, 'msg' => "Email Address already exists");
+          echo json_encode($var);
+          exit();
+      }
 
 
     } catch (MongoDB\Driver\Exception\ConnectionTimeoutException $e) {

@@ -29,7 +29,7 @@
                                       <div class="form-group">
                                           <label for="email">Email ID:</label>
                 <div class="input-group pb-modalreglog-input-group">
-                  <input id="email" class="form-control"  type="text" name="email" placeholder="Email ID" value="<?php if (isset($error) and $error) {
+                  <input id="email" class="form-control"  type="email" title="Please enter a valid Email ID" name="email" placeholder="Email ID" value="<?php if (isset($error) and $error) {
         echo $email;
     } ?>" />
                                                 <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
