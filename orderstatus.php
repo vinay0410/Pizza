@@ -100,6 +100,9 @@ $error_order_msg  = $e->getMessage();
               setTimeout(function() {update_bar("<?php echo $document["_id"]->getTimeStamp(); ?>", "<?php echo $document["orderStatus"]; ?>") }, 1000);
             </script>
           </div>
+          <?php if($document["orderStatus"] == 80) { ?>
+            <button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#trackMyOrder" data-addr="<?php echo $document["user_address"]["formatted_addr"]; ?>" data-coord="<?php echo json_encode($document["user_address"]["coord"]); ?>" data-id="<?php echo $document["_id"] ?>" name="add_modal"><span class="glyphicon glyphicon-road"></span>Track Order</button>
+          <?php } ?>
           <!-- -->
         </td>
       </tr>
@@ -116,6 +119,41 @@ $error_order_msg  = $e->getMessage();
 </div>
 
 </div>
+
+<div id="trackMyOrder" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="modal_heading">Live Directions</h4>
+
+      </div>
+      <div class="modal-body">
+
+        <input type="hidden" id="user_coord">
+        <div class="pull-right">
+        <button class="btn btn-warning" onclick="start_delivery('refresh', this);"><span class="glyphicon glyphicon-recycle"></span>Refresh</button>
+         <div class="loader" style="display: none;"></div>
+       </div>
+        <div class="input-group col-md-8">
+          <label>Customer Address:</label><input style="width: 100%; border: none;" id="user_address" readonly/>
+          <label>Distance:</label><input style="width: 100%; border: none;" id="distance" readonly/>
+          <label>Duration:</label><input style="width: 100%; border: none;" id="duration" readonly/>
+
+        </div>
+
+        <div id="map" style="height: 300px;"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript">
@@ -173,5 +211,164 @@ var interval = setInterval(function() {
 }, 1000);
 }
 </script>
+
+
+<script>
+    // Note: This example requires that you consent to location sharing when
+    // prompted by your browser. If you see the error "The Geolocation service
+    // failed.", it means you probably did not give permission for the browser to
+    // locate you.
+    var map, order_location, delivery_marker, customer_marker;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 6
+      });
+
+      console.log("here");
+
+      // Try HTML5 geolocation.
+    }
+
+    function updatePosition(orderID, callback) {
+      console.log("updating position");
+
+            $.ajax({
+                data: {order: orderID},
+                url: 'get_location.php',
+                beforeSend : function()    {
+                  console.log("getting location from server");
+                },
+                success: function(result) {
+
+                  order_location = JSON.parse(result);
+                  console.log(order_location);
+                  order_location = {lat: parseFloat(order_location["lat"]), lng: parseFloat(order_location["lng"]) };
+                  console.log(order_location);
+                  if (delivery_marker) {
+                    console.log("! " + delivery_marker.icon);
+                    delivery_marker.setPosition(order_location);
+                  } else {
+                    delivery_marker = new google.maps.Marker({
+                            position: order_location,
+                            map: map,
+                            icon: "./delivery.png",
+                            title: "Pizza's here"
+                        });
+                  }
+                  if (callback) {
+                    callback();
+                  }
+                }
+
+            });
+
+        setTimeout(function() { updatePosition(orderID); }, 10000);
+    }
+
+
+    $('#trackMyOrder').on('shown.bs.modal', function(e){
+      var user_coord = JSON.parse($(e.relatedTarget).attr('data-coord'));
+      $("#user_coord").val(user_coord);
+      var user_addr = $(e.relatedTarget).attr('data-addr');
+      $("#user_address").val(user_addr);
+      var data_id = $(e.relatedTarget).attr('data-id');
+
+
+
+      console.log(user_addr);
+      console.log(user_coord);
+      initMap();
+      updatePosition(data_id, function() {
+        start_delivery(user_coord);
+      });
+
+
+    });
+
+
+    function start_delivery(user_coord, elm) {
+
+      if(elm) {
+        $(elm).hide();
+        var loader = $(elm).next();
+        loader.show();
+      }
+      if(user_coord == "refresh") {
+        console.log("in refresh");
+        user_coord = JSON.parse($("#user_coord").val());
+      }
+
+
+      var user_LatLng = {lat: user_coord[1], lng: user_coord[0]};
+      console.log(user_coord + "!");
+
+      console.log(user_LatLng);
+      if (!customer_marker) {
+        customer_marker = new google.maps.Marker({
+                position: user_LatLng,
+                map: map,
+                icon: "./customer.png",
+                title: "Customer's here"
+            });
+      }
+
+      //console.log(myLatLng);
+      if (!(user_coord == "none")) {
+
+
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        directionsDisplay.setMap(map);
+
+        calculateAndDisplayRoute(directionsService, directionsDisplay);
+
+        function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+            directionsService.route({
+              origin: order_location,
+              destination: user_LatLng,
+              travelMode: 'DRIVING'
+            }, function(response, status) {
+              if (status === 'OK') {
+                new google.maps.DirectionsRenderer({
+                    map: map,
+                    directions: response,
+                    suppressMarkers: true
+                });
+                var leg = response.routes[0].legs[0];
+                var distance = leg.distance;
+                var duration = leg.duration;
+                $("#distance").val(distance.text);
+                $("#duration").val(duration.text);
+                console.log(delivery_marker.icon);
+                console.log(customer_marker.icon);
+                delivery_marker.setPosition(leg.start_location);
+                customer_marker.setPosition(leg.end_location);
+                
+                if (loader) {
+                  loader.hide();
+                  $(elm).fadeIn();
+                }
+              } else {
+                window.alert('Directions request failed due to ' + status);
+              }
+            });
+          }
+
+      }
+
+
+    }
+
+
+
+  </script>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2nLH2Yr5OH-QJ8WxG5f-AZFmTLqtkC0I&callback=initMap">
+</script>
+
+
+
+
 <?php include('modals.php'); ?>
 <?php include("footer.php"); ?>

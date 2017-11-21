@@ -236,7 +236,7 @@ body {
 
 .comment-box .comment-name.by-author, .comment-box .comment-name.by-author a {color: #c78322;}
 .comment-box .comment-name.by-author:after {
-	content: 'Customer';
+	/*content: 'Customer';*/
 	background: #f0ad4e;
 	color: #FFF;
 	font-size: 12px;
