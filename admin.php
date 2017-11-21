@@ -7,7 +7,7 @@
         $outlet_id = $_POST["deleteOutlet"];
         echo $outlet_id;
         try {
-            $m = new MongoDB\Client;
+            $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
             $db = $m->pizza;
             $collection_outlet = $db->outlets;
             $collection_user = $db->users;
@@ -39,7 +39,7 @@
         $supervisor_phone = $_POST["sup-phone"];
 
         try {
-            $m = new MongoDB\Client;
+            $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
             $db = $m->pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
@@ -115,7 +115,7 @@
 
 
         try {
-            $m = new MongoDB\Client;
+            $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
             $db = $m->pizza;
             $collection = $db->outlets;
         } catch (Exception $e) {
@@ -178,7 +178,7 @@
 
 
     try {
-        $m = new MongoDB\Client;
+        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $db = $m->pizza;
         $collection = $db->outlets;
 

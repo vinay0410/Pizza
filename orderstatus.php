@@ -7,7 +7,7 @@ include("header.php");
 
 
 try {
-    $m = new MongoDB\Client;
+    $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
     $collection = $m->selectCollection("pizza", "orders");
     $orders_cursor = $collection->find(["user_id" => new MongoDB\BSON\ObjectID($_SESSION["logged"]["_id"])])->toArray();
 
@@ -344,7 +344,7 @@ var interval = setInterval(function() {
                 console.log(customer_marker.icon);
                 delivery_marker.setPosition(leg.start_location);
                 customer_marker.setPosition(leg.end_location);
-                
+
                 if (loader) {
                   loader.hide();
                   $(elm).fadeIn();

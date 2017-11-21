@@ -15,7 +15,7 @@ if (isset($_POST["fname"])) {
 
     $error_msg;
     try {
-        $m = new MongoDB\Client;
+        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $db = $m->pizza;
         $collection = $db->users;
         var_dump($collection);

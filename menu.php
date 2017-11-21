@@ -8,7 +8,7 @@ if (isset($_GET["admin"])) {
 $admin = $_GET["admin"];
 }
     try {
-        $m = new MongoDB\Client;
+        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $collection = $m->selectCollection("pizza", "menu");
         $menu_cursor = $collection->find(["type" => $category])->toArray();
 

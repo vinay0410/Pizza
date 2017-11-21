@@ -5,7 +5,7 @@ require "vendor/autoload.php";
 
 if (isset($_POST["user_address"])) {
     try {
-        $m = new MongoDB\Client;
+        $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $collection = $m->selectCollection("pizza", "orders");
         $document = ["user_id" => new MongoDB\BSON\ObjectID($_POST["user_id"]), "outlet_id" => new MongoDB\BSON\ObjectID($_POST["outlet_id"]), "user_address" => json_decode($_POST["user_address"]), "cart_contents" => json_decode($_POST["cart_contents"]), "orderStatus" => 20 ];
         $collection->insertOne($document);

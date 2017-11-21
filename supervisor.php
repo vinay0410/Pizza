@@ -4,7 +4,7 @@
 <?php echo "Hi! Supervisor";
 
 try {
-    $m = new MongoDB\Client;
+    $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
     $db = $m->pizza;
     $collection = $db->users;
 
