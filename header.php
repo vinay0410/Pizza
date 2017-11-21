@@ -83,8 +83,8 @@ if (isset($_POST["email"])) {
                 $_SESSION["logged"] = $result;
                 if ($email == "admin@pizzavilla.com") {
                     header("Location: ./admin.php");
-                } elseif($result["role"] == "supervisor") {
-                    header("Location: ./supervisor.php");
+                } elseif(isset($result["role"])) {
+                    header("Location: ./" . $result["role"] . ".php");
                 }
             } else {
                 $show_login = true;
