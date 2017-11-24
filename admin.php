@@ -207,11 +207,9 @@ $outlet_array = array();
 <div class="container pb-modalreglog-container">
 
   <div class="panel panel-default">
-    <div class="panel-heading"><h3>Outlets/Order Heatmap
-      <button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#itemModal" name="add_modal"><span class="glyphicon glyphicon-plus"></span>Add Item</button>
-    </h3></div>
+    <div class="panel-heading"><h3>Outlets/Order Heatmap</h3></div>
     <div class="panel-body">
-      <div id="heatmap" style="width: 600px; height: 400px;"></div>
+      <div class="col-md-8 col-lg-8 col-sm-8 col-md-offset-2 col-lg-offset-2" id="heatmap" style="height: 400px;"></div>
 
     </div>
   </div>
