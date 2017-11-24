@@ -33,7 +33,7 @@ try {
         <div class="panel-heading" style="cursor: pointer" data-toggle="collapse" data-parent="#accordion_users" data-target="<?php echo "#".$row['_id']; ?>">
 
           <h4 class="panel-title">
-            <?php echo $row["fname"] . " " $row["lname"]; ?>
+            <?php echo $row["fname"] . " " . $row["lname"]; ?>
           </h4>
 
           <?php echo '<p>'.$row['email'].'</p>'; ?>
@@ -43,7 +43,7 @@ try {
             <div class="list-group">
               Address:
 
-              <?php if ( isset($row["address"]) AND !empty($row["address"]->bsonSerialize()) ) { ?>
+              <?php if ( isset($row["address"]) AND !empty($row["address"]) ) { ?>
               <?php foreach($row["address"] as $entry) { ?>
               <a class="list-group-item"><?php if (isset( $entry["formatted_addr"] )) {echo $entry["formatted_addr"]; } else {echo $entry; } ?></a>
             <?php }

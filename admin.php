@@ -302,10 +302,10 @@ $outlet_array = array();
    <div class="input-group pb-modalreglog-input-group col-sm-5">
     <label for="sel1">Search By:</label>
       <select class="form-control" id="sel1">
-        <option>First Name</option>
-        <option>Last Name</option>
-        <option>Email</option>
-        <option>Address</option>
+        <option id="fname">First Name</option>
+        <option id="lname">Last Name</option>
+        <option id="email">Email</option>
+        <option id="address">Address</option>
       </select>
     </div>
   </div>
@@ -380,7 +380,7 @@ $(document).ready(function(){
 
     $(".user-group").on('keyup change blur', function(){
         txt = $("#user_search").val();
-        search_by = $("option:selected").val().toLowerCase();
+        search_by = $("option:selected").attr("id");
         if (txt) {
         console.log(txt);
         console.log(search_by);
