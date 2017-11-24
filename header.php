@@ -122,6 +122,7 @@ if (isset($_POST["email"])) {
 	<!-- custom -->
 	<link rel="stylesheet" href="css/templatemo-style.css">
 
+
 	<!-- google font -->
 	<link href='//fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
