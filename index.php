@@ -119,7 +119,7 @@ include("header.php");
 				</div>
 				<div class="col-md-2"></div>
 				<div class="col-md-4 col-sm-4">
-					<h3 class="padding-bottom-10 text-uppercase">Fet in Touch with us</h3>
+					<h3 class="padding-bottom-10 text-uppercase">Get in Touch with us</h3>
 
 					<p>
 						<i class="fa fa-phone contact-fa"></i>
@@ -127,7 +127,7 @@ include("header.php");
 						<a href="tel:080-090-0660" class="contact-link">080-090-0660</a>
 					</p>
 					<p><i class="fa fa-envelope-o contact-fa"></i>
-                    	<a href="mailto:hello@pizzavilla.com" class="contact-link">hello@pizzavilla.com.com</a></p>
+                    	<a href="mailto:hello@pizzavilla.com" class="contact-link">hello@pizzavilla.com</a></p>
 				</div>
 
 				<div class="col-md-4 col-sm-4">
@@ -187,7 +187,7 @@ include("header.php");
 			}
 			}
 
-			
+
 			$(document).ready(function() {$(".menu-tabs .active a").click();});
 			var cart = 0;
 			<?php if(isset($cart)) { ?>

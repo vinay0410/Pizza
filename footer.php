@@ -5,7 +5,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <p>Copyright &copy; 2084 Company Name</p>
+        <p>Copyright &copy; 2017 PizzaVilla</p>
         <hr>
         <ul class="social-icon">
           <li><a href="#" class="fa fa-facebook"></a></li>
