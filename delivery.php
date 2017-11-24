@@ -196,8 +196,10 @@ try {
 
     $.ajax({
         data: {ontheway: true, order: data_id},
+        type: "POST",
         url: 'update_delivery.php',
         success: function(result) {
+            console.log("hi" + result);
             $(status).html("Order is on the Way now!");
         }
 
