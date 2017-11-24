@@ -147,7 +147,11 @@ background: #fff;
                           <h4 class="info-text">Nearest Outlet</h4>
                           </div>
 
-                          <div class="col-sm-3"></div>
+
+                          <div class="col-sm-3 col-sm-offset-1" style="white-space:nowrap">
+                            <label>Distance:</label><input style="width: 100%; border: none;" id="distance" readonly>
+                            <label>Duration:</label><input style="width: 100%; border: none;" id="duration" readonly>
+                          </div>
 
                           <div class="col-sm-10 col-sm-offset-1" id="outlet_map_parent">
                             <div id="outlet_map" style="width: 100%; height: 300px;"></div>
@@ -613,6 +617,11 @@ function initMap_outlet(user_coord, outlet_coord) {
         }, function(response, status) {
           if (status === 'OK') {
             directionsDisplay.setDirections(response);
+            var leg = response.routes[0].legs[0];
+            var distance = leg.distance;
+            var duration = leg.duration;
+            $("#distance").val(distance.text);
+            $("#duration").val(duration.text);
           } else {
             window.alert('Directions request failed due to ' + status);
           }
