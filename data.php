@@ -2,10 +2,10 @@
 
 require "vendor/autoload.php";
 
-  $q = $_GET["suggest"];
+  $q = strtolower($_GET["suggest"]);
   $search_by = $_GET["search_by"];
 
-  
+
 
 
 
@@ -14,8 +14,12 @@ try {
   $db = $m->pizza;
   $collection = $db->users;
 
-  $cursor = $collection->find([strtolower($search_by) => new MongoDB\BSON\Regex(".*$q.*", 'i')])->toArray();
+  $cursor = $collection->find([strtolower($search_by) => new MongoDB\BSON\Regex(".*$q.*", 'i')], ['typeMap' => ['document' => 'array', 'root' => 'array']])->toArray();
 
+  if (strtolower($search_by) == "address") {
+  $cursor2 = $collection->find(["address.formatted_addr" => new MongoDB\BSON\Regex(".*$q.*", 'i')], ['typeMap' => ['document' => 'array', 'root' => 'array']])->toArray();
+  $cursor = array_merge($cursor, $cursor2);
+  }
 
 ?>
 
@@ -23,7 +27,8 @@ try {
 <div class="panel-group" id="accordion_users">
 
 <?php
-      echo "Found ".count($cursor);
+
+      echo "Found ". count($cursor);
       if (count($cursor) != 0 AND !empty($q)) {
 
       foreach ($cursor as $row) {
@@ -44,10 +49,16 @@ try {
             <div class="list-group">
               Address:
 
-              <?php if ( isset($row["address"]) AND !empty($row["address"]) ) { ?>
-              <?php foreach($row["address"] as $entry) { ?>
+              <?php
+              if ( isset($row["address"]) AND !empty($row["address"]) ) { ?>
+              <?php
+                if (is_array($row["address"])) {
+                foreach($row["address"] as $entry) { ?>
               <a class="list-group-item"><?php if (isset( $entry["formatted_addr"] )) {echo $entry["formatted_addr"]; } else {echo $entry; } ?></a>
             <?php }
+          } else { ?>
+              <a class="list-group-item"><?php echo $row["address"]; ?></a>
+        <?php  }
           } else { ?>
               <p>No Addresses Present!</p>
           <?php } ?>
