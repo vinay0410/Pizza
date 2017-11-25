@@ -5,7 +5,7 @@ require "vendor/autoload.php";
   $q = $_GET["suggest"];
   $search_by = $_GET["search_by"];
 
-  var_dump($search_by);
+  
 
 
 
