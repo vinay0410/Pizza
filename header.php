@@ -114,7 +114,7 @@ if (isset($_POST["email"])) {
 
 	<!-- css -->
 	<link href="css/style.css" type="text/css" rel="stylesheet" media="all">
-  <link rel="stylesheet" href="css/comment.css"> 
+  <link rel="stylesheet" href="css/comment.css">
 	<!-- bootstrap -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<!-- font-awesome -->
@@ -222,6 +222,13 @@ line-height:3;
 } else {
         ?>
           <li><a><button class="btn btn-warning pb-modalreglog-submit" data-toggle="modal" data-target="#userModal"><span class="glyphicon glyphicon-user"></span><?php echo ' Hi '.$_SESSION["logged"]["fname"]; ?></button></a></li>
+          <?php if ($_SESSION["logged"]["email"] == "admin@pizzavilla.com") { ?>
+            <li><a href="admin.php" class="btn">Admin</a></li>
+        <?php  } elseif (isset($_SESSION["logged"]["role"])) { ?>
+            <li><a href="<?php echo $_SESSION["logged"]["role"] . ".php"; ?>" class="btn"><?php echo $_SESSION["logged"]["role"]; ?></a></li>
+        <?php  }
+          ?>
+
           <li><a href="orderstatus.php" class="btn">Orders</a></li>
         <?php
     } ?>

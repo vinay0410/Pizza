@@ -141,10 +141,10 @@ li.w3pages .dropdown-menu > li > a:hover,li.w3pages .dropdown-menu > li > a.acti
     color: #3d3246;
 }
 ul.nav.navbar-nav.navbar-right {
-    margin: 2em 3em 0 0;
+    margin: 2em 0em 0 0;
 }
 .navbar-nav > li {
-    margin: 0 1em;
+    margin: 0 0.7em;
 }
 .navbar-default .navbar-nav > li > a {
     padding: 5px;
@@ -2726,13 +2726,13 @@ img.w3order-img {
     font-size: 3.6em;
 }
 ul.nav.navbar-nav.navbar-right {
-    margin: 1.6em 3em 0 0;
+    margin: 1.6em 0em 0 0;
 }
 .navigation {
     padding: 0.4em 0 0.6em;
 }
 .navbar-nav > li {
-    margin: 0 0.8em;
+    margin: 0 0.7em;
 }
 .banner-text h2 {
     font-size: 3.3em;
@@ -2858,7 +2858,7 @@ h3.w3ls-title.w3ls-title1 {
     font-size: 3.4em;
 }
 ul.nav.navbar-nav.navbar-right {
-    margin: 1.4em 3em 0 0;
+    margin: 1.4em 0em 0 0;
 }
 .banner-text {
     padding: 10em 0;
@@ -3195,7 +3195,7 @@ h3.w3ls-title.w3ls-title1 {
     margin: 0 0.5em;
 }
 ul.nav.navbar-nav.navbar-right {
-    margin: 1.2em 3em 0 0;
+    margin: 1.2em 0em 0 0;
 }
 .w3view-cart {
     top: 30%;
