@@ -1,4 +1,11 @@
-
+.hoverTable tr:hover {
+          background-color:  #f7f7f7
+;
+    }
+    .hoverTable th:hover {
+          background-color:  white
+;
+    }
 
 input[type="radio"] {
   position: absolute;
@@ -8,7 +15,7 @@ input[type="radio"] {
 label {
   position: relative;
   display: inline-block;
-  /*margin-right: 10px;*/
+  margin-right: 13px;
   margin-top: 10px;
   padding-left: 26px;
   padding-right: 6px;
@@ -17,31 +24,34 @@ label {
 }
 label::before {
   content: " ";
-  position: absolute;
-  top: 6px;
+  position: absolute; 
+  top: 6px; 
   left: 0;
-  display: block;
- width: 15px;
-  height: 15px;
- border: 2px solid#f0ad4e;
-  border-radius: 2px;
-  z-index: -1;
+  display: block; 
+ width: 15px; 
+  height: 15px; 
+ border: 2px solid#f0ad4e; 
+  border-radius:  2px
+  z-index: -1; 
 }
 input[type="radio"] + label::before {
-  border-radius: 18px;
+  border-radius: 18px; 
 }
 /* Checked */
 
 input[type="radio"]:checked + label {
   padding-left: 10px;
-  color: #fff;
+  color: #fffcfc; 
+  z-index: 5;
 }
 
 input[type="radio"]:checked + label::before {
   top: 0;
-  width: 100%;
-  height: 100%;
- /* background: #8e44ad;*/ background:#f0ad4e;
+  width: 100%; 
+  height: 100%; 
+  background-color:#f0ad4e; 
+  color: white;
+    z-index:-15;
 }
 /* Transition */
 label,
@@ -49,3 +59,5 @@ label::before {
   -webkit-transition: .25s all ease;
   transition: .25s all ease;
 }
+
+    

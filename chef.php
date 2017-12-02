@@ -63,7 +63,7 @@ $error_order_msg  = $e->getMessage();
 
 <div class="row">
 <div class="col-md-12">
-  <table class="table table-hover " style="margin-top: 150px;">
+  <table class="table hoverTable " style="margin-top: 150px;">
     <thead>
       <tr>
         <th class="col-md-3">
