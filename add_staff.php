@@ -1,8 +1,10 @@
 <?php
 
+session_start();
+
 require "vendor/autoload.php";
 
-session_start();
+
 
 
     $fname = $_POST["staff-fname"];

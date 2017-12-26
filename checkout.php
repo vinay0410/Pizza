@@ -1,3 +1,7 @@
+<?php
+  session_start();
+  ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,7 +48,7 @@ background: #fff;
 <body>
 
 <?php
-  session_start();
+
   $cart = json_decode($_SESSION["storecart"], true);
 
 

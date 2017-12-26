@@ -1,0 +1,30 @@
+runtime: php55
+api_version: 1
+
+handlers:
+- url: /
+  script: index.php
+
+- url: /css
+  static_dir: css
+
+- url: /js
+  static_dir: js
+
+- url: /menu
+  static_dir: menu
+
+- url: /card
+  static_dir: card
+
+- url: /assets
+  static_dir: assets
+
+- url: /images
+  static_dir: images
+- url: /fonts
+  static_dir: fonts
+
+- url: /(.*\.(gif|png|jpg))$
+  static_files: static/\1
+  upload: static/.*\.(gif|png|jpg)$

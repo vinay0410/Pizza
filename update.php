@@ -1,8 +1,9 @@
 <?php
 
+ession_start();
+
 require "vendor/autoload.php";
 
-session_start();
 
 
 

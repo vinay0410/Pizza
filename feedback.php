@@ -1,8 +1,9 @@
 <?php
 
+  session_start();
+
   require "vendor/autoload.php";
 
-  session_start();
 
   if (isset($_POST["name"])) {
       $name = $_POST["name"];
