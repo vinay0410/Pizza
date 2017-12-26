@@ -178,10 +178,10 @@ include("header.php");
 			      $("#" + tab).addClass("loaded");
 			  },
 			  error:function(e){
-			    if (currentRequestMenu == null) {
+
 			    $(".menu-loader").hide();
 			    alert("Error Loading data");
-			  }
+			  
 			  }
 			  });
 			}
