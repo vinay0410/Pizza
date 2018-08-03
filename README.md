@@ -2,7 +2,7 @@
 
 Currently being hosted at Amazon Web Services
 
-Url: http://ec2-13-127-65-239.ap-south-1.compute.amazonaws.com
+Url: https://pizzavillaci.eu-gb.mybluemix.net
 
 **Note**: _This system uses Google Maps API, to provide better user experience while Ordering and furthermore to track after Order has been placed. So, ensure that Javascript is enabled._
 
