@@ -1,6 +1,6 @@
 <?php
 
-ession_start();
+session_start();
 
 require "vendor/autoload.php";
 
