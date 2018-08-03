@@ -661,6 +661,13 @@ a:visited {
   margin-right: 5px;
 }
 
+.btn {
+  -moz-backface-visibility: hidden!important;
+  -webkit-backface-visibility: hidden!important;
+  backface-visibility: hidden!important;
+
+}
+
 a {
   cursor: pointer !important;
 }

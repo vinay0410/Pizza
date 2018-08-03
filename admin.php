@@ -1,5 +1,12 @@
 <?php include("header.php"); ?>
 
+<link href="assets/css/material-bootstrap-wizard.css" rel="stylesheet">
+<style>
+.modal-title {
+  font-size: 2em;
+}
+
+</style>
 
 <?php
 
@@ -632,9 +639,9 @@ $(document).ready(function() {
                     } ?>">
                     <div>
                       <label for="lat" class="control-label col-sm-2"> Lat: </label>
-                      <input name="lat" type="text" id="lat-edit" class="col-sm-4" readonly="readonly">
+                      <input name="lat" type="text" id="lat-edit" class="form-control" readonly="readonly">
                       <label for="long" class="control-label col-sm-2"> Long: </label>
-                      <input name="long" type="text" id="long-edit" class="col-sm-4" readonly="readonly">
+                      <input name="long" type="text" id="long-edit" class="form-control" readonly="readonly">
                     </div>
 				      <input id="map-submit-edit" type="button" class="btn btn-default" value="See on Map & Drag">
 				      <div id="map-edit" style="width: 400px; height: 400px;"></div>
@@ -742,9 +749,9 @@ $(document).ready(function() {
                     } ?>">
               <div>
                 <label for="lat" class="control-label col-sm-2"> Lat: </label>
-                <input name="lat" type="text" id="lat-add" class="col-sm-4" readonly="readonly">
+                <input name="lat" type="text" id="lat-add" class="form-control" readonly="readonly">
                 <label for="long" class="control-label col-sm-2"> Long: </label>
-                <input name="long" type="text" id="long-add" class="col-sm-4" readonly="readonly">
+                <input name="long" type="text" id="long-add" class="form-control" readonly="readonly">
               </div>
 				      <input id="map-submit-add" type="button" class="btn btn-default" value="See on Map & Drag">
 				      <div id="map-add" style="width: 400px; height: 400px;"></div>

@@ -84,7 +84,7 @@ $admin = $_GET["admin"];
                                       <!-- button for cart -->
                                       <?php if (isset($admin) AND $admin) { ?>
                                         <button type="button" class="btn btn-danger btn-space bottomright" onclick="delete_item(this);"><span class="glyphicon glyphicon-remove"></span> </button>
-                        								<button type="button" name="edit_modal" class="btn btn-default btn-space pull-right" onclick="editable(this);"><span class="glyphicon glyphicon-pencil"></span> </button>
+                        								<button type="button" name="edit_modal" class="btn btn-default btn-space" onclick="editable(this);"><span class="glyphicon glyphicon-pencil"></span> </button>
 
                                     <?php } else { ?>
                                       <button class="w3ls-cart pw3ls-cart my-cart-btn" data-id="<?php echo $document["_id"]; ?>" data-name="<?php echo $document['name']; ?>" data-summary="<?php echo $document['ingredients']; ?>" data-price="<?php echo $document['price']; ?>" data-quantity="1" data-image="<?php echo $path; ?>"><i class="fa fa-cart-plus" aria-hidden="true"></i>Add to Cart</button>

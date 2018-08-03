@@ -1005,6 +1005,7 @@ h3.w3ls-title.w3ls-title1 {
 	perspective: 1000px;
 	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
+    height: auto!important;
 }
 	/*  UPDATED! flip the pane when hovered */
 .flip-container:hover .back {
@@ -1024,7 +1025,7 @@ h3.w3ls-title.w3ls-title1 {
 
 .flip-container, .back {
     width: 100%;
-    height: 235px;
+    height: 255px;
 }
 .flip-container.flip-container1, .flip-container1 .back {
     height: 329px;
@@ -1032,6 +1033,7 @@ h3.w3ls-title.w3ls-title1 {
 /* flip speed goes here */
 .flipper {
 	transition: 0.6s;
+	height: 279px!important;
 	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
 	position: relative;

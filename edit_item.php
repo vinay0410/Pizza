@@ -70,8 +70,8 @@ require "vendor/autoload.php";
 
 
 
+                  <button type="button" name="edit_modal" class="btn btn-default btn-space" onclick="editable(this);"><span class="glyphicon glyphicon-pencil"></span> </button>
                   <button type="button" class="btn btn-danger btn-space bottomright" id=""><span class="glyphicon glyphicon-remove"></span> </button>
-                  <button type="button" name="edit_modal" class="btn btn-default btn-space pull-right" onclick="editable(this);"><span class="glyphicon glyphicon-pencil"></span> </button>
 
 
                 <!--ending button for cart -->
