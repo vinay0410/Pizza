@@ -2,7 +2,7 @@
     "require": {
         "sag/sag" : "dev-master",
 	"sendgrid/sendgrid" : "^5.0",
-	"ext-mongodb": "^1.5",
-        "mongodb/mongodb": "^1.4"
+        "mongodb/mongodb": "1.1.0"
     }
 }
+
