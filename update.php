@@ -5,8 +5,6 @@ session_start();
 require "vendor/autoload.php";
 
 
-
-
 if (isset($_POST["edit_fname"])) {
     $id = $_POST["doc_id"];
     $fname = $_POST["edit_fname"];
