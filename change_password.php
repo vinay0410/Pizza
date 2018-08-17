@@ -61,7 +61,9 @@
 
     ?>
 
-
+<script src="js/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 
 
  <div class="container pb-modalreglog-container">
