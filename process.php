@@ -19,7 +19,7 @@ if (isset($_POST["fname"])) {
         $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
         $db = $m->pizza;
         $collection = $db->users;
-        var_dump($collection);
+        //var_dump($collection);
     } catch (Exception $e) {
         #die("Caught Exception failed to Connect".$e->getMessage()."\n");
 
@@ -52,7 +52,7 @@ if (isset($_POST["fname"])) {
      );
 
             $collection->insertOne($document);
-            echo "Document Inserted Successfully";
+            //echo "Document Inserted Successfully";
             $_SESSION["reg-success"] = true;
             header("Location: .");
         }  else {
@@ -66,11 +66,11 @@ if (isset($_POST["fname"])) {
         "phoneno" => $phoneno,
         "error_msg" => $error_msg
      );
-            echo "Already exists";
+            //echo "Already exists";
             header("Location: .");
         }
     }
 } else {
-    echo "Access Denied, You, shouldn't be here";
+    //echo "Access Denied, You, shouldn't be here";
     header("Location: .");
 }

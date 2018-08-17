@@ -45,6 +45,6 @@ if (isset($_POST["edit_fname"])) {
         }
     }
 } else {
-    echo "Access Denied, You, shouldn't be here";
+    //echo "Access Denied, You, shouldn't be here";
     header("Location: .");
 }
