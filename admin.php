@@ -500,7 +500,7 @@ function update(el) {
             $(div).html(data);
             console.log(e);
           }
-        }
+        },
         error:function(e){
           console.log(e);
           alert("Error Updating data");
