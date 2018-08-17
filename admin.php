@@ -475,8 +475,8 @@ function editable(el) {
 
 function update(el) {
 
-    console.log($(el).parent("form"));
-    var formData = new FormData($(el).closest("form"));
+    console.log($(el).closest("form")[0]);
+    var formData = new FormData($(el).closest("form")[0]);
     console.log(formData);
     var div = $(el).parent().parent().parent().parent();
     var copy_div = div.clone();
