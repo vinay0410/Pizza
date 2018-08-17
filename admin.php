@@ -501,6 +501,10 @@ function update(el) {
             console.log(e);
           }
         }
+        error:function(e){
+          console.log(e);
+          alert("Error Updating data");
+        }
     });
   }
 
