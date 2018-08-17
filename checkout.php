@@ -392,14 +392,14 @@ background: #fff;
                 <input id="add_addr" type="button" class="btn btn-default" value="See on Map & Drag">
                 <div>
                   <label for="lat" class="control-label col-sm-2"> Lat: </label>
-                  <input name="lat" type="text" id="lat-add" class="col-sm-4" readonly="readonly">
+                  <input name="lat" type="text" id="lat-add" class="form-control" readonly="readonly">
                   <label for="long" class="control-label col-sm-2"> Long: </label>
-                  <input name="long" type="text" id="long-add" class="col-sm-4" readonly="readonly">
+                  <input name="long" type="text" id="long-add" class="form-control" readonly="readonly">
                 </div>
                 <input name="place_id" type="text" id="place_id"  readonly="readonly">
                 <input name="place_name" type="text" id="place_name"  readonly="readonly">
                 <input name="formatted_addr" type="text" id="formatted_addr"  readonly="readonly">
-                <div id="addr_map" style="width: 100%; height: 300px;"></div>
+                <div id="addr_map" style="width: 400px; height: 400px;"></div>
   				    </div>
   				  </div>
 
@@ -454,14 +454,14 @@ background: #fff;
                 <input id="edit_addr" type="button" class="btn btn-default" value="See on Map & Drag">
                 <div>
                   <label for="lat" class="control-label col-sm-2"> Lat: </label>
-                  <input name="lat" type="text" id="lat-edit" class="col-sm-4" readonly="readonly">
+                  <input name="lat" type="text" id="lat-edit" class="form-control" readonly="readonly">
                   <label for="long" class="control-label col-sm-2"> Long: </label>
-                  <input name="long" type="text" id="long-edit" class="col-sm-4" readonly="readonly">
+                  <input name="long" type="text" id="long-edit" class="form-control" readonly="readonly">
                 </div>
                 <input name="place_id" type="text" id="place_id_edit"  readonly="readonly">
                 <input name="place_name" type="text" id="place_name_edit"  readonly="readonly">
                 <input name="formatted_addr" type="text" id="formatted_addr_edit"  readonly="readonly">
-                <div id="edit_addr_map" style="width: 100%; height: 300px;"></div>
+                <div id="edit_addr_map" style="width: 400px; height: 400px;"></div>
               </div>
             </div>
 

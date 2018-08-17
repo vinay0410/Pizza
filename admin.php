@@ -475,9 +475,6 @@ function editable(el) {
 
 function update(el) {
 
-    console.log("hi");
-    var formData = new FormData($(el).parent()[0]);
-    console.log(formData);
     var div = $(el).parent().parent().parent().parent();
     var copy_div = div.clone();
     var loader = $(document).find(".menu-loader").clone();
@@ -485,12 +482,10 @@ function update(el) {
     $(div).html(loader.css("display", "block"));
       $.ajax({
         url: "edit_item.php", // Url to which the request is send
-        type: "POST",             // Type of request to be send, called as method
-        data: formData, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-        contentType: false,       // The content type used when sending data to the server.
-        cache: false,             // To unable request pages to be cached
-        processData:false,        // To send DOMDocument or non processed data file it is set to false
+        type: "POST",
+        data: $(el).closest("form").serialize(),
         success: function(data) {
+          console.log("here");
           try {
           var value = JSON.parse(data);
           $(copy_div).prepend("<div class='alert alert-danger alert-dismissable fade in'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>" + value.msg + "</div>");
@@ -500,8 +495,13 @@ function update(el) {
             $(div).html(data);
             console.log(e);
           }
+        },
+        error:function(e){
+          console.log(e);
+          alert("Error Updating data");
         }
     });
+    return false;
   }
 
 
