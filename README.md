@@ -33,7 +33,7 @@ Users can get real time update of their order, including live tracking of delive
 
 #### Add Address
 
-![Add Address](.readme_gifs/Add address.gif)
+![Add Address](.readme_gifs/Add_address.gif)
 
 #### Checkout
 
@@ -49,7 +49,7 @@ Users can get real time update of their order, including live tracking of delive
 
 #### User Menu
 
-![User Menu](.readme_gifs/Small Menu.gif)
+![User Menu](.readme_gifs/Small_Menu.gif)
 
 Listed below are some key functionalities for each type of user:
 
