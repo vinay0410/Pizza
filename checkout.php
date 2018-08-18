@@ -891,15 +891,14 @@ var edit_address_div;
        alert("Please Verify your location on Map first");
      } else {
 
-     var formData = new FormData(this);
-     console.log(formData);
+
      $("#addAddressModal").modal('toggle');
      //e.stopPropagation();
      var new_div = $("<a class='list-group-item new'><div class='progress'><div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width:100%'></div></div></a>");
      $.ajax({
        url: "add_addr.php", // Url to which the request is send
        type: "POST",             // Type of request to be send, called as method
-       data: formData, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+       data: $(this).serialize(), // Form data Data sent to server, a set of key/value pairs (i.e. form fields and values)
        contentType: false,       // The content type used when sending data to the server.
        cache: false,             // To unable request pages to be cached
        processData:false,

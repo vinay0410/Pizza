@@ -7,7 +7,7 @@ require "vendor/autoload.php";
     $price = strtolower($_POST["item_price"]);
     $type = strtolower($_POST["type"]);
 
-    if (!empty($_FILES["image"]["name"])) {
+    if (isset($_FILES) && !empty($_FILES["image"]["name"])) {
       $target_dir = "menu/";
       $target_file = $target_dir . basename($_FILES["image"]["name"]);
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {

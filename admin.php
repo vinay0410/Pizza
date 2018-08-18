@@ -501,7 +501,7 @@ function update(el) {
           alert("Error Updating data");
         }
     });
-    return false;
+
   }
 
 
@@ -543,18 +543,14 @@ $(document).ready(function() {
     e.preventDefault();
 
     var category = $(this).find("input[name=type]:checked").val();
-    var formData = new FormData(this);
-    console.log(formData);
+
     $("#itemModal").modal('toggle');
     //e.stopPropagation();
     var new_div = $("<div class='col-md-4 col-sm-4 product-grids'><div class='menu-loader loader col-xs-6 col-xs-offset-5'></div></div>");
     $.ajax({
       url: "add_item.php", // Url to which the request is send
       type: "POST",             // Type of request to be send, called as method
-      data: formData, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-      contentType: false,       // The content type used when sending data to the server.
-      cache: false,             // To unable request pages to be cached
-      processData:false,
+      data: $(this).serialize(), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
       beforeSend : function()    {
         console.log($('.menu').children().eq(1));
 
@@ -578,6 +574,9 @@ $(document).ready(function() {
         $(new_div).html(data).fadeIn("slow");
         }
 
+      },
+      error: function(e) {
+        console.log(e);
       }
   });
 
