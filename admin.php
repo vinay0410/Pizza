@@ -480,10 +480,26 @@ function update(el) {
     var loader = $(document).find(".menu-loader").clone();
     console.log(loader);
     $(div).html(loader.css("display", "block"));
+
+    var formdata;
+
+    console.log(el.form);
+    if ($(el.form).find("input[type=file]").val()) {
+      formdata = new FormData(el.form);
+    } else {
+      console.log("here");
+      var form = el.form.cloneNode(true);
+      $(form).find("input[type=file]").remove();
+      formdata = new FormData(form);
+    }
+
       $.ajax({
         url: "edit_item.php", // Url to which the request is send
         type: "POST",
-        data: $(el).closest("form").serialize(),
+        data: formdata,
+        contentType: false,       // The content type used when sending data to the server.
+        cache: false,             // To unable request pages to be cached
+        processData:false,
         success: function(data) {
           console.log("here");
           try {
@@ -544,13 +560,26 @@ $(document).ready(function() {
 
     var category = $(this).find("input[name=type]:checked").val();
 
+    var formdata;
+
+    if ($(this).find("input[type=file]").val()) {
+      formdata = new FormData(this);
+    } else {
+      var form = this.cloneNode(true);
+      $(form).find("input[type=file]").remove();
+      formdata = new FormData(form);
+    }
+
     $("#itemModal").modal('toggle');
     //e.stopPropagation();
     var new_div = $("<div class='col-md-4 col-sm-4 product-grids'><div class='menu-loader loader col-xs-6 col-xs-offset-5'></div></div>");
     $.ajax({
       url: "add_item.php", // Url to which the request is send
       type: "POST",             // Type of request to be send, called as method
-      data: $(this).serialize(), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+      data: formdata, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+      contentType: false,       // The content type used when sending data to the server.
+      cache: false,             // To unable request pages to be cached
+      processData:false,
       beforeSend : function()    {
         console.log($('.menu').children().eq(1));
 

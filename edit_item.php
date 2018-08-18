@@ -8,10 +8,15 @@ require "vendor/autoload.php";
     $ing = strtolower($_POST["ingredients"]);
     $price = strtolower($_POST["price"]);
 
-    if (!empty($_FILES["image"]["name"])) {
+    $allowedTypes = array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF);
+
+    $hasimage = false;
+
+    if (isset($_FILES['image']['tmp_name']) and in_array(exif_imagetype($_FILES['image']['tmp_name']), $allowedTypes)) {
     $target_dir = "menu/";
     $target_file = $target_dir . basename($_FILES["image"]["name"]);
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+        $hasimage = true;
         //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
       } else {
         $var = array('error' => True, 'msg' => "Failed to upload file");
@@ -39,9 +44,9 @@ require "vendor/autoload.php";
 
         if ( ($result["name"] == $name) || (!$collection->findOne(array('name' => $name))) )  {
           $document = array("name" => $name, "ingredients" => $ing, "price" => $price);
-          if (!empty($_FILES["image"]["name"])) {
+          if ($hasimage) {
             $document["path"] = $target_file;
-            if (isset($result["path"])) {
+            if (isset($result["path"]) and (strpos($result_path, 'no_image') === false)) {
               unlink($result["path"]);
           }
         }

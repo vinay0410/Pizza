@@ -7,10 +7,17 @@ require "vendor/autoload.php";
     $price = strtolower($_POST["item_price"]);
     $type = strtolower($_POST["type"]);
 
-    if (isset($_FILES) && !empty($_FILES["image"]["name"])) {
+    $allowedTypes = array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF);
+
+    $hasimage = false;
+
+    if (isset($_FILES['image']['tmp_name']) and in_array(exif_imagetype($_FILES['image']['tmp_name']), $allowedTypes)) {
       $target_dir = "menu/";
       $target_file = $target_dir . basename($_FILES["image"]["name"]);
+
+
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+        $hasimage = true;
         //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
       } else {
         $var = array('error' => True, 'msg' => "Failed to Upload File");
@@ -19,6 +26,7 @@ require "vendor/autoload.php";
       }
 
       }
+
 
     try {
         $m = new MongoDB\Client("mongodb://vinay0410:Qh4tPdg3!@ds123725.mlab.com:23725/pizza");
@@ -36,24 +44,21 @@ require "vendor/autoload.php";
         if ( empty($result) )  {
 
           $document = array("name" => $name, "ingredients" => $ing, "price" => $price, "type" => $type);
-          if (!empty($_FILES["image"]["name"])) {
+          if ($hasimage) {
             $document["path"] = $target_file;
+          } else {
+            $document["path"] = "menu/no_image.jpg";
           }
-        //change password
+
             $collection->insertOne($document);
             $result = $collection->findOne(array('name' => $name ));
 
 
-            if (isset($result["path"])) {
-              $path = $result["path"];
-            } else {
-              $path = "menu/no_image.jpg";
-            }
             ?>
             <div class="flip-container">
             <div class="flipper agile-products">
               <div class="front">
-                <img src="<?php echo $path; ?>" class="img-responsive" alt="img">
+                <img src="<?php echo $result["path"]; ?>" class="img-responsive" alt="img">
 
                 <div class="gallery-des">
                   <h3><?php echo $result["name"]; ?></h3>
@@ -75,8 +80,11 @@ require "vendor/autoload.php";
               </div>
               <!--back -->
             </div>
-          </div>
+            </div>
+
+
 <?php
+
         } else {
           $var = array('error' => True, 'msg' => "Item Name Already Exists");
           echo json_encode($var);
