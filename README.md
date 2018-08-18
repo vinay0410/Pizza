@@ -4,6 +4,8 @@ Currently being hosted at IMB Bluemix.
 
 Url: https://pizzavillaci.eu-gb.mybluemix.net
 
+##### ***[Sample GIFS](#GIFS)***
+<br/>
 [Demo Video<br>![Demo Video Pizza Delivery System](https://img.youtube.com/vi/ITDsHoVaPdg/0.jpg)](https://www.youtube.com/watch?v=ITDsHoVaPdg)
 
 
@@ -27,7 +29,27 @@ A system which handles multiple types of users as listed above and co-ordinates 
 
 Users can get real time update of their order, including live tracking of delivery boy on road.
 
+### GIFS
 
+#### Add Address
+
+![Add Address](.readme_gifs/Add address.gif)
+
+#### Checkout
+
+![Checkout](.readme_gifs/Checkout.gif)
+
+#### Menu Add/Edit/Delete
+
+![Menu Add/Edit/Delete](.readme_gifs/Menu_func.gif)
+
+#### Delivery
+
+![Delivery](.readme_gifs/Delivery.gif)
+
+#### User Menu
+
+![User Menu](.readme_gifs/Small Menu.gif)
 
 Listed below are some key functionalities for each type of user:
 
