@@ -7,11 +7,9 @@ require "vendor/autoload.php";
     $price = strtolower($_POST["item_price"]);
     $type = strtolower($_POST["type"]);
 
-    $allowedTypes = array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF);
-
     $hasimage = false;
 
-    if (isset($_FILES['image']['tmp_name']) and in_array(exif_imagetype($_FILES['image']['tmp_name']), $allowedTypes)) {
+    if (!empty($_FILES['image']['name'])) {
       $target_dir = "menu/";
       $target_file = $target_dir . basename($_FILES["image"]["name"]);
 
