@@ -11,10 +11,11 @@ Url: https://pizzavillaci.eu-gb.mybluemix.net
 
 #### Login Credentials
 
+**Note:** For viewing admin page, one can also add /admin.php in the end.
 
 | User Type     | Email ID               | Password |
 | :-----------: |:----------------------:| :-------:|
-| Admin         | admin@pizzavilla.com   |   admin  |
+| Admin         | admin@pizzavilla.com   |   admin  |    
 | Supervisor    | vinay_sp@pizzavilla.com|     a    |
 | Chef          | thomas@gmail.com       |   keller |
 | Delivery Staff| axyz@gmail.com         |    a  |
