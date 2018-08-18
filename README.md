@@ -4,8 +4,10 @@ Currently being hosted at IMB Bluemix.
 
 Url: https://pizzavillaci.eu-gb.mybluemix.net
 
-##### ***[Sample GIFS](#GIFS)***
+##### ***[Sample GIFS](#gifs)***
+**Note:** GIFS may take some time to load completely and run.
 <br/>
+
 [Demo Video<br>![Demo Video Pizza Delivery System](https://img.youtube.com/vi/ITDsHoVaPdg/0.jpg)](https://www.youtube.com/watch?v=ITDsHoVaPdg)
 
 
