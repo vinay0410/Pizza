@@ -1,8 +1,8 @@
 {
     "require": {
-        "sag/sag" : "dev-master",
+        "php": "7.2.9",
+	"sag/sag" : "dev-master",
 	"sendgrid/sendgrid" : "^5.0",
         "mongodb/mongodb": "1.1.0"
     }
 }
-
