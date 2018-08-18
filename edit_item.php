@@ -8,11 +8,10 @@ require "vendor/autoload.php";
     $ing = strtolower($_POST["ingredients"]);
     $price = strtolower($_POST["price"]);
 
-    $allowedTypes = array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF);
 
     $hasimage = false;
 
-    if (isset($_FILES['image']['tmp_name']) and in_array(exif_imagetype($_FILES['image']['tmp_name']), $allowedTypes)) {
+    if (!empty($_FILES['image']['name'])) {
     $target_dir = "menu/";
     $target_file = $target_dir . basename($_FILES["image"]["name"]);
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
